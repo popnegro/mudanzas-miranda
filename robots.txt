@@ -1,0 +1,27 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: Googlebot
+Allow: /
+
+# *
+User-agent: Bingbot
+Allow: /
+
+# *
+User-agent: *
+Allow: /mudanzas-argentina/
+
+# *
+User-agent: Googlebot
+Allow: /mudanzas-argentina/
+
+# *
+User-agent: Bingbot
+Allow: /mudanzas-argentina/
+
+# Sitemaps
+Sitemap: https://www.mudanzasmiranda.com.ar/sitemap.xml
+
