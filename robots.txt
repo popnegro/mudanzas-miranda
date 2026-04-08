@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /mudanzas-argentina/
+Disallow: /mudanzas-nacionales/
+Disallow: /qa/
+
+Sitemap: https://www.mudanzasmiranda.com.ar/sitemap.xml
