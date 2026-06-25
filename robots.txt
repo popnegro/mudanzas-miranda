@@ -1,6 +1,16 @@
-User-agent: *
-Disallow: /mudanzas-argentina/
-Disallow: /mudanzas-nacionales/
-Disallow: /qa/
+# robots.txt for https://www.mudanzasmiranda.com.ar/
+# See https://www.robotstxt.org/robotstxt.html for documentation
 
+# Reglas para todos los crawlers
+User-agent: *
+Disallow: /qa/
+# Evitar que se indexen URLs con parámetros de seguimiento comunes
+Disallow: /*?utm_
+Disallow: /*?fbclid=
+
+# Reglas específicas para Google (hereda las de *)
+User-agent: Googlebot
+Allow: /
+
+# Sitemap location
 Sitemap: https://www.mudanzasmiranda.com.ar/sitemap.xml
