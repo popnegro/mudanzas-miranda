@@ -1,138 +1,70 @@
-$(function () {
-    $('.travel-date-group .default').datepicker({
-        autoclose: true,
-        startDate: "today",
-    });
+/**
+ * form.js
+ *
+ * Handles client-side form validation for the quote form.
+ * Sprint 4
+ */
 
-    $('.travel-date-group .today').datepicker({
-        autoclose: true,
-        startDate: "today",
-        todayHighlight: true
-    });
+import { trackEvent } from './analytics.js';
 
-    $('.travel-date-group .past-enabled').datepicker({
-        autoclose: true,
-    });
-    $('.travel-date-group .format').datepicker({
-        autoclose: true,
-        format: "dd-mm-yyyy",
-    });
+export function initForm() {
+    const form = document.getElementById('quote-form');
+    if (!form) return;
 
-    $('.travel-date-group .autoclose').datepicker();
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        if (validateForm(form)) {
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Track the conversion event
+            trackEvent('form_submission', {
+                form_id: 'quote-form',
+                service_type: data.service_type
+            });
 
-    $('.travel-date-group .disabled-week').datepicker({
-        autoclose: true,
-        daysOfWeekDisabled: "0"
-    });
-
-    $('.travel-date-group .highlighted-week').datepicker({
-        autoclose: true,
-        daysOfWeekHighlighted: "0"
-    });
-
-    $('.travel-date-group .mnth').datepicker({
-        autoclose: true,
-        minViewMode: 1,
-        format: "mm/yy"
-    });
-
-    $('.travel-date-group .multidate').datepicker({
-        multidate: true,
-        multidateSeparator: " , "
-    });
-
-    $('.travel-date-group .input-daterange').datepicker({
-        autoclose: true
-    });
-
-    $('.travel-date-group .inline-calendar').datepicker();
-
-    $('.datetimepicker').datetimepicker({
-        showClose: true
-    });
-
-    $('.datetimepicker1').datetimepicker({
-        format: 'LT',
-        showClose: true
-    });
-
-    $('.datetimepicker2').datetimepicker({
-        inline: true,
-        sideBySide: true
-    });
-
-    $('.datetimepicker3').datetimepicker();
-
-});
-
-$(function () {
-    // .daterange1
-    $(".daterange1").daterangepicker({
-        "buttonClasses": "button button-rounded button-mini nomargin",
-        "applyClass": "button-color",
-        "cancelClass": "button-light"
-    });
-
-    // .daterange2
-    $(".daterange2").daterangepicker({
-        "opens": "center",
-        timePicker: true,
-        timePickerIncrement: 30,
-        locale: {
-            format: 'MM/DD/YYYY h:mm A'
-        },
-        "buttonClasses": "button button-rounded button-mini nomargin",
-        "applyClass": "button-color",
-        "cancelClass": "button-light"
-    });
-
-    // .daterange3
-    $(".daterange3").daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true
-    },
-        function (start, end, label) {
-            var years = moment().diff(start, 'years');
-            alert("You are " + years + " years old.");
-        });
-
-    // reportrange
-    function cb(start, end) {
-        $(".reportrange span").html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
-    cb(moment().subtract(29, 'days'), moment());
-
-    $(".reportrange").daterangepicker({
-        "buttonClasses": "button button-rounded button-mini nomargin",
-        "applyClass": "button-color",
-        "cancelClass": "button-light",
-        ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            console.log('Form data is valid:', data);
+            // Here you would typically send the data to a server
+            // e.g., fetch('/api/quote', { method: 'POST', body: JSON.stringify(data) });
+            alert('¡Gracias! Tu solicitud ha sido enviada.');
+            form.reset();
         }
-    }, cb);
+    });
+}
 
-    // .daterange4
-    $(".daterange4").daterangepicker({
-        autoUpdateInput: false,
-        locale: {
-            cancelLabel: 'Clear'
-        },
-        "buttonClasses": "button button-rounded button-mini nomargin",
-        "applyClass": "button-color",
-        "cancelClass": "button-light"
+function validateForm(form) {
+    let isValid = true;
+    const requiredFields = form.querySelectorAll('[required]');
+
+    requiredFields.forEach(field => {
+        const errorEl = field.nextElementSibling;
+        if (!field.value.trim()) {
+            isValid = false;
+            showError(field, errorEl, 'Este campo es obligatorio.');
+        } else if (field.type === 'email' && !isValidEmail(field.value)) {
+            isValid = false;
+            showError(field, errorEl, 'Por favor, ingresá un email válido.');
+        } else {
+            clearError(field, errorEl);
+        }
     });
 
-    $(".daterange4").on('apply.daterangepicker', function (ev, picker) {
-        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-    });
+    return isValid;
+}
 
-    $(".daterange4").on('cancel.daterangepicker', function (ev, picker) {
-        $(this).val('');
-    });
+function showError(field, errorEl, message) {
+    field.setAttribute('aria-invalid', 'true');
+    errorEl.textContent = message;
+    errorEl.style.display = 'block';
+}
 
-});
+function clearError(field, errorEl) {
+    field.removeAttribute('aria-invalid');
+    errorEl.textContent = '';
+    errorEl.style.display = 'none';
+}
+
+function isValidEmail(email) {
+    const re = /^(([^<>()[\]\.,;:\s@"]+(\.[^<>()[\]\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}

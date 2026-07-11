@@ -1,0 +1,16 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Mudanzas Miranda",
+  "url": "https://www.mudanzasmiranda.com.ar/",
+  "logo": "https://www.mudanzasmiranda.com.ar/img/logo-dark.svg",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+54-261-XXXXXXX",
+    "contactType": "Customer Service"
+  },
+  "sameAs": [
+    "https://www.facebook.com/mudanzasmiranda",
+    "https://www.instagram.com/mudanzasmiranda"
+  ]
+}

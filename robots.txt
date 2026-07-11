@@ -1,6 +1,9 @@
+# Allow all user agents access to the site
 User-agent: *
-Disallow: /mudanzas-argentina/
-Disallow: /mudanzas-nacionales/
-Disallow: /qa/
+Allow: /
 
+# Disallow crawling of system directories
+Disallow: /cgi-bin/
+
+# Point to the sitemap
 Sitemap: https://www.mudanzasmiranda.com.ar/sitemap.xml

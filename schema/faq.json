@@ -1,0 +1,38 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Con cuánta antelación debo reservar mi mudanza?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Recomendamos reservar con al menos una o dos semanas de antelación, especialmente en temporada alta, para asegurar la disponibilidad en la fecha y hora que prefieras."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué incluye el servicio básico de mudanza?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El servicio básico incluye el transporte de tus pertenencias en el camión adecuado, y el personal para la carga y descarga. El servicio de embalaje y desembalaje es adicional."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Sus camiones están equipados para proteger los muebles?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, toda nuestra flota está equipada con mantas, sogas y otros elementos de protección para garantizar que tus muebles y objetos delicados lleguen en perfecto estado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Realizan mudanzas a otras provincias?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "¡Claro! Realizamos mudanzas de larga distancia a todo el país, con rutas frecuentes a San Juan, San Luis, Córdoba y Buenos Aires. Consultanos por tu destino."
+      }
+    }
+  ]
+}
