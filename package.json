@@ -1,0 +1,33 @@
+{
+  "devDependencies": {
+    "esbuild": "^0.23.0",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.32.0",
+    "sharp": "^0.35.3"
+  },
+  "name": "mudanzas-miranda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "process-images.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "process-images": "node process-images.js",
+    "build:js": "npx esbuild js/main.js --bundle --minify --outfile=js/bundle.min.js",
+    "build:css": "npx esbuild css/styles.css --bundle --minify --outfile=css/styles.min.css",
+    "build": "npm run build:js && npm run build:css",
+    "lint": "npx eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/popnegro/mudanzas-miranda.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/popnegro/mudanzas-miranda/issues"
+  },
+  "homepage": "https://github.com/popnegro/mudanzas-miranda#readme"
+}
