@@ -1,9 +1,43 @@
 /**
  * faq.js
  *
- * Este módulo se mantiene por si se necesita añadir lógica futura a la sección de FAQ,
- * pero la animación del acordeón ahora se gestiona puramente con CSS para un mejor rendimiento y simplicidad.
+ * Handles smooth accordion animation for the FAQ section.
+ * This overrides the default <details> toggle behavior to implement a slide animation.
+ * Sprint 3
  */
+
 export function initFaq() {
-    // No se requiere inicialización de JS para la animación del acordeón.
+    const detailsElements = document.querySelectorAll('.faq-list details');
+
+    if (!detailsElements.length) {
+        return;
+    }
+
+    detailsElements.forEach((details) => {
+        const summary = details.querySelector('summary');
+        const content = summary.nextElementSibling;
+
+        summary.addEventListener('click', (event) => {
+            // Prevent the default toggle behavior
+            event.preventDefault();
+
+            if (details.open) {
+                // Closing animation
+                const animation = content.animate(
+                    { height: [content.offsetHeight + 'px', '0px'] },
+                    { duration: 300, easing: 'ease-out' }
+                );
+                animation.onfinish = () => {
+                    details.removeAttribute('open');
+                };
+            } else {
+                // Opening animation
+                details.setAttribute('open', '');
+                const animation = content.animate(
+                    { height: ['0px', content.offsetHeight + 'px'] },
+                    { duration: 300, easing: 'ease-in-out' }
+                );
+            }
+        });
+    });
 }
