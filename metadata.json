@@ -1,0 +1,6 @@
+{
+  "name": "Mudanzas Miranda",
+  "description": "Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas. Rápido, seguro y sin estrés. Cotizá tu mudanza online en minutos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
