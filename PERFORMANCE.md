@@ -21,6 +21,11 @@ El CLS mide la estabilidad visual de la interfaz. Los desplazamientos molestos d
 El INP mide la latencia de respuesta ante interacciones del usuario (clics en botones, apertura de menú, cambio de pestañas).
 *   **Estructura de Componentes Altamente Reactivos**: El enrutador de pestañas de servicios y acordeones de preguntas frecuentes utiliza la reactividad nativa de React y transiciones de Framer Motion optimizadas por aceleración por hardware (CSS transform/opacity), logrando animaciones fluidas a 60 FPS sin retrasar el hilo principal.
 *   **Controladores de Evento Ligeros**: La validación del estimador multi-paso se computa por pasos individuales aislados, previniendo re-renderizados innecesarios del formulario entero al teclear.
+*   **Carga Diferida (Lazy Loading) de Componentes "Below the Fold"**: Las secciones de Testimonios y Preguntas Frecuentes (FAQs), que no son visibles en la carga inicial, se cargan dinámicamente.
+    *   **Code Splitting**: Se utiliza `React.lazy()` para separar el código de estas secciones en "chunks" de JavaScript independientes.
+    *   **Carga por Intersección**: Un `IntersectionObserver` detecta cuándo el usuario se desplaza cerca de estas secciones. Solo en ese momento se solicita la descarga del chunk de JavaScript correspondiente.
+    *   **Placeholder con `Suspense`**: Mientras se carga el componente, se muestra un esqueleto de UI (skeleton) para mantener la estabilidad visual (CLS) y mejorar la experiencia percibida.
+    *   **Impacto**: Esta técnica reduce el Tiempo Total de Bloqueo (TBT) durante la carga inicial, liberando el hilo principal para que responda de forma instantánea a las primeras interacciones del usuario.
 
 ---
 

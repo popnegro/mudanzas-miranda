@@ -25,13 +25,11 @@ Vercel ofrece la mejor infraestructura de Edge Network y optimización de imáge
 
 ### Configuración de Redirecciones en Vercel (`vercel.json`)
 
-Para asegurar de que las rutas SEO (ej: `/mudanzas-mendoza/mudanzas-ciudad-mendoza.html`) se redirijan correctamente a la aplicación React SPA para que el enrutador cliente procese el slug sin generar errores de ruta no encontrada (404), creá un archivo `vercel.json` en la raíz con la siguiente regla:
+Para asegurar que todas las rutas sean manejadas por la Single Page Application (SPA) y el enrutador de React, es necesario configurar una reescritura en Vercel. Esto previene errores 404 en recargas de página o al acceder a URLs directas. Crea un archivo `vercel.json` en la raíz con la siguiente regla:
 
 ```json
 {
-  "cleanUrls": true,
   "rewrites": [
-    { "source": "/mudanzas-mendoza/:path*", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

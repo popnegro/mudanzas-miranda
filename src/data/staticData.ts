@@ -1,8 +1,18 @@
 import { Service, FAQItem, Testimonial } from '../types';
 
+export const SERVICE_IDS = {
+  RESIDENCIAL: 'residencial',
+  OFICINA: 'oficina',
+  COMBINADA: 'combinada',
+  EMBALAJE: 'embalaje',
+  GUARDAMUEBLES: 'guardamuebles',
+  LOGISTICA: 'logistica',
+} as const;
+
 export const services: Service[] = [
   {
-    id: 'residencial',
+    id: SERVICE_IDS.RESIDENCIAL,
+    slug: 'mudanzas-residenciales',
     title: 'Mudanzas Residenciales',
     shortTitle: 'Residenciales',
     description: 'Nos encargamos del traslado completo de tu hogar, ya sea una casa, dúplex o departamento en altura. Desde el embalaje de vajilla y objetos frágiles hasta el transporte de muebles de gran porte, nuestro equipo experto garantiza un servicio cuidadoso, puntual y ordenado de puerta a puerta.',
@@ -12,51 +22,56 @@ export const services: Service[] = [
     ctaText: 'Cotizar Mudanza de Hogar'
   },
   {
-    id: 'oficina',
+    id: SERVICE_IDS.OFICINA,
+    slug: 'mudanzas-de-oficinas',
     title: 'Mudanzas de Oficinas',
     shortTitle: 'Oficinas',
     description: 'Minimizamos el tiempo de inactividad de tu empresa con un servicio de mudanza corporativa de planificación milimétrica. Trasladamos con total seguridad y confidencialidad mobiliario de oficina, puestos de trabajo, servidores, material informático delicado, archivos físicos y más.',
     icon: 'Building',
-    image: '/img/mudanza-residencial-800.webp', // Usamos las imágenes existentes en la carpeta public copiada
-    alt: 'Mobiliario de oficina y cajas organizadas listas para el traslado corporativo.',
+    image: '/img/mudanza-oficina-800.webp',
+    alt: 'Espacio de oficina moderno con equipos informáticos y cajas listas para una mudanza corporativa.',
     ctaText: 'Planificar Mudanza Comercial'
   },
   {
-    id: 'combinada',
+    id: SERVICE_IDS.COMBINADA,
+    slug: 'mudanzas-combinadas',
     title: 'Mudanzas Combinadas y Grupales',
     shortTitle: 'Combinadas',
     description: 'Optimizá tu presupuesto compartiendo espacio en un camión con otras cargas destinadas al mismo trayecto nacional o provincial. Es la solución ideal para traslados de larga distancia con flexibilidad de fechas, manteniendo la rigurosa separación, seguridad y rotulado de cada pertenencia.',
-    icon: 'Users',
+    icon: 'Truck',
     image: '/img/mudanzas-miranda-800.webp',
     alt: 'Camión de mudanzas circulando por rutas mendocinas brindando flete compartido.',
     ctaText: 'Consultar Rutas Combinadas'
   },
   {
-    id: 'embalaje',
+    id: SERVICE_IDS.EMBALAJE,
+    slug: 'embalaje-profesional',
     title: 'Embalaje Profesional',
     shortTitle: 'Embalaje',
     description: 'Ahorrá tiempo valioso y reducí riesgos de roturas al mínimo. Nuestro equipo utiliza materiales específicos de calidad premium (plástico de burbujas alveolar de alta densidad, cajas de cartón reforzadas, film stretch, mantas acolchadas y cintas de alta adherencia) para resguardar cada pieza.',
-    icon: 'Package',
+    icon: 'PackageCheck',
     image: '/img/mudanza-residencial-800.webp',
     alt: 'Vajilla y copas embaladas individualmente con plástico burbuja en caja rotulada.',
     ctaText: 'Contratar Embalaje Profesional'
   },
   {
-    id: 'guardamuebles',
+    id: SERVICE_IDS.GUARDAMUEBLES,
+    slug: 'servicio-de-guardamuebles',
     title: 'Servicio de Guardamuebles',
     shortTitle: 'Guardamuebles',
     description: '¿Buscás almacenamiento temporal o a largo plazo entre firmas de contratos de alquiler, mudanzas demoradas o refacciones en el hogar? Disponemos de depósitos secos, limpios e individuales con monitoreo, alarma y vigilancia presencial las 24 horas del día.',
-    icon: 'Warehouse',
+    icon: 'Archive',
     image: '/img/mudanzas-miranda-800.webp',
     alt: 'Depósito de guardamuebles limpio con unidades de almacenamiento seguras.',
     ctaText: 'Reservar Espacio Guardamuebles'
   },
   {
-    id: 'logistica',
+    id: SERVICE_IDS.LOGISTICA,
+    slug: 'logistica-integral',
     title: 'Logística Integral',
     shortTitle: 'Logística',
     description: 'Soporte logístico de alta eficiencia para comercios y pymes en Mendoza. Ofrecemos distribución programada, almacenamiento de mercaderías, entregas directas a locales y gestión de inventarios con la seriedad y cumplimiento de plazos que tu negocio exige para operar sin fisuras.',
-    icon: 'Truck',
+    icon: 'Building2',
     image: '/img/mudanzas-miranda-800.webp',
     alt: 'Operaciones de distribución y logística integral para empresas en Mendoza.',
     ctaText: 'Consultar Solución Logística'

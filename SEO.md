@@ -1,20 +1,12 @@
 # Guía de SEO Técnico y Local — Mudanzas Miranda
 
-Este documento detalla la estrategia de **SEO Técnico y SEO Local** implementada en la refactorización de Mudanzas Miranda para garantizar la máxima visibilidad en búsquedas geo-localizadas de Mendoza y mantener el 100% de la indexación orgánica acumulada.
+Este documento detalla la estrategia de **SEO Técnico y SEO Local** implementada en el sitio de Mudanzas Miranda para garantizar la máxima visibilidad en búsquedas locales de Mendoza y construir una fuerte presencia de marca basada en E-E-A-T (Experiencia, Expertise, Autoridad y Confianza).
 
 ---
 
-## 🎯 Arquitectura de Enrutamiento para Paridad Orgánica (100% URL Matching)
+## 🎯 Arquitectura de Contenido Orientada al Usuario
 
-En las webs estáticas tradicionales, las páginas residen en rutas directas como `/mudanzas-mendoza/mudanzas-ciudad-mendoza.html`. Al migrar a React (SPA), si no se manejan estas URLs, los motores de búsqueda que ya tienen indexadas estas páginas recibirán errores 404, destruyendo el posicionamiento orgánico.
-
-### Solución React SPA Implementada:
-1.  **Escucha de Pathname Directo**: El componente enrutador lee `window.location.pathname` en el ciclo de vida inicial.
-2.  **Extracción de Slugs**: Procesa la ruta utilizando expresiones regulares sofisticadas:
-    *   `/mudanzas-mendoza/mudanzas-ciudad-mendoza.html` ➔ extrae el slug `mudanzas-ciudad-mendoza`.
-3.  **Renderizado Condicional Semántico**: Mapea el slug contra nuestra base de datos local y renderiza la Landing Page geo-localizada correspondiente con **cero redirecciones**, lo que mantiene la velocidad de indexación y conserva intacto el peso orgánico de Google.
-
----
+La arquitectura del sitio se centra en páginas que aportan valor real y responden a las intenciones de búsqueda del usuario, evitando la creación de páginas "doorway" o contenido duplicado. La estructura se basa en un sitio corporativo claro y profesional: Inicio, Servicios, Sobre Nosotros, Contacto, etc.
 
 ## 🧠 Inyección de Datos Estructurados JSON-LD (Schema.org)
 
@@ -22,18 +14,36 @@ La inyección de esquemas ayuda a Google a entender la naturaleza comercial del 
 
 ### 1. Esquema `MovingCompany` (Global)
 Aplicado en todo el sitio, indica los datos fundamentales del negocio local (NAP: Name, Address, Phone):
-*   **Nombre**: Mudanzas Miranda
-*   **Dirección**: Armada Argentina 584, Mendoza, AR
-*   **Teléfono**: +54 9 261 513-0910 (Habilitado para clic de marcado directo)
-*   **Rating de Opiniones**: 4.9 estrellas basado en 186 reseñas para mostrar estrellas doradas en Google Search.
+
+Este schema se enriquece con propiedades heredadas de `LocalBusiness` para maximizar la visibilidad en el Local Pack de Google y en Google Maps.
+
+*   **@type**: `MovingCompany` (Hereda de `LocalBusiness`, es la opción más específica y correcta).
+*   **name**: Mudanzas Miranda
+*   **address**:
+    *   **@type**: `PostalAddress`
+    *   **streetAddress**: Armada Argentina 584
+    *   **addressLocality**: Mendoza
+    *   **postalCode**: 5501
+    *   **addressCountry**: AR
+*   **telephone**: +5492615130910
+*   **url**: URL canónica del sitio.
+*   **geo**:
+    *   **@type**: `GeoCoordinates`
+    *   **latitude**: -32.92845 (Coordenadas exactas del negocio)
+    *   **longitude**: -68.83541
+*   **openingHours**: `Mo-Sa 09:00-18:00` (Horario de atención).
+*   **aggregateRating**:
+    *   **@type**: `AggregateRating`
+    *   **ratingValue**: 4.9
+    *   **reviewCount**: 186
 
 ### 2. Esquema `Service` (Localizado por Localidad)
-Cuando un usuario (o robot) ingresa a una subpágina (ej: Godoy Cruz), se inyecta dinámicamente el esquema de Servicio:
+Cuando un usuario (o robot) ingresa a una página de servicio, se inyecta dinámicamente el esquema de Servicio:
 *   **serviceType**: Servicio de Mudanza Residencial y Comercial
-*   **areaServed**: Representa la localidad activa (ej: "Godoy Cruz" o "San Rafael") contenida en la división administrativa superior ("Mendoza").
+*   **areaServed**: Representa el área de servicio principal ("Mendoza").
 *   **description**: Resumen semántico optimizado con palabras clave locales.
 
-### 3. Esquema `FAQPage`
+### 3. Esquema `FAQPage` (Global y por Página)
 Ayuda a que las preguntas frecuentes de la página de inicio aparezcan colapsadas directamente debajo del resultado de búsqueda de Google, maximizando el CTR (Click-Through Rate).
 
 ---

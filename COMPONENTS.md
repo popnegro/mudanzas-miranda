@@ -1,4 +1,4 @@
-# Documentación de Componentes — Mudanzas Miranda
+w# Documentación de Componentes — Mudanzas Miranda
 
 Este documento contiene el desglose técnico de los componentes React modulares e interactivos que componen la interfaz premium de **Mudanzas Miranda**.
 

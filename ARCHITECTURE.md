@@ -1,13 +1,13 @@
 # Arquitectura de la Aplicación — Mudanzas Miranda
 
-Este documento describe la arquitectura de software, los flujos de datos y las decisiones de diseño estructural implementadas en esta aplicación web modular.
+Este documento describe la arquitectura de software, los flujos de datos y las decisiones de diseño estructural implementadas en esta aplicación web.
 
 ---
 
 ## 🏛️ Principios de Diseño
 
 1.  **Separación de Responsabilidades (SoC)**: El código se divide rigurosamente en tipos de datos, almacenes de datos semánticos estáticos, componentes de UI interactivos reutilizables y el nodo del enrutador principal en `App.tsx`.
-2.  **Arquitectura Basada en Datos**: En lugar de duplicar código HTML para las 19 subpáginas geo-localizadas, se extrajo la información a un almacén estructurado (`/src/data/destinations.ts`). Esto permite agregar nuevas localidades modificando solo una entrada del array de objetos, sin tocar el código de presentación.
+2.  **Arquitectura Basada en Datos**: La información clave (servicios, testimonios, FAQs) se gestiona desde almacenes de datos estructurados para facilitar el mantenimiento y la coherencia, evitando la duplicación de contenido.
 3.  **Reactividad y Control de Estado**: El estado se mantiene en la capa superior de la vista requerida, inyectando propiedades de forma limpia hacia los componentes de presentación independientes.
 
 ---
@@ -15,35 +15,27 @@ Este documento describe la arquitectura de software, los flujos de datos y las d
 ## 🔗 Diagrama de Flujo y Navegación
 
 ```text
-               +----------------------------------+
-               |  Ingreso de Usuario (HTTP Request)|
-               +-----------------+----------------+
-                                 |
-                                 v
-               +-----------------+----------------+
-               |  ¿Tiene ruta local en Pathname?  |
-               +--------+----------------+--------+
-                        |                |
-                [Sí]    |                | [No]
-                        v                v
-          +-------------+-------+  +-----+--------------+
-          |  Cargar Slug Local  |  |  Cargar Home Page  |
-          |  (ej: Godoy Cruz)   |  |   (activePage: '') |
-          +-------------+-------+  +-----+--------------+
-                        |                |
-                        +--------+-------+
-                                 |
-                                 v
-               +-----------------+----------------+
-               |  Inyectar metatags y schemas    |
-               |  dinámicos mediante <SEO />     |
-               +-----------------+----------------+
-                                 |
-                                 v
-               +-----------------+----------------+
-               | Renderizar Header, Layout y     |
-               | Footer (SPA React instantánea)  |
-               +----------------------------------+
+        +----------------------------------+
+        |  Ingreso de Usuario (HTTP Request)|
+        +-----------------+----------------+
+                          |
+                          v
+        +-----------------+----------------+
+        |      Cargar Vista Principal      |
+        |      (Home, Servicios, etc.)     |
+        +-----------------+----------------+
+                          |
+                          v
+        +-----------------+----------------+
+        |  Inyectar metatags y schemas    |
+        |  dinámicos mediante <SEO />     |
+        +-----------------+----------------+
+                          |
+                          v
+        +-----------------+----------------+
+        | Renderizar Header, Layout y     |
+        | Footer (SPA React instantánea)  |
+        +----------------------------------+
 ```
 
 ---

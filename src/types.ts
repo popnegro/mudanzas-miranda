@@ -47,3 +47,10 @@ export interface FAQItem {
   question: string;
   answer: string;
 }
+
+export interface QuoteRequest {
+  origin: string;
+  destination: string;
+  name: string;
+  phone: string;
+}

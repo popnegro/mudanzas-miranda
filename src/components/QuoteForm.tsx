@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Calendar, User, Phone, Mail, ChevronRight, ChevronLeft, Check, Locate, Loader2, MessageSquare } from 'lucide-react';
 import { QuoteRequest } from '../types';
 
@@ -158,6 +158,10 @@ export default function QuoteForm({ initialService = '', destinationName = '' }:
 
   return (
     <div id="quote-form-container" className="w-full max-w-2xl mx-auto bg-[#111111] border border-white/10 rounded-2xl shadow-xl overflow-hidden p-6 md:p-8">
+      {/* Live region for screen reader announcements */}
+      <div className="sr-only" aria-live="polite" role="status">
+        {Object.values(errors).length > 0 ? `Error: ${Object.values(errors)[0]}` : ''}
+      </div>
       {/* Progress Indicator */}
       {!isSuccess && (
         <div className="mb-8">
@@ -510,6 +514,9 @@ export default function QuoteForm({ initialService = '', destinationName = '' }:
             animate={{ opacity: 1, scale: 1 }}
             className="text-center py-6"
           >
+            <div className="sr-only" aria-live="assertive" role="alert">
+              Solicitud de cotización enviada con éxito.
+            </div>
             <div className="w-16 h-16 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center mx-auto mb-6 text-green-500">
               <Check className="w-8 h-8 stroke-[3]" />
             </div>
