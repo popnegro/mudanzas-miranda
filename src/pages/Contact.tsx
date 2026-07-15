@@ -3,6 +3,12 @@ import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import QuoteForm from '../components/QuoteForm';
 import PageLayout from './PageLayout';
 
+const quickFaqs = [
+    { q: '¿Qué métodos de pago aceptan?', a: 'Aceptamos efectivo, transferencia bancaria y Mercado Pago.' },
+    { q: '¿Trabajan los fines de semana?', a: 'Sí, realizamos mudanzas los sábados. Recomendamos reservar con anticipación.' },
+    { q: '¿La cotización tiene costo?', a: 'No, todas nuestras cotizaciones son gratuitas y sin compromiso.' },
+];
+
 const Contact: React.FC = () => {
   return (
     <PageLayout
@@ -23,8 +29,8 @@ const Contact: React.FC = () => {
 
         {/* Contact Info and Map */}
         <section className="py-20">
-          <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12">
-            <div className="space-y-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12">
+            <div className="space-y-8 max-w-xl">
               <div>
                 <h2 className="text-3xl font-serif font-bold mb-4">Nuestra Oficina</h2>
                 <div className="space-y-4 text-slate-300">
@@ -65,9 +71,24 @@ const Contact: React.FC = () => {
           </div>
         </section>
 
+        {/* Quick FAQs Section */}
+        <section className="py-20 border-t border-white/10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 className="text-3xl font-serif font-bold text-center mb-12">Preguntas Rápidas</h2>
+                <div className="grid md:grid-cols-3 gap-8 text-center">
+                    {quickFaqs.map(faq => (
+                        <div key={faq.q}>
+                            <h3 className="font-bold text-amber-500 mb-2">{faq.q}</h3>
+                            <p className="text-sm text-slate-400">{faq.a}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
         {/* Contact Form Section */}
         <section id="form" className="py-20 bg-[#111111] border-t border-white/10">
-            <div className="max-w-4xl mx-auto px-4">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-2xl mx-auto mb-10">
                     <h2 className="text-3xl font-serif font-bold text-white tracking-tight">Envianos tu consulta o pedido de cotización</h2>
                     <p className="text-slate-400 text-sm mt-2">

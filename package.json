@@ -37,7 +37,8 @@
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
-    "vite": "^6.2.3"
+    "vite": "^6.2.3",
+    "vite-plugin-sitemap": "^0.8.2"
   },
   "description": "Sitio web corporativo de **Mudanzas Miranda**, la empresa líder en mudanzas residenciales, de oficinas y logística en la provincia de Mendoza, Argentina.",
   "main": "eslint.config.js",

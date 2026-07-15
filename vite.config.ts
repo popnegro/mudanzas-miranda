@@ -1,22 +1,23 @@
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
-import {defineConfig} from 'vite';
+import sitemap from 'vite-plugin-sitemap';
+import { destinations } from './src/data/destinations';
 
-export default defineConfig(() => {
-  return {
-    plugins: [react(), tailwindcss()],
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, '.'),
-      },
-    },
-    server: {
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
-      hmr: process.env.DISABLE_HMR !== 'true',
-      // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
-      watch: process.env.DISABLE_HMR === 'true' ? null : {},
-    },
-  };
+/**
+ * Genera las rutas dinámicas para el sitemap a partir de los datos de destinos.
+ */
+const dynamicRoutes = destinations.map((dest) => `/destinos/${dest.slug}`);
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    sitemap({
+      hostname: 'https://www.mudanzasmiranda.com.ar',
+      dynamicRoutes,
+      // Opcional: Cambia la frecuencia de actualización y prioridad si lo necesitas
+      // changefreq: 'weekly',
+      // priority: 0.7,
+    }),
+  ],
 });

@@ -23,8 +23,8 @@ const About: React.FC = () => {
 
         {/* Company History Section */}
         <section className="py-20">
-          <div className="max-w-4xl mx-auto px-4 space-y-6">
-            <h2 className="text-3xl font-serif font-bold text-center">De una idea familiar a una empresa líder</h2>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto space-y-6"><h2 className="text-3xl font-serif font-bold text-center">De una idea familiar a una empresa líder</h2>
             <p className="text-slate-400 leading-relaxed">
               Mudanzas Miranda nació en 2004 como un pequeño emprendimiento familiar con un solo camión y un gran sueño: ofrecer un servicio de mudanzas en Mendoza que fuera sinónimo de confianza y tranquilidad. Fundada por la familia Miranda, la empresa se construyó sobre los valores del trabajo duro, la honestidad y un profundo respeto por las pertenencias de cada cliente.
             </p>
@@ -33,15 +33,15 @@ const About: React.FC = () => {
             </p>
             <div className="text-center pt-4">
                 <p className="text-slate-500 font-mono text-sm"> //[TODO: Insertar una imagen histórica o del fundador aquí. Idealmente una foto en blanco y negro del primer camión o del equipo inicial] </p>
-            </div>
+            </div></div>
           </div>
         </section>
 
         {/* Our Values Section */}
         <section className="bg-[#111111] py-20 border-y border-white/10">
-          <div className="max-w-6xl mx-auto px-4 text-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-serif font-bold mb-12">Nuestros Valores</h2>
-            <div className="grid md:grid-cols-3 gap-12">
+            <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
               <div className="flex flex-col items-center">
                 <ShieldCheck className="w-12 h-12 text-amber-500 mb-4" />
                 <h3 className="text-xl font-bold mb-2">Confianza y Seguridad</h3>
@@ -63,7 +63,7 @@ const About: React.FC = () => {
 
         {/* Team Section */}
         <section className="py-20">
-          <div className="max-w-4xl mx-auto px-4 text-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-serif font-bold mb-4">El Equipo que te Acompaña</h2>
             <p className="text-slate-400 leading-relaxed max-w-2xl mx-auto mb-10">
               Nuestro equipo es nuestro mayor orgullo. Contamos con personal con más de 15 años de experiencia en el rubro, capacitados no solo en la logística del transporte, sino también en el trato cordial y la resolución de imprevistos. Cada miembro del equipo comparte nuestra pasión por un trabajo bien hecho.
@@ -76,8 +76,8 @@ const About: React.FC = () => {
 
         {/* Fleet Section */}
         <section className="bg-[#111111] py-20 border-y border-white/10">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
               <div className="text-center md:text-left">
                 <h2 className="text-3xl font-serif font-bold mb-4">Nuestra Flota: Preparada para Todo</h2>
                 <p className="text-slate-400 leading-relaxed mb-4">
@@ -96,7 +96,7 @@ const About: React.FC = () => {
 
         {/* CTA Section */}
         <section className="py-20 text-center">
-            <div className="max-w-4xl mx-auto px-4">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 className="text-3xl font-serif font-bold mb-4">¿Listo para tu próximo movimiento?</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto mb-8">
                     Ahora que conocés nuestra historia y compromiso, dejá que nuestro equipo se encargue de tu mudanza.
