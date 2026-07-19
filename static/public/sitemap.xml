@@ -153,42 +153,4 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Rutas de Larga Distancia -->
-  <url>
-    <loc>https://www.mudanzasmiranda.com.ar/rutas/mudanzas-mendoza-buenos-aires</loc>
-    <lastmod>2026-07-17T10:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.mudanzasmiranda.com.ar/rutas/mudanzas-mendoza-cordoba</loc>
-    <lastmod>2026-07-17T10:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.mudanzasmiranda.com.ar/rutas/mudanzas-mendoza-san-luis</loc>
-    <lastmod>2026-07-17T10:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.mudanzasmiranda.com.ar/rutas/mudanzas-mendoza-san-juan</loc>
-    <lastmod>2026-07-17T10:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.mudanzasmiranda.com.ar/rutas/mudanzas-mendoza-neuquen</loc>
-    <lastmod>2026-07-17T10:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.mudanzasmiranda.com.ar/rutas/mudanzas-mendoza-bariloche</loc>
-    <lastmod>2026-07-17T10:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
 </urlset>
