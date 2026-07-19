@@ -14,6 +14,7 @@ Vercel ofrece la mejor infraestructura de Edge Network y optimización de imáge
     *   Hacé clic en **"Add New"** > **"Project"** en Vercel.
     *   Importá tu repositorio de GitHub.
 2.  **Configurar Ajustes de Compilación**:
+    *   **Root Directory**: Establecé `static` como el directorio raíz de tu proyecto. Esto es crucial ya que `package.json` y el resto de tu aplicación React se encuentran dentro de esta carpeta.
     *   **Framework Preset**: Seleccioná `Vite` (o dejaló en `Other` si detecta automáticamente `package.json`).
     *   **Build Command**: `npm run build`
     *   **Output Directory**: `dist`
