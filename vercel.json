@@ -1,7 +1,0 @@
-{
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/mudanzas-mendoza/:path*", "destination": "/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
