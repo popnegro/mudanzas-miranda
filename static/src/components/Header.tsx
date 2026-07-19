@@ -52,17 +52,23 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0 cursor-pointer" onClick={() => handleLinkClick('')}>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center">
               <img
-                src="/img/brand-light.png"
-                alt="Logo de Mudanzas Miranda"
-                className="h-9 sm:h-10 w-auto"
+                src="https://www.mudanzasmiranda.com.ar/img/brand-light.png"
+                alt="Mudanzas Miranda"
+                className="h-8 sm:h-9 w-auto object-contain block"
+                referrerPolicy="no-referrer"
                 onError={(e) => {
-                  // Fallback if image isn't available
-                  (e.target as HTMLElement).style.display = 'none';
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const sibling = target.nextElementSibling as HTMLElement;
+                  if (sibling) {
+                    sibling.classList.remove('hidden');
+                    sibling.classList.add('flex');
+                  }
                 }}
               />
-              <span className="font-serif font-bold text-lg sm:text-xl text-white tracking-tight flex items-center gap-1">
+              <span className="font-serif font-bold text-lg sm:text-xl text-white tracking-tight hidden items-center gap-1">
                 Mudanzas <span className="text-amber-500">Miranda</span>
               </span>
             </div>
@@ -248,15 +254,6 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
 
           {/* Mobile Menu Toggle Button */}
           <div className="flex lg:hidden items-center gap-3">
-            <a
-              href="https://wa.link/zn3zij"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-amber-600 hover:bg-amber-700 text-white p-2 rounded-xl shadow-md cursor-pointer text-xs font-semibold flex items-center gap-1"
-            >
-              <MessageSquare className="w-4 h-4" />
-              WhatsApp
-            </a>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-colors focus:outline-none cursor-pointer"

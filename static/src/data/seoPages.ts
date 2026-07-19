@@ -78,10 +78,10 @@ export const servicePages: ServicePage[] = [
     serviceId: 'combinada',
     name: 'Mudanzas Combinadas',
     title: 'Mudanzas Combinadas y Compartidas desde Mendoza | Larga Distancia | Mudanzas Miranda',
-    description: 'Ahorrá en tu mudanza nacional compartiendo camión con fletes grupales coordinados. Salidas frecuentes desde Mendoza a Buenos Aires, Córdoba y el país.',
+    description: 'Ahorrá en tu mudanza nacional compartiendo camión con envíos grupales coordinados. Salidas frecuentes desde Mendoza a Buenos Aires, Córdoba y el país.',
     heroHeadline: 'Mudanzas Combinadas e Interprovinciales',
     heroSubheadline: 'Optimizá tus costos de traslado compartiendo espacio con cargas en la misma ruta nacional.',
-    leadText: 'Si necesitás mudar pocos muebles o el presupuesto para un camión exclusivo supera tus posibilidades de larga distancia, el flete combinado o grupal es la respuesta ideal. Dividí costos de transporte compartiendo la capacidad del camión con total seguridad.',
+    leadText: 'Si necesitás mudar pocos muebles o el presupuesto para un camión exclusivo supera tus posibilidades de larga distancia, el traslado combinado o grupal es la respuesta ideal. Dividí costos de transporte compartiendo la capacidad del camión con total seguridad.',
     detailText: 'Garantizamos que tus pertenencias estén perfectamente separadas por tabiques divisorios internos, embaladas individualmente y rotuladas de manera rigurosa para evitar cualquier confusión. Nos encargamos de coordinar las entregas puerta a puerta en cada localidad de destino.',
     features: [
       'Ahorro de hasta un 50% en comparación con un servicio exclusivo.',

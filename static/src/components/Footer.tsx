@@ -19,25 +19,32 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
   return (
     <footer className="bg-[#0D0D0D] text-slate-300 border-t border-white/10">
       {/* Upper Footer - Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 items-start">
         {/* About / Contact / Hours */}
         <div className="space-y-6">
           <div className="space-y-3">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleLinkClick('')}>
+            <div className="flex items-center cursor-pointer" onClick={() => handleLinkClick('')}>
               <img
-                src="/img/brand-light.png"
-                alt="Logo de Mudanzas Miranda"
-                className="h-10 w-auto"
+                src="https://www.mudanzasmiranda.com.ar/img/brand-light.png"
+                alt="Mudanzas Miranda"
+                className="h-10 w-auto object-contain block"
+                referrerPolicy="no-referrer"
                 onError={(e) => {
-                  (e.target as HTMLElement).style.display = 'none';
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const sibling = target.nextElementSibling as HTMLElement;
+                  if (sibling) {
+                    sibling.classList.remove('hidden');
+                    sibling.classList.add('flex');
+                  }
                 }}
               />
-              <span className="font-serif font-bold text-xl text-white tracking-tight flex items-center gap-1">
+              <span className="font-serif font-bold text-xl text-white tracking-tight hidden items-center gap-1">
                 Mudanzas <span className="text-amber-500">Miranda</span>
               </span>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed">
-              Más de 20 años brindando tranquilidad en mudanzas residenciales, comerciales y fletes en Mendoza y el país.
+              Más de 20 años brindando tranquilidad en mudanzas residenciales, comerciales y acarreos profesionales en Mendoza y el país.
             </p>
             <button
               onClick={() => handleLinkClick('nosotros')}
@@ -107,10 +114,10 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
         </div>
 
         {/* Local SEO Directories */}
-        <div className="space-y-4 lg:col-span-2">
+        <div className="space-y-4 md:col-span-2 lg:col-span-2">
           <h4 className="text-sm font-bold text-white uppercase tracking-wider">Destinos Frecuentes</h4>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Traslados y fletes especializados por departamento:
+            Traslados y transportes especializados por departamento:
           </p>
           <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs">
             {sortedDestinations.map((d) => (

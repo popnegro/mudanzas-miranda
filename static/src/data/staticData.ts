@@ -17,7 +17,7 @@ export const services: Service[] = [
     shortTitle: 'Oficinas',
     description: 'Minimizamos el tiempo de inactividad de tu empresa con un servicio de mudanza corporativa de planificación milimétrica. Trasladamos con total seguridad y confidencialidad mobiliario de oficina, puestos de trabajo, servidores, material informático delicado, archivos físicos y más.',
     icon: 'Building',
-    image: '/img/mudanza-residencial-800.webp', // Usamos las imágenes existentes en la carpeta public copiada
+    image: '/img/mudanza-oficina-800.webp',
     alt: 'Mobiliario de oficina y cajas organizadas listas para el traslado corporativo.',
     ctaText: 'Planificar Mudanza Comercial'
   },
@@ -27,8 +27,8 @@ export const services: Service[] = [
     shortTitle: 'Combinadas',
     description: 'Optimizá tu presupuesto compartiendo espacio en un camión con otras cargas destinadas al mismo trayecto nacional o provincial. Es la solución ideal para traslados de larga distancia con flexibilidad de fechas, manteniendo la rigurosa separación, seguridad y rotulado de cada pertenencia.',
     icon: 'Users',
-    image: '/img/mudanzas-miranda-800.webp',
-    alt: 'Camión de mudanzas circulando por rutas mendocinas brindando flete compartido.',
+    image: '/img/mudanza-combinada-800.webp',
+    alt: 'Camión de mudanzas circulando por rutas mendocinas brindando envío compartido.',
     ctaText: 'Consultar Rutas Combinadas'
   },
   {
@@ -37,7 +37,7 @@ export const services: Service[] = [
     shortTitle: 'Embalaje',
     description: 'Ahorrá tiempo valioso y reducí riesgos de roturas al mínimo. Nuestro equipo utiliza materiales específicos de calidad premium (plástico de burbujas alveolar de alta densidad, cajas de cartón reforzadas, film stretch, mantas acolchadas y cintas de alta adherencia) para resguardar cada pieza.',
     icon: 'Package',
-    image: '/img/mudanza-residencial-800.webp',
+    image: '/img/mudanza-embalaje-800.webp',
     alt: 'Vajilla y copas embaladas individualmente con plástico burbuja en caja rotulada.',
     ctaText: 'Contratar Embalaje Profesional'
   },
@@ -47,7 +47,7 @@ export const services: Service[] = [
     shortTitle: 'Guardamuebles',
     description: '¿Buscás almacenamiento temporal o a largo plazo entre firmas de contratos de alquiler, mudanzas demoradas o refacciones en el hogar? Disponemos de depósitos secos, limpios e individuales con monitoreo, alarma y vigilancia presencial las 24 horas del día.',
     icon: 'Warehouse',
-    image: '/img/mudanzas-miranda-800.webp',
+    image: '/img/mudanza-guardamuebles-800.webp',
     alt: 'Depósito de guardamuebles limpio con unidades de almacenamiento seguras.',
     ctaText: 'Reservar Espacio Guardamuebles'
   },
@@ -57,7 +57,7 @@ export const services: Service[] = [
     shortTitle: 'Logística',
     description: 'Soporte logístico de alta eficiencia para comercios y pymes en Mendoza. Ofrecemos distribución programada, almacenamiento de mercaderías, entregas directas a locales y gestión de inventarios con la seriedad y cumplimiento de plazos que tu negocio exige para operar sin fisuras.',
     icon: 'Truck',
-    image: '/img/mudanzas-miranda-800.webp',
+    image: '/img/mudanza-logistica-800.webp',
     alt: 'Operaciones de distribución y logística integral para empresas en Mendoza.',
     ctaText: 'Consultar Solución Logística'
   }
