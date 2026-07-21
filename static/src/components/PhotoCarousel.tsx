@@ -27,33 +27,33 @@ interface CarouselSlide {
 const CAROUSEL_SLIDES: CarouselSlide[] = [
   {
     id: 'flota',
-    title: 'Nuestra Flota de Camiones Propia',
-    description: 'Furgones modernos y totalmente habilitados para transporte local y de media distancia en Mendoza.',
+    title: 'Flota de Camiones Propia',
+    description: 'Furgones modernos equipados para traslados locales y de larga distancia.',
     icon: <Truck className="w-4 h-4 text-amber-500" />,
     webpSrcSet: '/img/camiones-mudanzas-miranda.webp 1200w',
     jpgSrcSet: '/img/camiones-mudanzas-miranda.webp 1200w', // use webp directly for both sources since it is supported on all modern browsers
     defaultJpg: '/img/camiones-mudanzas-miranda.webp',
-    alt: 'Flota de camiones furgonados de Mudanzas Miranda alineados listos para realizar servicios de mudanzas en Mendoza.'
+    alt: 'Flota de camiones furgonados de Mudanzas Miranda listos para el traslado en Mendoza.'
   },
   {
     id: 'residencial',
-    title: 'Mudanzas Residenciales de Alto Calibre',
-    description: 'Cuidamos cada mueble, electrodoméstico y objeto de valor sentimental con embalajes reforzados y mantas protectoras.',
+    title: 'Embalaje de Alta Calidad',
+    description: 'Protección reforzada con mantas y film stretch para que todo llegue impecable.',
     icon: <ShieldCheck className="w-4 h-4 text-amber-500" />,
     webpSrcSet: '/img/mudanza-residencial-400.webp 400w, /img/mudanza-residencial-600.webp 600w, /img/mudanza-residencial-800.webp 800w, /img/mudanza-residencial-1200.webp 1200w',
     jpgSrcSet: '/img/mudanza-residencial-400.jpg 400w, /img/mudanza-residencial-600.jpg 600w, /img/mudanza-residencial-800.jpg 800w, /img/mudanza-residencial-1200.jpg 1200w',
     defaultJpg: '/img/mudanza-residencial-1200.jpg',
-    alt: 'Operarios realizando embalaje cuidadoso con film y cartón corrugado de muebles para una mudanza en un departamento de Mendoza.'
+    alt: 'Operarios realizando embalaje cuidadoso de muebles para mudanza.'
   },
   {
     id: 'equipo',
-    title: 'Equipo Humano Calificado',
-    description: 'Personal uniformado, permanente y con coberturas de ART vigentes. Honestidad, fuerza y amabilidad en cada carga.',
+    title: 'Personal Humano Capacitado',
+    description: 'Personal propio con cobertura ART, capacitado para cargas seguras y trato amable.',
     icon: <Users className="w-4 h-4 text-amber-500" />,
     webpSrcSet: '/img/mudanzas-miranda-400.webp 400w, /img/mudanzas-miranda-600.webp 600w, /img/mudanzas-miranda-800.webp 800w, /img/mudanzas-miranda-1200.webp 1200w',
     jpgSrcSet: '/img/mudanzas-miranda-400.jpg 400w, /img/mudanzas-miranda-600.jpg 600w, /img/mudanzas-miranda-800.jpg 800w, /img/mudanzas-miranda-1200.jpg 1200w',
     defaultJpg: '/img/mudanzas-miranda-1200.jpg',
-    alt: 'Equipo de estibadores de Mudanzas Miranda trabajando con sonrisas y profesionalismo al subir pertenencias a un furgón en Mendoza.'
+    alt: 'Personal de Mudanzas Miranda cargando muebles con cuidado.'
   }
 ];
 
@@ -291,10 +291,7 @@ export default function PhotoCarousel() {
                 {currentSlide.icon}
                 <span className="font-bold tracking-wide">{currentSlide.title}</span>
               </div>
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-white tracking-tight drop-shadow-md">
-                {currentSlide.alt.split('.')[0]}.
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed drop-shadow max-w-2xl">
+              <p className="text-sm sm:text-base text-slate-200 leading-relaxed drop-shadow max-w-2xl font-medium">
                 {currentSlide.description}
               </p>
             </div>
@@ -303,7 +300,7 @@ export default function PhotoCarousel() {
           {/* Maximizer / Lightbox Button */}
           <button
             onClick={() => setIsLightboxOpen(true)}
-            className="absolute top-4 right-4 z-20 p-2.5 rounded-xl bg-black/60 hover:bg-amber-600 border border-white/15 text-white hover:border-amber-500 backdrop-blur-md transition-all duration-200 active:scale-95 cursor-pointer shadow-lg hover:shadow-amber-500/10 opacity-100 sm:opacity-0 group-hover:opacity-100"
+            className="absolute top-4 right-4 z-20 p-2.5 rounded-xl bg-black/60 hover:bg-amber-600 border border-white/15 text-white hover:border-amber-500 backdrop-blur-md transition-all duration-200 active:scale-95 cursor-pointer shadow-lg hover:shadow-amber-500/10 opacity-100 sm:opacity-0 group-hover:opacity-100 focus:outline-none focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-amber-500"
             title="Expandir imagen en pantalla completa"
             aria-label="Abrir galería en pantalla completa"
           >
@@ -313,7 +310,7 @@ export default function PhotoCarousel() {
           {/* Left Arrow Controls (Desktop Only) */}
           <button
             onClick={handlePrev}
-            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 sm:p-4 rounded-full bg-black/60 hover:bg-amber-600 border border-white/15 hover:border-amber-500 text-white backdrop-blur-md transition-all duration-200 active:scale-90 cursor-pointer shadow-lg opacity-0 group-hover:opacity-100"
+            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 sm:p-4 rounded-full bg-black/60 hover:bg-amber-600 border border-white/15 hover:border-amber-500 text-white backdrop-blur-md transition-all duration-200 active:scale-90 cursor-pointer shadow-lg opacity-0 group-hover:opacity-100 focus:outline-none focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-amber-500"
             aria-label="Imagen anterior"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -322,7 +319,7 @@ export default function PhotoCarousel() {
           {/* Right Arrow Controls (Desktop Only) */}
           <button
             onClick={handleNext}
-            className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 sm:p-4 rounded-full bg-black/60 hover:bg-amber-600 border border-white/15 hover:border-amber-500 text-white backdrop-blur-md transition-all duration-200 active:scale-90 cursor-pointer shadow-lg opacity-0 group-hover:opacity-100"
+            className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 sm:p-4 rounded-full bg-black/60 hover:bg-amber-600 border border-white/15 hover:border-amber-500 text-white backdrop-blur-md transition-all duration-200 active:scale-90 cursor-pointer shadow-lg opacity-0 group-hover:opacity-100 focus:outline-none focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-amber-500"
             aria-label="Siguiente imagen"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -345,7 +342,7 @@ export default function PhotoCarousel() {
             <button
               key={slide.id}
               onClick={() => handleDotClick(index)}
-              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+              className={`h-2 rounded-full transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 ${
                 index === currentIndex 
                   ? 'w-7 bg-amber-500' 
                   : 'w-2 bg-white/20 hover:bg-white/40'
@@ -357,7 +354,7 @@ export default function PhotoCarousel() {
         </div>
 
         {/* Mobile-only Text Content below the image container */}
-        <div className="block sm:hidden mt-5 min-h-[145px]">
+        <div className="block sm:hidden mt-3 min-h-[90px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide.id}
@@ -365,15 +362,14 @@ export default function PhotoCarousel() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.18 }}
-              className="space-y-2.5 text-left bg-white/[0.02] border border-white/5 p-4 rounded-2xl"
+              className="space-y-2 text-left bg-white/[0.02] border border-white/5 p-4 rounded-2xl"
             >
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 text-[11px] font-semibold">
+              <div className="flex items-center gap-2">
                 {currentSlide.icon}
-                <span className="font-bold tracking-wide text-slate-200">{currentSlide.title}</span>
+                <h3 className="text-base font-serif font-bold text-white leading-snug">
+                  {currentSlide.title}
+                </h3>
               </div>
-              <h3 className="text-base font-serif font-bold text-white leading-snug">
-                {currentSlide.alt.split('.')[0]}.
-              </h3>
               <p className="text-xs text-slate-400 leading-relaxed">
                 {currentSlide.description}
               </p>
@@ -450,7 +446,7 @@ export default function PhotoCarousel() {
 
             {/* Lightbox Footer Captions */}
             <div className="text-center text-white border-t border-white/10 pt-4 max-w-3xl mx-auto w-full space-y-1">
-              <p className="font-bold font-serif text-lg text-amber-500">{currentSlide.alt.split('.')[0]}</p>
+              <p className="font-bold font-serif text-lg text-amber-500">{currentSlide.title}</p>
               <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">{currentSlide.description}</p>
               
               {/* Pagination text */}

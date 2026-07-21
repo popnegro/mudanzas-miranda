@@ -23,35 +23,34 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
         {/* About / Contact / Hours */}
         <div className="space-y-6">
           <div className="space-y-3">
-            <div className="flex items-center cursor-pointer" onClick={() => handleLinkClick('')}>
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick('');
+              }}
+              className="flex items-center cursor-pointer block"
+            >
               <img
                 src="https://www.mudanzasmiranda.com.ar/img/brand-light.png"
                 alt="Mudanzas Miranda"
-                className="h-10 w-auto object-contain block"
+                className="h-10 w-auto object-contain block transition-transform duration-200 hover:scale-[1.02]"
                 referrerPolicy="no-referrer"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const sibling = target.nextElementSibling as HTMLElement;
-                  if (sibling) {
-                    sibling.classList.remove('hidden');
-                    sibling.classList.add('flex');
-                  }
-                }}
               />
-              <span className="font-serif font-bold text-xl text-white tracking-tight hidden items-center gap-1">
-                Mudanzas <span className="text-amber-500">Miranda</span>
-              </span>
-            </div>
+            </a>
             <p className="text-sm text-slate-400 leading-relaxed">
               Más de 20 años brindando tranquilidad en mudanzas residenciales, comerciales y acarreos profesionales en Mendoza y el país.
             </p>
-            <button
-              onClick={() => handleLinkClick('nosotros')}
+            <a
+              href="/nosotros.html"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick('nosotros');
+              }}
               className="text-amber-500 hover:text-amber-400 text-sm font-semibold flex items-center gap-1 cursor-pointer transition-colors pt-1"
             >
               Conocé más Sobre Nosotros →
-            </button>
+            </a>
           </div>
 
           <div className="space-y-3 text-sm">
@@ -101,13 +100,17 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
           <ul className="space-y-3">
             {servicePages.map((s) => (
               <li key={s.slug}>
-                <button
-                  onClick={() => handleLinkClick(s.slug)}
+                <a
+                  href={`/servicios/${s.slug}.html`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLinkClick(s.slug);
+                  }}
                   className="group flex items-center gap-2 text-left text-slate-300 hover:text-amber-500 transition-all duration-200 hover:translate-x-1 cursor-pointer text-sm font-medium"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 group-hover:w-2.5 transition-all duration-200" />
                   {s.heroHeadline.replace(' Premium', '')}
-                </button>
+                </a>
               </li>
             ))}
           </ul>
@@ -121,14 +124,18 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
           </p>
           <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs">
             {sortedDestinations.map((d) => (
-              <button
+              <a
                 key={d.slug}
-                onClick={() => handleLinkClick(d.slug)}
+                href={`/mudanzas-mendoza/${d.slug}.html`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick(d.slug);
+                }}
                 className="group flex items-center gap-1.5 text-left text-slate-300 hover:text-amber-500 transition-all duration-200 hover:translate-x-0.5 cursor-pointer font-medium"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-500/40 group-hover:bg-amber-500 transition-all duration-200 flex-shrink-0" />
                 <span className="truncate">Mudanzas {d.name.replace(' de Mendoza', '').replace('Mendoza', '')}</span>
-              </button>
+              </a>
             ))}
           </div>
         </div>

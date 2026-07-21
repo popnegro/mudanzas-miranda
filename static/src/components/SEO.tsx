@@ -122,6 +122,20 @@ export default function SEO({
 
     let schemaData: any[] = [movingCompanySchema];
 
+    // Create BreadcrumbList Schema
+    const breadcrumbListSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      'itemListElement': [
+        {
+          '@type': 'ListItem',
+          'position': 1,
+          'name': 'Inicio',
+          'item': 'https://www.mudanzasmiranda.com.ar',
+        },
+      ],
+    };
+
     if (isLocalPage && destinationData) {
       // Localized Service Schema
       const localServiceSchema = {
@@ -146,7 +160,46 @@ export default function SEO({
         'name': `Mudanzas en ${destinationData.name}`,
         'description': destinationData.description,
       };
-      schemaData.push(localServiceSchema);
+
+      // Add Local Business specialization schema
+      const localBusinessSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'MovingCompany',
+        '@id': `https://www.mudanzasmiranda.com.ar/mudanzas-mendoza/${destinationData.slug}.html#localbusiness`,
+        'name': `Mudanzas Miranda ${destinationData.name}`,
+        'telephone': '+5492615130910',
+        'priceRange': '$$',
+        'image': 'https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg',
+        'description': `Servicio de mudanzas y fletes especializados en la zona de ${destinationData.name}, Mendoza.`,
+        'address': {
+          '@type': 'PostalAddress',
+          'addressLocality': destinationData.name,
+          'addressRegion': 'Mendoza',
+          'addressCountry': 'AR',
+        },
+        'areaServed': {
+          '@type': 'AdministrativeArea',
+          'name': destinationData.name,
+        },
+      };
+
+      // Push items to breadcrumb
+      breadcrumbListSchema.itemListElement.push(
+        {
+          '@type': 'ListItem',
+          'position': 2,
+          'name': 'Destinos',
+          'item': 'https://www.mudanzasmiranda.com.ar/#rutas',
+        },
+        {
+          '@type': 'ListItem',
+          'position': 3,
+          'name': destinationData.name,
+          'item': `https://www.mudanzasmiranda.com.ar/mudanzas-mendoza/${destinationData.slug}.html`,
+        }
+      );
+
+      schemaData.push(localServiceSchema, localBusinessSchema, breadcrumbListSchema);
     } else if (serviceData) {
       // Specialized Service Schema
       const specializedServiceSchema = {
@@ -173,7 +226,24 @@ export default function SEO({
           },
         },
       };
-      schemaData.push(specializedServiceSchema);
+
+      // Push items to breadcrumb
+      breadcrumbListSchema.itemListElement.push(
+        {
+          '@type': 'ListItem',
+          'position': 2,
+          'name': 'Servicios',
+          'item': 'https://www.mudanzasmiranda.com.ar/#servicios',
+        },
+        {
+          '@type': 'ListItem',
+          'position': 3,
+          'name': serviceData.title,
+          'item': `https://www.mudanzasmiranda.com.ar/servicios/${serviceData.slug}.html`,
+        }
+      );
+
+      schemaData.push(specializedServiceSchema, breadcrumbListSchema);
     } else {
       // FAQ Page Schema for Main Page
       const faqSchema = {

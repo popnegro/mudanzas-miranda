@@ -20,11 +20,14 @@ import {
   Calendar,
   MessageSquare,
   ArrowLeft,
+  ChevronLeft,
   ChevronRight,
   Navigation,
   History,
   Target,
   Heart,
+  Search,
+  X,
 } from 'lucide-react';
 
 // Data imports
@@ -51,11 +54,39 @@ const IconMap: Record<string, React.ComponentType<any>> = {
   Truck,
 };
 
+const HERO_CAROUSEL_SLIDES = [
+  {
+    id: 'flota',
+    src: '/img/camiones-mudanzas-miranda.webp',
+    alt: 'Camiones profesionales de Mudanzas Miranda estacionados listos para brindar servicio en Mendoza.',
+  },
+  {
+    id: 'residencial',
+    src: '/img/mudanza-residencial-1200.webp',
+    alt: 'Operarios realizando embalaje cuidadoso de muebles para una mudanza en un departamento de Mendoza.',
+  },
+  {
+    id: 'equipo',
+    src: '/img/mudanzas-miranda-1200.webp',
+    alt: 'Equipo de estibadores de Mudanzas Miranda sonrientes al realizar una mudanza profesional en Mendoza.',
+  },
+];
+
 export default function App() {
   const [activePage, setActivePage] = useState<string>(''); // empty string means main page, otherwise slug
   const [activeServiceTab, setActiveServiceTab] = useState<string>('residencial');
   const [openFaq, setOpenFaq] = useState<string | null>(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [destSearch, setDestSearch] = useState('');
+
+  // Hero Image Carousel Auto-play
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % HERO_CAROUSEL_SLIDES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Sync state with URL pathname on mount & popstate (supporting SEO paths)
   useEffect(() => {
@@ -113,11 +144,15 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Group destinations by region for display
+  // Group destinations by region for display (filtered by destSearch state)
+  const filteredDestinations = destinations.filter((d) =>
+    !destSearch || d.name.toLowerCase().includes(destSearch.toLowerCase()) || d.region.toLowerCase().includes(destSearch.toLowerCase())
+  );
+
   const regions = {
-    'Gran Mendoza': destinations.filter((d) => d.region === 'Gran Mendoza'),
-    'Zona Este y Valle de Uco': destinations.filter((d) => d.region === 'Zona Este y Valle de Uco'),
-    'Sur de Mendoza': destinations.filter((d) => d.region === 'Sur de Mendoza'),
+    'Gran Mendoza': filteredDestinations.filter((d) => d.region === 'Gran Mendoza'),
+    'Zona Este y Valle de Uco': filteredDestinations.filter((d) => d.region === 'Zona Este y Valle de Uco'),
+    'Sur de Mendoza': filteredDestinations.filter((d) => d.region === 'Sur de Mendoza'),
   };
 
   // SEO details for active view
@@ -147,7 +182,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-white">
+    <div className="min-h-screen bg-[#0A0A0A] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-white w-full overflow-x-hidden">
       {/* 1. Dynamic SEO & Meta Injector */}
       <SEO
         title={pageTitle}
@@ -162,7 +197,7 @@ export default function App() {
       <Header destinations={destinations} activePage={activePage} onNavigate={handleNavigation} />
 
       {/* Main Content Area with Route Switching */}
-      <main className="flex-grow">
+      <main className="flex-grow min-h-[60vh]">
         <AnimatePresence mode="wait">
           {!activePage ? (
             /* ==================== HOMEPAGE VIEW ==================== */
@@ -219,44 +254,107 @@ export default function App() {
                     {/* Right Column: Preloaded hero visual with aspect ratio and floating Google Rating popover */}
                     <div className="col-span-12 lg:col-span-6 relative flex justify-center">
                       <div className="relative w-full max-w-lg">
-                        {/* Floating Stars Popover/Badge */}
-                        <motion.div 
-                          initial={{ opacity: 0, y: 15 }}
-                          animate={{ 
-                            opacity: 1, 
-                            y: 0,
-                            transition: { duration: 0.6, delay: 0.2 }
-                          }}
-                          whileHover={{ y: -3, scale: 1.02 }}
-                          className="absolute -top-6 left-4 sm:-left-6 bg-[#161616]/95 backdrop-blur-md border border-white/10 rounded-2xl p-3 sm:p-3.5 shadow-2xl shadow-black/80 z-20 flex items-center gap-3 cursor-pointer"
-                        >
-                          <div className="bg-amber-500/10 p-2 rounded-xl border border-amber-500/20">
-                            <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
-                          </div>
-                          <div>
-                            <div className="flex items-center gap-1.5">
-                              <span className="text-sm font-bold text-white">4.9 / 5.0</span>
-                              <div className="flex text-amber-500">
-                                {[...Array(5)].map((_, i) => (
-                                  <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-                                ))}
-                              </div>
+                        {/* Floating Stars Popover/Badge with Hover/Tap Tooltip */}
+                        <div className="absolute -top-6 left-4 sm:-left-6 z-20 group/rating">
+                          <motion.div 
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ 
+                              opacity: 1, 
+                              y: 0,
+                              transition: { duration: 0.6, delay: 0.2 }
+                            }}
+                            whileHover={{ y: -3, scale: 1.02 }}
+                            className="bg-[#161616]/95 backdrop-blur-md border border-white/10 rounded-2xl p-3 sm:p-3.5 shadow-2xl shadow-black/80 flex items-center gap-3 cursor-pointer"
+                          >
+                            <div className="bg-amber-500/10 p-2 rounded-xl border border-amber-500/20">
+                              <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
                             </div>
-                            <p className="text-[11px] text-slate-400 font-medium">186 opiniones de clientes en Google</p>
-                          </div>
-                        </motion.div>
+                            <div>
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-sm font-bold text-white">4.9 / 5.0</span>
+                                <div className="flex text-amber-500">
+                                  {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                                  ))}
+                                </div>
+                              </div>
+                              <p className="text-[11px] text-slate-400 font-medium">186 opiniones de clientes en Google</p>
+                            </div>
+                          </motion.div>
 
-                        {/* Image Frame */}
-                        <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10 shadow-amber-500/5 hover:scale-[1.01] transition-transform duration-300">
-                          <img
-                            src="https://www.mudanzasmiranda.com.ar/img/camiones-mudanzas-miranda.webp"
-                            alt="Camiones profesionales de Mudanzas Miranda estacionados listos para brindar servicio en Mendoza."
-                            className="w-full h-full object-cover"
-                            width="1200"
-                            height="900"
-                            fetchPriority="high"
-                            referrerPolicy="no-referrer"
-                          />
+                          {/* Interactive Excerpt Tooltip */}
+                          <div className="absolute top-full left-0 mt-2 w-[260px] sm:w-72 bg-[#121212]/95 backdrop-blur-md border border-white/10 p-3.5 rounded-2xl shadow-2xl opacity-0 scale-95 group-hover/rating:opacity-100 group-hover/rating:scale-100 transition-all duration-200 pointer-events-none z-30">
+                            <p className="text-xs text-amber-400 font-bold mb-1">⭐ "Excelente servicio"</p>
+                            <p className="text-[11px] text-slate-300 italic leading-relaxed">
+                              "Puntuales, súper cuidadosos con el embalaje de la vajilla y muebles. ¡100% recomendados en Mendoza!"
+                            </p>
+                            <p className="text-[10px] text-slate-500 mt-1.5 text-right">— Carlos G., Mendoza Ciudad</p>
+                          </div>
+                        </div>
+
+                        {/* Image Frame with Carousel */}
+                        <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10 shadow-amber-500/5 group">
+                          <AnimatePresence mode="wait">
+                            <motion.img
+                              key={heroIndex}
+                              src={HERO_CAROUSEL_SLIDES[heroIndex].src}
+                              alt={HERO_CAROUSEL_SLIDES[heroIndex].alt}
+                              className="absolute inset-0 w-full h-full object-cover"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.6, ease: "easeInOut" }}
+                              width="1200"
+                              height="900"
+                              fetchPriority={heroIndex === 0 ? "high" : "low"}
+                              loading={heroIndex === 0 ? "eager" : "lazy"}
+                            />
+                          </AnimatePresence>
+
+                          {/* Gradient Vignette overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+
+                          {/* Arrow Navigation (Always visible on mobile/touch, hover-visible on desktop) */}
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setHeroIndex((prev) => (prev === 0 ? HERO_CAROUSEL_SLIDES.length - 1 : prev - 1));
+                            }}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 border border-white/10 text-white p-2.5 rounded-full backdrop-blur-sm opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus:opacity-100 transition-all duration-300 z-10 hover:scale-105"
+                            aria-label="Imagen anterior"
+                          >
+                            <ChevronLeft className="w-5 h-5" />
+                          </button>
+                          
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setHeroIndex((prev) => (prev + 1) % HERO_CAROUSEL_SLIDES.length);
+                            }}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 border border-white/10 text-white p-2.5 rounded-full backdrop-blur-sm opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus:opacity-100 transition-all duration-300 z-10 hover:scale-105"
+                            aria-label="Siguiente imagen"
+                          >
+                            <ChevronRight className="w-5 h-5" />
+                          </button>
+
+                          {/* Dot Indicators */}
+                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10 bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/5">
+                            {HERO_CAROUSEL_SLIDES.map((_, idx) => (
+                              <button
+                                key={idx}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setHeroIndex(idx);
+                                }}
+                                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                  idx === heroIndex 
+                                    ? "bg-amber-500 w-4" 
+                                    : "bg-white/50 hover:bg-white"
+                                }`}
+                                aria-label={`Ir a la imagen ${idx + 1}`}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -278,14 +376,14 @@ export default function App() {
 
                   <div className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8">
                     {/* Benefit 1 */}
-                    <div className="col-span-12 md:col-span-4 p-8 rounded-2xl border border-white/10 bg-[#111111] hover:bg-[#151515] hover:shadow-2xl hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full space-y-6">
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 sm:p-8 rounded-2xl border border-white/10 bg-[#111111] hover:bg-[#151515] hover:shadow-2xl hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full space-y-6">
                       <div className="space-y-4">
                         <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center text-amber-500">
                           <Award className="w-6 h-6 stroke-[2]" />
                         </div>
                         <h3 className="text-lg font-bold text-white">Más de 20 Años de Trayectoria</h3>
                         <p className="text-sm text-slate-400 leading-relaxed">
-                          Décadas de servicio ininterrumpido en Mendoza nos convierten en el referente indiscutido de traslados y mudanzas de máxima confianza y calidad.
+                          Décadas de servicio ininterrumpido en Mendoza nos convierten en el referente indiscutido de traslados y mudanzas de máxima confianza and calidad.
                         </p>
                       </div>
                       <button
@@ -298,7 +396,7 @@ export default function App() {
                     </div>
 
                     {/* Benefit 2 */}
-                    <div className="col-span-12 md:col-span-4 p-8 rounded-2xl border border-white/10 bg-[#111111] hover:bg-[#151515] hover:shadow-2xl hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full space-y-6">
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 sm:p-8 rounded-2xl border border-white/10 bg-[#111111] hover:bg-[#151515] hover:shadow-2xl hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full space-y-6">
                       <div className="space-y-4">
                         <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center text-amber-500">
                           <Truck className="w-6 h-6 stroke-[2]" />
@@ -318,7 +416,7 @@ export default function App() {
                     </div>
 
                     {/* Benefit 3 */}
-                    <div className="col-span-12 md:col-span-4 p-8 rounded-2xl border border-white/10 bg-[#111111] hover:bg-[#151515] hover:shadow-2xl hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full space-y-6">
+                    <div className="col-span-12 sm:col-span-12 lg:col-span-4 p-6 sm:p-8 rounded-2xl border border-white/10 bg-[#111111] hover:bg-[#151515] hover:shadow-2xl hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full space-y-6">
                       <div className="space-y-4">
                         <div className="w-12 h-12 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center text-amber-500">
                           <ShieldCheck className="w-6 h-6 stroke-[2]" />
@@ -376,7 +474,7 @@ export default function App() {
                     </div>
 
                     {/* Active Tab Panel Content */}
-                    <div className="col-span-12 lg:col-span-8 bg-[#111111] border border-white/10 rounded-3xl p-6 sm:p-8">
+                    <div className="col-span-12 lg:col-span-8 bg-[#111111] border border-white/10 rounded-3xl p-5 sm:p-8">
                       <AnimatePresence mode="wait">
                         {services
                           .filter((svc) => svc.id === activeServiceTab)
@@ -431,7 +529,7 @@ export default function App() {
               {/* Destinations Section - Local SEO hub */}
               <section id="rutas" className="py-20 bg-[#0D0D0D] border-b border-white/10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                  <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
                     <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
                       Cubrimos todo Mendoza con servicios locales
                     </h2>
@@ -440,31 +538,84 @@ export default function App() {
                     </p>
                   </div>
 
-                  {/* Regions Grid */}
-                  <div className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8">
-                    {Object.entries(regions).map(([regionName, list]) => (
-                      <div
-                        key={regionName}
-                        className="col-span-12 md:col-span-4 bg-[#111111] border border-white/10 rounded-2xl p-6 hover:shadow-2xl hover:shadow-black/40 transition-all"
-                      >
-                        <h3 className="text-lg font-bold text-amber-500 uppercase tracking-wider border-b border-white/5 pb-3 mb-4">
-                          {regionName}
-                        </h3>
-                        <div className="flex flex-col gap-1.5 max-h-[300px] overflow-y-auto pr-2 scrollbar-thin">
-                          {list.map((dest) => (
-                            <button
-                              key={dest.slug}
-                              onClick={() => handleNavigation(dest.slug)}
-                              className="text-left text-sm py-1.5 px-2.5 rounded-lg text-slate-300 hover:text-amber-500 hover:bg-white/5 font-medium transition-all flex items-center justify-between group cursor-pointer"
-                            >
-                              <span>{dest.name}</span>
-                              <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-amber-600 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" />
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
+                  {/* Destinations Search Bar */}
+                  <div className="max-w-md mx-auto mb-12 relative z-10">
+                    <div className="relative">
+                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                      <input
+                        type="text"
+                        placeholder="Buscá tu departamento o localidad (ej: Godoy Cruz, Maipú)..."
+                        value={destSearch}
+                        onChange={(e) => setDestSearch(e.target.value)}
+                        className="w-full bg-[#111111] border border-white/10 rounded-2xl pl-12 pr-10 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all shadow-xl"
+                      />
+                      {destSearch && (
+                        <button
+                          onClick={() => setDestSearch('')}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1 rounded-full hover:bg-white/5 transition-all"
+                          aria-label="Limpiar búsqueda"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
                   </div>
+
+                  {filteredDestinations.length === 0 ? (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-center py-12 bg-[#111111] border border-white/5 rounded-3xl max-w-2xl mx-auto px-6 space-y-4 shadow-xl"
+                    >
+                      <MapPin className="w-12 h-12 text-amber-500 mx-auto animate-pulse" />
+                      <h3 className="text-lg font-bold text-white">¡Sí, cubrimos tu zona en Mendoza!</h3>
+                      <p className="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
+                        Aunque "{destSearch}" no esté en la lista de páginas locales destacadas, brindamos traslados y mudanzas profesionales a cualquier punto de la provincia y el país.
+                      </p>
+                      <div>
+                        <a
+                          href="#form"
+                          className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-3 px-6 rounded-xl transition-all shadow-lg"
+                        >
+                          Cotizar mi mudanza ahora
+                          <ArrowRight className="w-4 h-4" />
+                        </a>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    /* Regions Grid */
+                    <div className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8">
+                      {Object.entries(regions).map(([regionName, list]) => {
+                        if (list.length === 0) return null;
+                        return (
+                          <div
+                            key={regionName}
+                            className="col-span-12 sm:col-span-6 md:col-span-4 bg-[#111111] border border-white/10 rounded-2xl p-5 sm:p-6 hover:shadow-2xl hover:shadow-black/40 transition-all"
+                          >
+                            <h3 className="text-lg font-bold text-amber-500 uppercase tracking-wider border-b border-white/5 pb-3 mb-4">
+                              {regionName} ({list.length})
+                            </h3>
+                            <div className="flex flex-col gap-1.5 max-h-[300px] overflow-y-auto pr-2 scrollbar-thin">
+                              {list.map((dest) => (
+                                <a
+                                  key={dest.slug}
+                                  href={`/mudanzas-mendoza/${dest.slug}.html`}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    handleNavigation(dest.slug);
+                                  }}
+                                  className="text-left text-sm py-1.5 px-2.5 rounded-lg text-slate-300 hover:text-amber-500 hover:bg-white/5 font-medium transition-all flex items-center justify-between group cursor-pointer"
+                                >
+                                  <span>{dest.name}</span>
+                                  <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-amber-600 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" />
+                                </a>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </section>
 
@@ -489,25 +640,36 @@ export default function App() {
                       “
                     </div>
 
-                    <div className="min-h-[180px] flex flex-col justify-between">
-                      <div className="space-y-4">
-                        <div className="flex text-amber-500">
-                          {[...Array(testimonials[activeTestimonial].rating)].map((_, i) => (
-                            <Star key={i} className="w-5 h-5 fill-amber-500 text-amber-500" />
-                          ))}
-                        </div>
-                        <p className="text-base sm:text-lg text-slate-200 italic leading-relaxed">
-                          "{testimonials[activeTestimonial].content}"
-                        </p>
-                      </div>
+                    <div className="min-h-[180px] relative overflow-hidden">
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={activeTestimonial}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.25 }}
+                          className="flex flex-col justify-between min-h-[180px]"
+                        >
+                          <div className="space-y-4">
+                            <div className="flex text-amber-500">
+                              {[...Array(testimonials[activeTestimonial].rating)].map((_, i) => (
+                                <Star key={i} className="w-5 h-5 fill-amber-500 text-amber-500" />
+                              ))}
+                            </div>
+                            <p className="text-base sm:text-lg text-slate-200 italic leading-relaxed font-serif">
+                              "{testimonials[activeTestimonial].content}"
+                            </p>
+                          </div>
 
-                      <div className="flex items-center justify-between border-t border-white/5 pt-6 mt-6">
-                        <div>
-                          <p className="font-bold text-white">{testimonials[activeTestimonial].author}</p>
-                          <p className="text-xs text-slate-400">{testimonials[activeTestimonial].role}</p>
-                        </div>
-                        <div className="text-xs text-slate-400">{testimonials[activeTestimonial].date}</div>
-                      </div>
+                          <div className="flex items-center justify-between border-t border-white/5 pt-6 mt-6">
+                            <div>
+                              <p className="font-bold text-white">{testimonials[activeTestimonial].author}</p>
+                              <p className="text-xs text-slate-400">{testimonials[activeTestimonial].role}</p>
+                            </div>
+                            <div className="text-xs text-slate-400">{testimonials[activeTestimonial].date}</div>
+                          </div>
+                        </motion.div>
+                      </AnimatePresence>
                     </div>
 
                     {/* Navigation buttons */}
@@ -592,7 +754,7 @@ export default function App() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
                     <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
-                      Cotizá tu mudanza en 3 simples pasos
+                      Cotizá tu mudanza en 2 simples pasos
                     </h2>
                     <p className="text-slate-400 text-sm">
                       Completá el formulario inteligente para recibir tu presupuesto adaptado sin compromisos.
@@ -616,12 +778,16 @@ export default function App() {
               {/* Breadcrumbs */}
               <div className="bg-[#0D0D0D] border-b border-white/10 text-slate-400 py-3 text-xs sm:text-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2">
-                  <button
-                    onClick={() => handleNavigation('')}
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation('');
+                    }}
                     className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer font-semibold"
                   >
                     Inicio
-                  </button>
+                  </a>
                   <span>/</span>
                   <span className="text-amber-500 font-medium font-semibold">Nosotros</span>
                 </div>
@@ -770,12 +936,16 @@ export default function App() {
               {/* Breadcrumbs */}
               <div className="bg-[#0D0D0D] border-b border-white/10 text-slate-400 py-3 text-xs sm:text-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2">
-                  <button
-                    onClick={() => handleNavigation('')}
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation('');
+                    }}
                     className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer font-semibold"
                   >
                     Inicio
-                  </button>
+                  </a>
                   <span>/</span>
                   <span className="text-amber-500 font-semibold">Servicios</span>
                   <span>/</span>
@@ -794,7 +964,7 @@ export default function App() {
                     Servicio Premium Miranda
                   </div>
 
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight tracking-tight max-w-4xl mx-auto">
+                  <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight tracking-tight max-w-4xl mx-auto">
                     {currentService.heroHeadline}
                   </h1>
 
@@ -824,42 +994,51 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Fleet Image Showcase Section - Isolated Stacking Context Break */}
+              {/* Fleet Image Showcase Section */}
               <section className="relative isolate py-8 sm:py-12 overflow-hidden bg-[#0A0A0A] border-b border-white/5">
                 {/* Visual Ambient Glows */}
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-amber-500/5 blur-[100px] rounded-full -z-10 pointer-events-none" />
-                <div className="absolute inset-0 bg-[#0A0A0A] opacity-50 -z-20" />
                 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl aspect-[1.8] sm:aspect-[2.4] lg:aspect-[3]">
-                    <img
-                      src="/img/camiones-mudanzas-miranda.webp"
-                      alt="Flota de camiones modernos y equipados de Mudanzas Miranda"
-                      className="w-full h-full object-cover object-center select-none"
-                      referrerPolicy="no-referrer"
-                    />
-                    {/* Dark gradient overlay for extreme text readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-8 lg:p-10" />
-                    
-                    {/* Overlay content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 lg:p-10 z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4 pointer-events-none">
-                      <div className="space-y-1 max-w-xl text-left">
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest font-mono">
-                          Nuestra Flota de Camiones
-                        </div>
-                        <h3 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight">
-                          Equipados para Traslados de Alta Exigencia
-                        </h3>
-                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                          Unidades habilitadas por la CNRT, acondicionadas con sistemas de amarre, mantas protectoras y seguimiento satelital constante.
-                        </p>
+                  <div className="bg-[#111111] border border-white/10 rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                      
+                      {/* Image Column */}
+                      <div className="col-span-12 lg:col-span-7 relative rounded-2xl overflow-hidden border border-white/10 shadow-lg aspect-[16/10] sm:aspect-[16/9]">
+                        <img
+                          src="/img/camiones-mudanzas-miranda.webp"
+                          alt="Flota de camiones modernos y equipados de Mudanzas Miranda"
+                          className="w-full h-full object-cover object-center select-none"
+                          referrerPolicy="no-referrer"
+                          width="1200"
+                          height="750"
+                          loading="lazy"
+                        />
                       </div>
-                      <div className="flex-shrink-0 self-start sm:self-auto">
-                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl">
-                          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                          Unidades Listas en Ruta
+                      
+                      {/* Content Column (No longer covering the image) */}
+                      <div className="col-span-12 lg:col-span-5 space-y-5 text-left">
+                        <div className="space-y-3">
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest font-mono">
+                            Nuestra Flota de Camiones
+                          </div>
+                          <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+                            Equipados para Traslados de Alta Exigencia
+                          </h3>
+                          <p className="text-sm text-slate-300 leading-relaxed">
+                            Unidades habilitadas por la CNRT, acondicionadas con sistemas de amarre, mantas protectoras y seguimiento satelital constante para asegurar que cada bulto viaje con máxima protección en el Gran Mendoza y toda la provincia.
+                          </p>
+                        </div>
+                        
+                        <div className="pt-2 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+                          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl w-fit">
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                            Unidades Listas en Ruta
+                          </div>
+                          <span className="text-xs text-slate-400 font-mono">Seguimiento GPS 24/7</span>
                         </div>
                       </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -868,7 +1047,7 @@ export default function App() {
               {/* Service Details bento style */}
               <section className="py-16 bg-[#0D0D0D] border-b border-white/5">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-                  <div className="bg-[#111111] border border-white/10 rounded-3xl p-6 sm:p-10 space-y-6">
+                  <div className="bg-[#111111] border border-white/10 rounded-3xl p-5 sm:p-10 space-y-6">
                     <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white leading-snug">
                       ¿Qué incluye nuestro {currentService.name}?
                     </h2>
@@ -923,13 +1102,17 @@ export default function App() {
                       {servicePages
                         .filter((s) => s.slug !== activePage)
                         .map((s) => (
-                          <button
+                          <a
                             key={s.slug}
-                            onClick={() => handleNavigation(s.slug)}
-                            className="bg-white/5 hover:bg-white/10 text-slate-300 hover:text-amber-500 text-xs font-semibold py-1.5 px-3 rounded-lg border border-white/10 transition-colors cursor-pointer"
+                            href={`/servicios/${s.slug}.html`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleNavigation(s.slug);
+                            }}
+                            className="bg-white/5 hover:bg-white/10 text-slate-300 hover:text-amber-500 text-xs font-semibold py-1.5 px-3 rounded-lg border border-white/10 transition-colors cursor-pointer block"
                           >
                             {s.name}
-                          </button>
+                          </a>
                         ))}
                     </div>
                   </div>
@@ -965,12 +1148,16 @@ export default function App() {
               {/* Breadcrumbs Navigation */}
               <div className="bg-[#0D0D0D] border-b border-white/10 text-slate-400 py-3 text-xs sm:text-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2">
-                  <button
-                    onClick={() => handleNavigation('')}
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation('');
+                    }}
                     className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer font-semibold"
                   >
                     Inicio
-                  </button>
+                  </a>
                   <span>/</span>
                   <span className="text-amber-500 font-semibold">Destinos</span>
                   <span>/</span>
@@ -989,7 +1176,7 @@ export default function App() {
                     Cobertura en {currentDestination?.region}
                   </div>
 
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight tracking-tight">
+                  <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight tracking-tight">
                     {currentDestination?.heroHeadline}
                   </h1>
 
@@ -1019,42 +1206,51 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Fleet Image Showcase Section - Isolated Stacking Context Break */}
+              {/* Fleet Image Showcase Section */}
               <section className="relative isolate py-8 sm:py-12 overflow-hidden bg-[#0A0A0A] border-b border-white/5">
                 {/* Visual Ambient Glows */}
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-amber-500/5 blur-[100px] rounded-full -z-10 pointer-events-none" />
-                <div className="absolute inset-0 bg-[#0A0A0A] opacity-50 -z-20" />
                 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl aspect-[1.8] sm:aspect-[2.4] lg:aspect-[3]">
-                    <img
-                      src="/img/camiones-mudanzas-miranda.webp"
-                      alt="Flota de camiones modernos y equipados de Mudanzas Miranda"
-                      className="w-full h-full object-cover object-center select-none"
-                      referrerPolicy="no-referrer"
-                    />
-                    {/* Dark gradient overlay for extreme text readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 sm:p-8 lg:p-10" />
-                    
-                    {/* Overlay content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 lg:p-10 z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4 pointer-events-none">
-                      <div className="space-y-1 max-w-xl text-left">
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest font-mono">
-                          Nuestra Flota de Camiones
-                        </div>
-                        <h3 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight">
-                          Equipados para Traslados de Alta Exigencia
-                        </h3>
-                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                          Unidades habilitadas por la CNRT, acondicionadas con sistemas de amarre, mantas protectoras y seguimiento satelital constante.
-                        </p>
+                  <div className="bg-[#111111] border border-white/10 rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                      
+                      {/* Image Column */}
+                      <div className="col-span-12 lg:col-span-7 relative rounded-2xl overflow-hidden border border-white/10 shadow-lg aspect-[16/10] sm:aspect-[16/9]">
+                        <img
+                          src="/img/camiones-mudanzas-miranda.webp"
+                          alt="Flota de camiones modernos y equipados de Mudanzas Miranda"
+                          className="w-full h-full object-cover object-center select-none"
+                          referrerPolicy="no-referrer"
+                          width="1200"
+                          height="750"
+                          loading="lazy"
+                        />
                       </div>
-                      <div className="flex-shrink-0 self-start sm:self-auto">
-                        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl">
-                          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                          Unidades Listas en Ruta
+                      
+                      {/* Content Column (No longer covering the image) */}
+                      <div className="col-span-12 lg:col-span-5 space-y-5 text-left">
+                        <div className="space-y-3">
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest font-mono">
+                            Nuestra Flota de Camiones
+                          </div>
+                          <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+                            Equipados para Traslados de Alta Exigencia
+                          </h3>
+                          <p className="text-sm text-slate-300 leading-relaxed">
+                            Unidades habilitadas por la CNRT, acondicionadas con sistemas de amarre, mantas protectoras y seguimiento satelital constante para asegurar que cada bulto viaje con máxima protección en el Gran Mendoza y toda la provincia.
+                          </p>
+                        </div>
+                        
+                        <div className="pt-2 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+                          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl w-fit">
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                            Unidades Listas en Ruta
+                          </div>
+                          <span className="text-xs text-slate-400 font-mono">Seguimiento GPS 24/7</span>
                         </div>
                       </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -1064,7 +1260,7 @@ export default function App() {
               <section className="py-16 bg-[#0D0D0D] border-b border-white/5">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                   {/* Local Info block */}
-                  <div className="bg-[#111111] border border-white/10 rounded-3xl p-6 sm:p-10 space-y-6">
+                  <div className="bg-[#111111] border border-white/10 rounded-3xl p-5 sm:p-10 space-y-6">
                     <h2 className="text-2xl font-serif font-bold text-white leading-snug">
                       Servicio de Mudanzas y Traslados de Confianza en {currentDestination?.name}
                     </h2>
@@ -1123,13 +1319,17 @@ export default function App() {
                       {destinations
                         .filter((d) => d.region === currentDestination?.region && d.slug !== activePage)
                         .map((d) => (
-                          <button
+                          <a
                             key={d.slug}
-                            onClick={() => handleNavigation(d.slug)}
-                            className="bg-white/5 hover:bg-white/10 text-slate-300 hover:text-amber-500 text-xs font-semibold py-1.5 px-3 rounded-lg border border-white/10 transition-colors cursor-pointer"
+                            href={`/mudanzas-mendoza/${d.slug}.html`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleNavigation(d.slug);
+                            }}
+                            className="bg-white/5 hover:bg-white/10 text-slate-300 hover:text-amber-500 text-xs font-semibold py-1.5 px-3 rounded-lg border border-white/10 transition-colors cursor-pointer block"
                           >
                             Mudanzas {d.name.replace(' de Mendoza', '').replace('Mendoza', '')}
-                          </button>
+                          </a>
                         ))}
                     </div>
                   </div>
