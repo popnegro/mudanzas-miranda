@@ -7,7 +7,6 @@ Allow: /
 # Disallow crawling de directorios del sistema
 Disallow: /cgi-bin/
 Disallow: /.well-known/admin/
-Disallow: /.env
 
 # Point to the canonical sitemap (unified)
 Sitemap: https://www.mudanzasmiranda.com.ar/sitemap.xml
