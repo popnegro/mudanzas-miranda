@@ -45,6 +45,12 @@ export default function SEO({
       'og:title': title,
       'og:description': description,
       'og:url': canonicalUrl,
+      'og:type': 'website',
+      'og:site_name': 'Mudanzas Miranda',
+      'og:image': 'https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg',
+      'og:image:width': '1200',
+      'og:image:height': '630',
+      'og:locale': 'es_AR',
     };
 
     Object.entries(ogTags).forEach(([property, content]) => {
@@ -57,7 +63,27 @@ export default function SEO({
       tag.setAttribute('content', content);
     });
 
-    // 5. Update JSON-LD Schemas
+    // 5. Update Twitter Card Tags
+    const twitterTags = {
+      'twitter:card': 'summary_large_image',
+      'twitter:title': title,
+      'twitter:description': description,
+      'twitter:image': 'https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg',
+      'twitter:site': '@mudanzasmiranda',
+      'twitter:creator': '@mudanzasmiranda',
+    };
+
+    Object.entries(twitterTags).forEach(([name, content]) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    });
+
+    // 6. Update JSON-LD Schemas
     const schemaId = 'seo-structured-data';
     let schemaScript = document.getElementById(schemaId) as HTMLScriptElement | null;
     if (schemaScript) {
@@ -79,6 +105,7 @@ export default function SEO({
       'image': 'https://www.mudanzasmiranda.com.ar/img/mudanzas-miranda-1200.jpg',
       'description': 'Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas con más de 20 años de experiencia.',
       'telephone': '+5492615130910',
+      'email': 'info@mudanzasmiranda.com.ar',
       'priceRange': '$$',
       'address': {
         '@type': 'PostalAddress',
@@ -114,7 +141,7 @@ export default function SEO({
       'aggregateRating': {
         '@type': 'AggregateRating',
         'ratingValue': '4.9',
-        'reviewCount': '186',
+        'reviewCount': '496',
         'bestRating': '5',
         'worstRating': '1',
       },
@@ -263,7 +290,7 @@ export default function SEO({
             'name': '¿Qué incluye el servicio básico de mudanza?',
             'acceptedAnswer': {
               '@type': 'Answer',
-              'text': 'El servicio básico incluye el camión adaptado al volumen de tu carga, chofer profesional habilitado, personal calificado para la carga y descarga de las pertenencias en origen y destino, y el uso de mantas protectoras profesionales.',
+              'text': 'El servicio básico incluye el camión adaptado al volumen de tu carga, chofer profesional habilitado, personal calificado para la carga y descarga de las pertenencias en o[...]
             },
           },
           {
@@ -289,4 +316,3 @@ export default function SEO({
 
   return null;
 }
-
