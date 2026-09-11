@@ -1,0 +1,50 @@
+name: SEO technical validation
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["seo/authority-phase-2"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: static
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: static/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Validate rating source of truth
+        working-directory: .
+        run: |
+          grep -q "RATING_VALUE = '4.9'" static/src/components/SEO.tsx
+          grep -q "REVIEW_COUNT = '496'" static/src/components/SEO.tsx
+
+      - name: Validate sitemap structure
+        working-directory: .
+        run: |
+          test "$(grep -c '<loc>' sitemap.xml)" -eq "14"
+          test "$(grep -c '<loc>' static/public/sitemap.xml)" -eq "14"
+          ! grep -q '/test.html' sitemap.xml
+          ! grep -q '/test.html' static/public/sitemap.xml
