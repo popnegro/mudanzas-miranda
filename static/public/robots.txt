@@ -1,8 +1,12 @@
-# Allow all user agents access to the site
+# Robots.txt para Mudanzas Miranda
+# Política de crawl e indexación
+
 User-agent: *
+Allow: /
 
-# Disallow crawling of system directories
+# Disallow crawling de directorios del sistema
 Disallow: /cgi-bin/
+Disallow: /.well-known/admin/
 
-# Point to the sitemap
+# Point to the canonical sitemap (unified)
 Sitemap: https://www.mudanzasmiranda.com.ar/sitemap.xml
