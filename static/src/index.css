@@ -5,33 +5,51 @@
   --font-serif: "Merriweather", ui-serif, Georgia, Cambria, serif;
 }
 
+:root {
+  color-scheme: light;
+  --miranda-primary: #9A2D00;
+  --miranda-primary-dark: #7B2400;
+  --miranda-accent: #D98B00;
+  --miranda-surface: #FFFFFF;
+  --miranda-background: #F6F7F8;
+  --miranda-background-soft: #EEF1F3;
+  --miranda-text: #24313A;
+  --miranda-text-secondary: #53606A;
+  --miranda-border: #DDE2E6;
+  --miranda-border-soft: #E7EBEE;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: var(--miranda-background-soft);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #B8C1C7;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #404040;
+  background: #8E9AA2;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  background: var(--miranda-background);
+  color-scheme: light;
 }
 
 body {
   min-width: 320px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  background: var(--miranda-background);
+  color: var(--miranda-text-secondary);
 }
 
 img {
@@ -39,12 +57,12 @@ img {
 }
 
 :focus-visible {
-  outline: 2px solid #f59e0b;
+  outline: 2px solid var(--miranda-accent);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: #f59e0b;
+  background: var(--miranda-accent);
   color: #ffffff;
 }
 
@@ -66,6 +84,141 @@ img {
 .panel-logo {
   transform: scale(0.95);
   transform-origin: left center;
+}
+
+/*
+ * Light-theme compatibility layer.
+ * The customer-facing app is Tailwind-based and historically used a dark
+ * palette directly in component class names. These narrowly scoped overrides
+ * switch the existing visual system to the approved light palette without
+ * changing layout, content, routing, or behavior.
+ */
+
+.min-h-screen[class*="bg-[#0A0A0A]"] {
+  background: var(--miranda-background) !important;
+  color: var(--miranda-text) !important;
+}
+
+section[class*="bg-[#0A0A0A]"],
+header[class*="bg-[#0A0A0A]"],
+footer[class*="bg-[#0A0A0A]"] {
+  background: var(--miranda-surface) !important;
+  color: var(--miranda-text) !important;
+}
+
+[class*="bg-[#0A0A0A]"] {
+  background-color: var(--miranda-background) !important;
+}
+
+input[class*="bg-[#0A0A0A]"],
+textarea[class*="bg-[#0A0A0A]"],
+select[class*="bg-[#0A0A0A]"] {
+  background-color: var(--miranda-surface) !important;
+  color: var(--miranda-text) !important;
+}
+
+[class*="bg-[#0D0D0D]"],
+[class*="bg-[#0B0B0B]"],
+[class*="bg-[#121212]"],
+[class*="bg-[#161616]"] {
+  background-color: var(--miranda-surface) !important;
+  color: var(--miranda-text) !important;
+}
+
+[class*="bg-white/5"],
+[class*="bg-white/10"],
+[class*="bg-white/[0.02]"] {
+  background-color: rgba(36, 49, 58, 0.045) !important;
+}
+
+[class*="border-white/10"],
+[class*="border-white/5"] {
+  border-color: var(--miranda-border) !important;
+}
+
+[class*="text-slate-100"] {
+  color: #24313A !important;
+}
+
+[class*="text-slate-200"] {
+  color: #34434D !important;
+}
+
+[class*="text-slate-300"] {
+  color: #45545E !important;
+}
+
+[class*="text-slate-400"] {
+  color: #53606A !important;
+}
+
+[class*="text-slate-500"],
+[class*="text-slate-600"] {
+  color: #68757D !important;
+}
+
+/* White text becomes charcoal on light surfaces, while CTA controls retain white. */
+.min-h-screen[class*="bg-[#0A0A0A]"] .text-white:not([class*="bg-amber-"]),
+.min-h-screen[class*="bg-[#0A0A0A]"] h1.text-white,
+.min-h-screen[class*="bg-[#0A0A0A]"] h2.text-white,
+.min-h-screen[class*="bg-[#0A0A0A]"] h3.text-white,
+.min-h-screen[class*="bg-[#0A0A0A]"] p.text-white {
+  color: var(--miranda-text) !important;
+}
+
+/* Header */
+header.sticky {
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: var(--miranda-text) !important;
+  border-color: var(--miranda-border) !important;
+  box-shadow: 0 2px 16px rgba(36, 49, 58, 0.07);
+  backdrop-filter: blur(14px);
+}
+
+header.sticky button:not([class*="bg-amber-"]),
+header.sticky a:not([class*="bg-amber-"]) {
+  color: var(--miranda-text-secondary);
+}
+
+header.sticky button:not([class*="bg-amber-"]):hover,
+header.sticky a:not([class*="bg-amber-"]):hover {
+  color: var(--miranda-text) !important;
+  background-color: rgba(36, 49, 58, 0.055) !important;
+}
+
+/* Dropdowns and mobile drawer */
+header [class*="bg-[#0D0D0D]"],
+header [class*="bg-[#0B0B0B]"] {
+  background: var(--miranda-surface) !important;
+  color: var(--miranda-text) !important;
+  box-shadow: 0 16px 40px rgba(36, 49, 58, 0.14);
+}
+
+/* Hero surface and decorative wash */
+section[class*="bg-[#0A0A0A]"] [class*="bg-[radial-gradient"] {
+  background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F6F7F8 100%) !important;
+}
+
+/* Light cards retain elevation instead of dark glass. */
+[class*="shadow-2xl"] {
+  box-shadow: 0 16px 40px rgba(36, 49, 58, 0.10) !important;
+}
+
+/* Form controls */
+input,
+textarea,
+select {
+  border-color: var(--miranda-border) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #7A858C;
+}
+
+/* Keep image overlays and media controls intentionally dark for legibility. */
+[class*="bg-black/"] {
+  color: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {
