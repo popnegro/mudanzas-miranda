@@ -12,29 +12,32 @@ on:
 permissions:
   contents: read
 
+env:
+  PAGESPEED_URL: "https://mudanzas-miranda.vercel.app/"
+
 jobs:
   pagespeed-mobile:
-    name: PageSpeed Insights · Mobile
+    name: PageSpeed Insights · Mobile · Staging
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Run PageSpeed Insights
         uses: jakepartusch/psi-action@v1.3
         with:
-          url: "https://www.mudanzasmiranda.com.ar/"
+          url: ${{ env.PAGESPEED_URL }}
           strategy: mobile
           threshold: 70
           key: ${{ secrets.PSI_API_KEY }}
 
   pagespeed-desktop:
-    name: PageSpeed Insights · Desktop
+    name: PageSpeed Insights · Desktop · Staging
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Run PageSpeed Insights
         uses: jakepartusch/psi-action@v1.3
         with:
-          url: "https://www.mudanzasmiranda.com.ar/"
+          url: ${{ env.PAGESPEED_URL }}
           strategy: desktop
           threshold: 70
           key: ${{ secrets.PSI_API_KEY }}
