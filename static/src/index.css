@@ -101,12 +101,15 @@ img {
 
 section[class*="bg-[#0A0A0A]"],
 header[class*="bg-[#0A0A0A]"],
-footer[class*="bg-[#0A0A0A]"] {
+footer[class*="bg-[#0A0A0A]"],
+section[class*="bg-[#080808]"] {
   background: var(--miranda-surface) !important;
   color: var(--miranda-text) !important;
 }
 
-[class*="bg-[#0A0A0A]"] {
+[class*="bg-[#0A0A0A]"],
+[class*="bg-[#080808]"],
+[class*="bg-[#111111]"] {
   background-color: var(--miranda-background) !important;
 }
 
@@ -120,9 +123,14 @@ select[class*="bg-[#0A0A0A]"] {
 [class*="bg-[#0D0D0D]"],
 [class*="bg-[#0B0B0B]"],
 [class*="bg-[#121212]"],
-[class*="bg-[#161616]"] {
+[class*="bg-[#161616]"],
+[class*="bg-slate-900"] {
   background-color: var(--miranda-surface) !important;
   color: var(--miranda-text) !important;
+}
+
+[class*="hover:bg-[#151515]"]:hover {
+  background-color: var(--miranda-background-soft) !important;
 }
 
 [class*="bg-white/5"],
