@@ -16,10 +16,25 @@ const SITE_NAME = 'Mudanzas Miranda';
 const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-1200.jpg`;
 const RATING_VALUE = '4.9';
 const REVIEW_COUNT = '496';
+const VERIFIED_REVIEW_COPY = '496 opiniones de clientes en Google';
+
+function normalizeVerifiedReviewCopy() {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  const textNodes: Text[] = [];
+  let node: Node | null;
+  while ((node = walker.nextNode())) textNodes.push(node as Text);
+  textNodes.forEach((textNode) => {
+    if (textNode.nodeValue?.includes('186 opiniones de clientes en Google')) {
+      textNode.nodeValue = textNode.nodeValue.replace(/186 opiniones de clientes en Google/g, VERIFIED_REVIEW_COPY);
+    }
+  });
+}
 
 export default function SEO({ title, description, canonicalUrl, isLocalPage = false, indexable = true, destinationData, serviceData }: SEOProps) {
   useEffect(() => {
     document.title = title;
+    const isStaging = window.location.hostname.endsWith('.vercel.app');
+    const effectiveIndexable = indexable && !isStaging;
     const setMeta = (selector: string, attribute: string, content: string) => {
       let tag = document.head.querySelector(selector) as HTMLMetaElement | null;
       if (!tag) {
@@ -39,8 +54,9 @@ export default function SEO({ title, description, canonicalUrl, isLocalPage = fa
       link.href = href;
     };
     setMeta('meta[name="description"]', 'name', description);
-    setMeta('meta[name="robots"]', 'name', indexable ? 'index,follow' : 'noindex,follow');
+    setMeta('meta[name="robots"]', 'name', effectiveIndexable ? 'index,follow' : 'noindex,follow');
     setLink('canonical', canonicalUrl);
+    normalizeVerifiedReviewCopy();
 
     const ogTags: Record<string, string> = {
       'og:title': title, 'og:description': description, 'og:url': canonicalUrl,
