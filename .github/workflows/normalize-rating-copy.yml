@@ -1,5 +1,8 @@
 name: Normalize verified rating copy
 
+# One-shot normalization for the verified 4.9 / 496 baseline.
+# This workflow removes itself after successful execution.
+
 on:
   push:
     branches: ["seo/authority-phase-2", "fix/verified-reputation-copy"]
