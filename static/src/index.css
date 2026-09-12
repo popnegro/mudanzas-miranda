@@ -5,18 +5,17 @@
   --font-serif: "Merriweather", ui-serif, Georgia, Cambria, serif;
 }
 
-/* Custom Scrollbar Styling for a premium feel */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A0A0A; /* Elegant Dark base */
+  background: #0A0A0A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #262626; /* Elegant Dark border/medium */
+  background: #262626;
   border-radius: 9999px;
 }
 
@@ -24,13 +23,31 @@
   background: #404040;
 }
 
-/* Base custom interactive states */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
 }
 
-/* Simple fade-in transition for page entrance */
+body {
+  min-width: 320px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 3px;
+}
+
+::selection {
+  background: #f59e0b;
+  color: #ffffff;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -46,9 +63,22 @@ html {
   animation: fadeIn 0.4s ease-out forwards;
 }
 
-/* Consistently scale the mobile drawer brand logo to 95% */
 .panel-logo {
   transform: scale(0.95);
   transform-origin: left center;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
