@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronDown, Phone, MessageSquare, Compass, ShieldAlert, Navigation, Home, Info, ArrowRight } from 'lucide-react';
+import { Menu, X, ChevronDown, MessageSquare, Compass, Navigation, Home, Info, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Destination } from '../types';
 import { servicePages } from '../data/seoPages';
@@ -9,6 +9,15 @@ interface HeaderProps {
   activePage: string;
   onNavigate: (slug: string) => void;
 }
+
+const SITEMAP_DESTINATION_SLUGS = [
+  'mudanzas-ciudad-mendoza',
+  'mudanzas-godoy-cruz',
+  'mudanzas-guaymallen',
+  'mudanzas-las-heras',
+  'mudanzas-maipu',
+  'mudanzas-lujan-de-cuyo',
+];
 
 export default function Header({ destinations, activePage, onNavigate }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,9 +30,7 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
   const [headerHeight, setHeaderHeight] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -32,10 +39,7 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
     const header = headerRef.current;
     if (!header) return;
 
-    const updateHeaderHeight = () => {
-      setHeaderHeight(header.getBoundingClientRect().height);
-    };
-
+    const updateHeaderHeight = () => setHeaderHeight(header.getBoundingClientRect().height);
     updateHeaderHeight();
 
     const resizeObserver = new ResizeObserver(updateHeaderHeight);
@@ -48,8 +52,9 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
     };
   }, []);
 
-  const granMendoza = destinations.filter((d) => d.region === 'Gran Mendoza');
-  const esteValleUco = destinations.filter((d) => d.region === 'Zona Este y Valle de Uco');
+  const sitemapDestinations = SITEMAP_DESTINATION_SLUGS
+    .map((slug) => destinations.find((d) => d.slug === slug))
+    .filter((d): d is Destination => Boolean(d));
 
   const getUrlForSlug = (slug: string) => {
     if (!slug) return '/';
@@ -77,73 +82,33 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              handleLinkClick('');
-            }}
-            className="flex-shrink-0 cursor-pointer block"
-          >
-            <div className="flex items-center">
-              <img
-                src="/img/brand-light.png"
-                alt="Mudanzas Miranda"
-                className="h-[38px] sm:h-[45.6px] w-auto object-contain block transition-transform duration-200 hover:scale-[1.02]"
-              />
-            </div>
+          <a href="/" onClick={(e) => { e.preventDefault(); handleLinkClick(''); }} className="flex-shrink-0 cursor-pointer block">
+            <img src="/img/brand-light.png" alt="Mudanzas Miranda" className="h-[38px] sm:h-[45.6px] w-auto object-contain block transition-transform duration-200 hover:scale-[1.02]" />
           </a>
 
           <nav className="hidden lg:flex items-center gap-1">
             <div className="relative">
               <button
-                onMouseEnter={() => {
-                  setIsServicesMenuOpen(true);
-                  setIsMegaMenuOpen(false);
-                }}
+                onMouseEnter={() => { setIsServicesMenuOpen(true); setIsMegaMenuOpen(false); }}
                 onClick={() => setIsServicesMenuOpen(!isServicesMenuOpen)}
-                className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-1 cursor-pointer ${
-                  servicePages.some((s) => s.slug === activePage)
-                    ? 'text-amber-500 bg-white/5'
-                    : 'text-slate-300 hover:text-white hover:bg-white/5'
-                }`}
+                className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-1 cursor-pointer ${servicePages.some((s) => s.slug === activePage) ? 'text-amber-500 bg-white/5' : 'text-slate-300 hover:text-white hover:bg-white/5'}`}
               >
                 Servicios
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isServicesMenuOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {isServicesMenuOpen && (
-                <div
-                  onMouseLeave={() => setIsServicesMenuOpen(false)}
-                  className="absolute left-0 mt-2 w-64 bg-[#0D0D0D] border border-white/10 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
-                >
+                <div onMouseLeave={() => setIsServicesMenuOpen(false)} className="absolute left-0 mt-2 w-64 bg-[#0D0D0D] border border-white/10 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                   <ul className="space-y-1">
                     {servicePages.map((s) => (
                       <li key={s.slug}>
-                        <a
-                          href={getUrlForSlug(s.slug)}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleLinkClick(s.slug);
-                          }}
-                          className={`text-xs block w-full text-left p-2.5 rounded-lg hover:bg-white/5 hover:text-white transition-all cursor-pointer ${
-                            activePage === s.slug ? 'text-amber-500 bg-white/5 font-semibold' : 'text-slate-400'
-                          }`}
-                        >
+                        <a href={getUrlForSlug(s.slug)} onClick={(e) => { e.preventDefault(); handleLinkClick(s.slug); }} className={`text-xs block w-full text-left p-2.5 rounded-lg hover:bg-white/5 hover:text-white transition-all cursor-pointer ${activePage === s.slug ? 'text-amber-500 bg-white/5 font-semibold' : 'text-slate-400'}`}>
                           {s.heroHeadline.replace(' Premium', '')}
                         </a>
                       </li>
                     ))}
                     <li className="border-t border-white/5 pt-1.5 mt-1.5">
-                      <a
-                        href="#servicios"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleLinkClick('');
-                          setTimeout(() => document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' }), 100);
-                        }}
-                        className="text-xs font-semibold text-amber-500 hover:text-amber-400 block p-2 rounded-lg hover:bg-amber-500/10 transition-all text-center"
-                      >
+                      <a href="#servicios" onClick={(e) => { e.preventDefault(); handleLinkClick(''); setTimeout(() => document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="text-xs font-semibold text-amber-500 hover:text-amber-400 block p-2 rounded-lg hover:bg-amber-500/10 transition-all text-center">
                         Ver todos los servicios
                       </a>
                     </li>
@@ -154,56 +119,26 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
 
             <div className="relative">
               <button
-                onMouseEnter={() => {
-                  setIsMegaMenuOpen(true);
-                  setIsServicesMenuOpen(false);
-                }}
+                onMouseEnter={() => { setIsMegaMenuOpen(true); setIsServicesMenuOpen(false); }}
                 onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-                className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-1 cursor-pointer ${
-                  destinations.some((d) => d.slug === activePage)
-                    ? 'text-amber-500 bg-white/5'
-                    : 'text-slate-300 hover:text-white hover:bg-white/5'
-                }`}
+                className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-1 cursor-pointer ${sitemapDestinations.some((d) => d.slug === activePage) ? 'text-amber-500 bg-white/5' : 'text-slate-300 hover:text-white hover:bg-white/5'}`}
               >
                 Destinos
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isMegaMenuOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {isMegaMenuOpen && (
-                <div
-                  onMouseLeave={() => setIsMegaMenuOpen(false)}
-                  className="absolute left-1/2 -translate-x-1/2 mt-2 w-[720px] bg-[#0D0D0D] border border-white/10 rounded-2xl shadow-2xl p-6 grid grid-cols-3 gap-6 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
-                >
-                  <div>
-                    <h4 className="text-xs font-bold text-amber-500 uppercase tracking-widest border-b border-white/10 pb-2 mb-3">Gran Mendoza</h4>
-                    <ul className="space-y-1.5">
-                      {granMendoza.map((d) => (
-                        <li key={d.slug}>
-                          <a href={getUrlForSlug(d.slug)} onClick={(e) => { e.preventDefault(); handleLinkClick(d.slug); }} className={`text-sm block w-full text-left py-1 hover:text-white transition-colors cursor-pointer ${activePage === d.slug ? 'text-amber-500 font-medium' : 'text-slate-400'}`}>{d.name}</a>
-                        </li>
-                      ))}
-                    </ul>
+                <div onMouseLeave={() => setIsMegaMenuOpen(false)} className="absolute left-1/2 -translate-x-1/2 mt-2 w-[560px] bg-[#0D0D0D] border border-white/10 rounded-2xl shadow-2xl p-6 grid grid-cols-2 gap-x-8 gap-y-5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="col-span-2">
+                    <p className="text-xs font-bold text-amber-500 uppercase tracking-widest">Destinos en Mendoza</p>
+                    <p className="text-xs text-slate-500 mt-1">Zonas prioritarias de atención y contenido local.</p>
                   </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-amber-500 uppercase tracking-widest border-b border-white/10 pb-2 mb-3">Valle de Uco y Este</h4>
-                    <ul className="space-y-1.5">
-                      {esteValleUco.map((d) => (
-                        <li key={d.slug}>
-                          <a href={getUrlForSlug(d.slug)} onClick={(e) => { e.preventDefault(); handleLinkClick(d.slug); }} className={`text-sm block w-full text-left py-1 hover:text-white transition-colors cursor-pointer ${activePage === d.slug ? 'text-amber-500 font-medium' : 'text-slate-400'}`}>{d.name}</a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-amber-500 uppercase tracking-widest border-b border-white/10 pb-2 mb-3">Sur de Mendoza</h4>
-                    <ul className="space-y-1.5">
-                      {destinations.filter((d) => d.region === 'Sur de Mendoza').map((d) => (
-                        <li key={d.slug}>
-                          <a href={getUrlForSlug(d.slug)} onClick={(e) => { e.preventDefault(); handleLinkClick(d.slug); }} className={`text-sm block w-full text-left py-1 hover:text-white transition-colors cursor-pointer ${activePage === d.slug ? 'text-amber-500 font-medium' : 'text-slate-400'}`}>{d.name}</a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {sitemapDestinations.map((d) => (
+                    <a key={d.slug} href={getUrlForSlug(d.slug)} onClick={(e) => { e.preventDefault(); handleLinkClick(d.slug); }} className={`text-sm flex items-center gap-2 py-1.5 hover:text-white transition-colors cursor-pointer ${activePage === d.slug ? 'text-amber-500 font-medium' : 'text-slate-400'}`}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500/50 flex-shrink-0" />
+                      {d.name}
+                    </a>
+                  ))}
                 </div>
               )}
             </div>
@@ -273,10 +208,10 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
                   </button>
                   <AnimatePresence initial={false}>
                     {mobileDestinationsOpen && (
-                      <motion.div initial={{ height: 0, opacity: 1 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
-                        <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 px-4 py-2 bg-white/[0.02] rounded-xl mt-1 max-h-[200px] overflow-y-auto scrollbar-thin border border-white/5">
-                          {destinations.map((d) => (
-                            <a key={d.slug} href={getUrlForSlug(d.slug)} onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); handleLinkClick(d.slug); }} className={`text-left text-xs py-1.5 px-2 rounded-lg transition-colors cursor-pointer block truncate ${activePage === d.slug ? 'text-amber-500 bg-white/5 font-semibold' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
+                        <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 px-4 py-2 bg-white/[0.02] rounded-xl mt-1 border border-white/5">
+                          {sitemapDestinations.map((d) => (
+                            <a key={d.slug} href={getUrlForSlug(d.slug)} onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); handleLinkClick(d.slug); }} className={`text-left text-xs py-2 px-2 rounded-lg transition-colors cursor-pointer block truncate ${activePage === d.slug ? 'text-amber-500 bg-white/5 font-semibold' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>
                               {d.name.replace('Mudanzas en ', '').replace(' de Mendoza', '').replace('Mendoza', '')}
                             </a>
                           ))}
