@@ -20,6 +20,8 @@ const REVIEW_COUNT = '496';
 export default function SEO({ title, description, canonicalUrl, isLocalPage = false, indexable = true, destinationData, serviceData }: SEOProps) {
   useEffect(() => {
     document.title = title;
+    const isStaging = window.location.hostname.endsWith('.vercel.app');
+    const effectiveIndexable = indexable && !isStaging;
     const setMeta = (selector: string, attribute: string, content: string) => {
       let tag = document.head.querySelector(selector) as HTMLMetaElement | null;
       if (!tag) {
@@ -39,7 +41,7 @@ export default function SEO({ title, description, canonicalUrl, isLocalPage = fa
       link.href = href;
     };
     setMeta('meta[name="description"]', 'name', description);
-    setMeta('meta[name="robots"]', 'name', indexable ? 'index,follow' : 'noindex,follow');
+    setMeta('meta[name="robots"]', 'name', effectiveIndexable ? 'index,follow' : 'noindex,follow');
     setLink('canonical', canonicalUrl);
 
     const ogTags: Record<string, string> = {
