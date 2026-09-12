@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail, Clock, Instagram, Facebook } from 'lucide-react';
+import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react';
 import { Destination } from '../types';
 import { servicePages } from '../data/seoPages';
 
@@ -7,8 +7,19 @@ interface FooterProps {
   onNavigate: (slug: string) => void;
 }
 
+const SITEMAP_DESTINATION_SLUGS = [
+  'mudanzas-ciudad-mendoza',
+  'mudanzas-godoy-cruz',
+  'mudanzas-guaymallen',
+  'mudanzas-las-heras',
+  'mudanzas-maipu',
+  'mudanzas-lujan-de-cuyo',
+];
+
 export default function Footer({ destinations, onNavigate }: FooterProps) {
-  const sortedDestinations = [...destinations].sort((a, b) => a.name.localeCompare(b.name));
+  const sitemapDestinations = SITEMAP_DESTINATION_SLUGS
+    .map((slug) => destinations.find((d) => d.slug === slug))
+    .filter((d): d is Destination => Boolean(d));
 
   const handleLinkClick = (slug: string) => {
     onNavigate(slug);
@@ -24,7 +35,7 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
               <img src="/img/brand-light.png" alt="Mudanzas Miranda" className="h-10 w-auto object-contain block transition-transform duration-200 hover:scale-[1.02]" />
             </a>
             <p className="text-sm text-slate-400 leading-relaxed">Más de 20 años brindando tranquilidad en mudanzas residenciales, comerciales y acarreos profesionales en Mendoza y el país.</p>
-            <a href="/nosotros.html" onClick={(e) => { e.preventDefault(); handleLinkClick('nosotros'); }} className="text-amber-500 hover:text-amber-400 text-sm font-semibold flex items-center gap-1 cursor-pointer transition-colors pt-1">Conocé más Sobre Nosotros →</a>
+            <a href="/nosotros.html" onClick={(e) => { e.preventDefault(); handleLinkClick('nosotros'); }} className="text-amber-500 hover:text-amber-400 text-sm font-semibold flex items-center gap-1 cursor-pointer transition-colors pt-1">Conocé más sobre nosotros →</a>
           </div>
 
           <div className="space-y-3 text-sm">
@@ -60,13 +71,15 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
         </div>
 
         <div className="space-y-4 md:col-span-2 lg:col-span-2">
-          <h4 className="text-sm font-bold text-white uppercase tracking-wider">Destinos Frecuentes</h4>
-          <p className="text-xs text-slate-400 leading-relaxed">Traslados y transportes especializados por departamento:</p>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs">
-            {sortedDestinations.map((d) => (
-              <a key={d.slug} href={`/mudanzas-mendoza/${d.slug}.html`} onClick={(e) => { e.preventDefault(); handleLinkClick(d.slug); }} className="group flex items-center gap-1.5 text-left text-slate-300 hover:text-amber-500 transition-all duration-200 hover:translate-x-0.5 cursor-pointer font-medium">
+          <div>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Destinos en Mendoza</h4>
+            <p className="text-xs text-slate-400 leading-relaxed mt-2">Atendemos mudanzas en las principales zonas de Mendoza.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+            {sitemapDestinations.map((d) => (
+              <a key={d.slug} href={`/mudanzas-mendoza/${d.slug}.html`} onClick={(e) => { e.preventDefault(); handleLinkClick(d.slug); }} className="group flex items-center gap-2 text-left text-slate-300 hover:text-amber-500 transition-all duration-200 hover:translate-x-0.5 cursor-pointer font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-500/40 group-hover:bg-amber-500 transition-all duration-200 flex-shrink-0" />
-                <span className="truncate">Mudanzas {d.name.replace(' de Mendoza', '').replace('Mendoza', '')}</span>
+                <span>Mudanzas {d.name.replace(' de Mendoza', '').replace('Mendoza', '')}</span>
               </a>
             ))}
           </div>
