@@ -2,7 +2,7 @@ name: Normalize verified rating copy
 
 on:
   push:
-    branches: ["seo/authority-phase-2"]
+    branches: ["seo/authority-phase-2", "fix/verified-reputation-copy"]
 
 permissions:
   contents: write
