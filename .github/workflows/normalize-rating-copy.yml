@@ -1,18 +1,14 @@
 name: Normalize verified rating copy
 
-# One-shot normalization for the verified 4.9 / 496 baseline.
-# This workflow removes itself after successful execution.
-
 on:
   push:
-    branches: ["seo/authority-phase-2", "fix/verified-reputation-copy"]
+    branches: ["fix/verified-reputation-copy"]
 
 permissions:
   contents: write
 
 jobs:
   normalize:
-    if: ${{ !contains(github.event.head_commit.message, 'chore(seo): normalize verified rating copy') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,8 +26,3 @@ jobs:
             git commit -m 'chore(seo): normalize verified rating copy'
             git push
           fi
-      - name: Remove one-shot workflow
-        run: |
-          git rm .github/workflows/normalize-rating-copy.yml
-          git commit -m 'chore(ci): remove one-shot rating workflow'
-          git push
