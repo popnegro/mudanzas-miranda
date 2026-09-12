@@ -77,7 +77,6 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div className="text-center sm:text-left">
             <p>© 2026 Mudanzas Miranda. Armada Argentina 584, Mendoza, AR.</p>
-            <p className="mt-0.5 text-[10px] text-slate-600">Desarrollado en React & Tailwind con optimización extrema para Lighthouse y SEO local.</p>
           </div>
           <div className="flex items-center gap-4">
             <a href="https://www.instagram.com/mudanzasmiranda/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-white hover:bg-white/5 transition-all" aria-label="Instagram de Mudanzas Miranda"><Instagram className="w-5 h-5 text-amber-500" /></a>
