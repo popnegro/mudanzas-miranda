@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown, Phone, MessageSquare, Compass, ShieldAlert, Navigation, Home, Info, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Destination } from '../types';
@@ -17,7 +17,8 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileDestinationsOpen, setMobileDestinationsOpen] = useState(false);
-
+  const headerRef = useRef<HTMLElement | null>(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
 
   // Detect scroll to style navbar
   useEffect(() => {
@@ -30,6 +31,28 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Keep the mobile drawer aligned with the real header height.
+  useEffect(() => {
+    const header = headerRef.current;
+
+    if (!header) return;
+
+    const updateHeaderHeight = () => {
+      setHeaderHeight(header.getBoundingClientRect().height);
+    };
+
+    updateHeaderHeight();
+
+    const resizeObserver = new ResizeObserver(updateHeaderHeight);
+    resizeObserver.observe(header);
+    window.addEventListener('resize', updateHeaderHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', updateHeaderHeight);
+    };
   }, []);
 
   // Group destinations by region for the mega-menu
@@ -61,6 +84,7 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
 
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         isScrolled
           ? 'bg-[#0A0A0A]/95 backdrop-blur-md shadow-lg border-b border-white/10 py-3'
@@ -80,10 +104,9 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
           >
             <div className="flex items-center">
               <img
-                src="https://www.mudanzasmiranda.com.ar/img/brand-light.png"
+                src="/img/brand-light.png"
                 alt="Mudanzas Miranda"
                 className="h-[38px] sm:h-[45.6px] w-auto object-contain block transition-transform duration-200 hover:scale-[1.02]"
-                referrerPolicy="no-referrer"
               />
             </div>
           </a>
@@ -309,7 +332,8 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
               animate={{ opacity: 0.6 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="lg:hidden fixed inset-0 top-[65px] bg-black z-30"
+              className="lg:hidden fixed inset-x-0 bottom-0 bg-black z-30"
+              style={{ top: `${headerHeight}px` }}
             />
 
             {/* Sidebar Drawer */}
@@ -318,21 +342,18 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="lg:hidden fixed inset-y-0 right-0 top-[65px] w-full max-w-sm bg-[#0B0B0B]/95 backdrop-blur-xl z-40 flex flex-col p-6 overflow-y-auto border-l border-white/10 shadow-2xl"
+              className="lg:hidden fixed right-0 bottom-0 w-full max-w-sm bg-[#0B0B0B]/95 backdrop-blur-xl z-40 flex flex-col p-6 overflow-y-auto border-l border-white/10 shadow-2xl"
+              style={{ top: `${headerHeight}px` }}
             >
-              {/* Brand Header with explicit fixed width parent container for .panel-logo to avoid layout errors */}
+              {/* Brand Header */}
               <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-4">
                 <div className="w-[180px] h-[38px] flex-shrink-0 relative overflow-hidden">
                   <img
-                    src="https://www.mudanzasmiranda.com.ar/img/brand-light.png"
+                    src="/img/brand-light.png"
                     alt="Mudanzas Miranda"
                     className="panel-logo h-[38px] w-auto object-contain block"
-                    referrerPolicy="no-referrer"
                   />
                 </div>
-                <span className="text-[10px] text-slate-400 font-medium uppercase tracking-widest">
-                  Premium
-                </span>
               </div>
 
               <nav className="flex flex-col gap-1.5 flex-1">
