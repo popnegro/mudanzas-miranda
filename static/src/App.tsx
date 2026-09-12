@@ -278,7 +278,7 @@ export default function App() {
                                   ))}
                                 </div>
                               </div>
-                              <p className="text-[11px] text-slate-400 font-medium">186 opiniones de clientes en Google</p>
+                              <p className="text-[11px] text-slate-400 font-medium">496 opiniones de clientes en Google</p>
                             </div>
                           </motion.div>
 

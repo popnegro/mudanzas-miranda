@@ -145,7 +145,7 @@ Sitemap: https://www.mudanzasmiranda.com.ar/sitemap.xml
 1. **MovingCompany** (principal) ✅
    - name, url, logo, telephone, address, geo
    - openingHoursSpecification (Lun-Vie 8-20, Sáb 9-14)
-   - aggregateRating: 4.9/5, 186 reviews
+   - aggregateRating: 4.9/5, 496 reviews
 
 2. **LocalBusiness** (por localidad) ✅
    - Por cada `/mudanzas-mendoza/{slug}`
@@ -180,7 +180,7 @@ Sitemap: https://www.mudanzasmiranda.com.ar/sitemap.xml
 ```
 1. Hero Section
    - H1: "Mudanzas en Mendoza"
-   - Rating badge: 4.9/5 (186 reviews) ✅ VERIFIED
+   - Rating badge: 4.9/5 (496 reviews) ✅ VERIFIED
    - CTAs: "Cotizar", "WhatsApp"
 
 2. Trust & Features (3 tarjetas)
