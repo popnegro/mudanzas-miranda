@@ -1,0 +1,132 @@
+/* Full-bleed homepage hero: editorial image-first treatment */
+main > div > section.relative[class*="bg-[#0A0A0A]"] {
+  min-height: calc(100svh - 72px);
+  height: min(860px, calc(100svh - 72px));
+  padding: 0 !important;
+  display: flex;
+  align-items: stretch;
+  isolation: isolate;
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] > div[class*="bg-[radial-gradient"] {
+  display: none;
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] > div[class*="bg-amber-500/5"] {
+  display: none;
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 0 5vw;
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid > div[class*="col-span-12"][class*="lg:col-span-6"].relative.flex.justify-center {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid > div[class*="col-span-12"][class*="lg:col-span-6"].relative.flex.justify-center > div.relative.w-full {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] div[class*="aspect-[4/3]"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] div[class*="aspect-[4/3]"] img {
+  object-position: center;
+  filter: saturate(.92) contrast(1.02);
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] div[class*="aspect-[4/3]"] > div.bg-gradient-to-t {
+  background: linear-gradient(90deg, rgba(8,12,14,.76) 0%, rgba(8,12,14,.46) 42%, rgba(8,12,14,.12) 76%, rgba(8,12,14,.18) 100%) !important;
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid > div[class*="col-span-12"].space-y-6 {
+  position: relative;
+  z-index: 10;
+  width: min(680px, 100%);
+  padding-block: clamp(72px, 10vh, 120px);
+  text-shadow: 0 2px 18px rgba(0,0,0,.28);
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] div.group\/rating {
+  z-index: 12;
+  pointer-events: auto;
+}
+
+main > div > section.relative[class*="bg-[#0A0A0A]"] button[aria-label="Imagen anterior"],
+main > div > section.relative[class*="bg-[#0A0A0A]"] button[aria-label="Imagen siguiente"] {
+  pointer-events: auto;
+}
+
+@media (max-width: 1023px) {
+  main > div > section.relative[class*="bg-[#0A0A0A]"] {
+    min-height: min(760px, calc(100svh - 64px));
+    height: min(760px, calc(100svh - 64px));
+  }
+
+  main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl {
+    padding: 0 1.5rem;
+  }
+
+  main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid > div[class*="col-span-12"].space-y-6 {
+    width: min(620px, 100%);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  main > div > section.relative[class*="bg-[#0A0A0A]"] div[class*="aspect-[4/3]"] > div.bg-gradient-to-t {
+    background: linear-gradient(180deg, rgba(8,12,14,.18) 0%, rgba(8,12,14,.54) 55%, rgba(8,12,14,.82) 100%) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  main > div > section.relative[class*="bg-[#0A0A0A]"] {
+    min-height: calc(100svh - 60px);
+    height: calc(100svh - 60px);
+  }
+
+  main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl {
+    padding: 0 1rem;
+  }
+
+  main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid > div[class*="col-span-12"].space-y-6 {
+    padding-block: 88px 72px;
+  }
+
+  main > div > section.relative[class*="bg-[#0A0A0A]"] div.group\/rating {
+    top: 16px;
+    left: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main > div > section.relative[class*="bg-[#0A0A0A]"] img {
+    transition: none !important;
+  }
+}
