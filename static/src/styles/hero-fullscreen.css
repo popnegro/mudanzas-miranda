@@ -1,5 +1,6 @@
-/* Full-bleed homepage hero: editorial image-first treatment */
+/* Home-only hero treatment: the carousel is the section background. */
 main > div > section.relative[class*="bg-[#0A0A0A]"] {
+  position: relative;
   min-height: calc(100svh - 72px);
   height: min(860px, calc(100svh - 72px));
   padding: 0 !important;
@@ -8,15 +9,15 @@ main > div > section.relative[class*="bg-[#0A0A0A]"] {
   isolation: isolate;
 }
 
-main > div > section.relative[class*="bg-[#0A0A0A]"] > div[class*="bg-[radial-gradient"] {
-  display: none;
-}
-
+/* Remove the previous decorative dark layers; photography provides the visual field. */
+main > div > section.relative[class*="bg-[#0A0A0A]"] > div[class*="bg-[radial-gradient"],
 main > div > section.relative[class*="bg-[#0A0A0A]"] > div[class*="bg-amber-500/5"] {
   display: none;
 }
 
+/* Keep the content container constrained while allowing the background slide to span the hero. */
 main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl {
+  position: static;
   width: 100%;
   max-width: 1440px;
   margin-inline: auto;
@@ -24,17 +25,20 @@ main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl {
 }
 
 main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid {
-  position: relative;
+  position: static;
+  min-height: calc(100svh - 72px);
   height: 100%;
   display: flex;
   align-items: center;
 }
 
+/* The existing carousel DOM becomes the full-bleed background layer of the hero section. */
 main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid > div[class*="col-span-12"][class*="lg:col-span-6"].relative.flex.justify-center {
   position: absolute;
   inset: 0;
   width: 100%;
   max-width: none;
+  height: 100%;
   z-index: 0;
   display: block;
   pointer-events: none;
@@ -59,28 +63,32 @@ main > div > section.relative[class*="bg-[#0A0A0A]"] div[class*="aspect-[4/3]"] 
 
 main > div > section.relative[class*="bg-[#0A0A0A]"] div[class*="aspect-[4/3]"] img {
   object-position: center;
-  filter: saturate(.92) contrast(1.02);
+  filter: saturate(.94) contrast(1.03);
 }
 
+/* Left-to-right readability gradient: image remains visible on the right, text stays anchored left. */
 main > div > section.relative[class*="bg-[#0A0A0A]"] div[class*="aspect-[4/3]"] > div.bg-gradient-to-t {
-  background: linear-gradient(90deg, rgba(8,12,14,.76) 0%, rgba(8,12,14,.46) 42%, rgba(8,12,14,.12) 76%, rgba(8,12,14,.18) 100%) !important;
+  background: linear-gradient(90deg, rgba(7,10,12,.84) 0%, rgba(7,10,12,.68) 30%, rgba(7,10,12,.32) 58%, rgba(7,10,12,.08) 100%) !important;
 }
 
+/* Content remains the foreground layer and stays left-aligned. */
 main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid > div[class*="col-span-12"].space-y-6 {
   position: relative;
   z-index: 10;
   width: min(680px, 100%);
   padding-block: clamp(72px, 10vh, 120px);
-  text-shadow: 0 2px 18px rgba(0,0,0,.28);
+  text-align: left;
+  text-shadow: 0 2px 18px rgba(0,0,0,.3);
 }
 
+/* Rating remains attached to the visual but never blocks the main CTA. */
 main > div > section.relative[class*="bg-[#0A0A0A]"] div.group\/rating {
   z-index: 12;
   pointer-events: auto;
 }
 
 main > div > section.relative[class*="bg-[#0A0A0A]"] button[aria-label="Imagen anterior"],
-main > div > section.relative[class*="bg-[#0A0A0A]"] button[aria-label="Imagen siguiente"] {
+main > div > section.relative[class*="bg-[#0A0A0A]"] button[aria-label="Siguiente imagen"] {
   pointer-events: auto;
 }
 
@@ -90,18 +98,22 @@ main > div > section.relative[class*="bg-[#0A0A0A]"] button[aria-label="Imagen s
     height: min(760px, calc(100svh - 64px));
   }
 
+  main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid {
+    min-height: min(760px, calc(100svh - 64px));
+  }
+
   main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl {
     padding: 0 1.5rem;
   }
 
   main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid > div[class*="col-span-12"].space-y-6 {
     width: min(620px, 100%);
-    margin-inline: auto;
-    text-align: center;
+    margin-inline: 0;
+    text-align: left;
   }
 
   main > div > section.relative[class*="bg-[#0A0A0A]"] div[class*="aspect-[4/3]"] > div.bg-gradient-to-t {
-    background: linear-gradient(180deg, rgba(8,12,14,.18) 0%, rgba(8,12,14,.54) 55%, rgba(8,12,14,.82) 100%) !important;
+    background: linear-gradient(90deg, rgba(7,10,12,.82) 0%, rgba(7,10,12,.62) 42%, rgba(7,10,12,.18) 100%) !important;
   }
 }
 
@@ -111,12 +123,23 @@ main > div > section.relative[class*="bg-[#0A0A0A]"] button[aria-label="Imagen s
     height: calc(100svh - 60px);
   }
 
+  main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid {
+    min-height: calc(100svh - 60px);
+  }
+
   main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl {
     padding: 0 1rem;
   }
 
   main > div > section.relative[class*="bg-[#0A0A0A]"] > div.max-w-7xl > div.grid > div[class*="col-span-12"].space-y-6 {
     padding-block: 88px 72px;
+    width: min(100%, 560px);
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  main > div > section.relative[class*="bg-[#0A0A0A]"] div[class*="aspect-[4/3]"] > div.bg-gradient-to-t {
+    background: linear-gradient(90deg, rgba(7,10,12,.88) 0%, rgba(7,10,12,.68) 52%, rgba(7,10,12,.3) 100%) !important;
   }
 
   main > div > section.relative[class*="bg-[#0A0A0A]"] div.group\/rating {
