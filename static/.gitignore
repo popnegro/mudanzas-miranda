@@ -6,3 +6,7 @@ coverage/
 *.log
 .env*
 !.env.example
+# Generated multi-page SEO entry points
+/nosotros.html
+/servicios/
+/mudanzas-mendoza/

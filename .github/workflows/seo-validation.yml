@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: ["main"]
   push:
-    branches: ["seo/authority-phase-2"]
+    branches: ["seo/authority-phase-2", "seo/p0-html-jsonld-geo"]
 
 permissions:
   contents: read
@@ -34,6 +34,9 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Audit 14 canonical SEO/GEO entry points
+        run: npm run audit:static-seo
 
       - name: Validate rating source of truth
         working-directory: .
