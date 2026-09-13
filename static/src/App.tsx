@@ -42,7 +42,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import QuoteForm from './components/QuoteForm';
 import RefactorDashboard from './components/RefactorDashboard';
-import PhotoCarousel from './components/PhotoCarousel';
 
 // Helper to map Lucide icon names to React components
 const IconMap: Record<string, React.ComponentType<any>> = {
@@ -57,17 +56,17 @@ const IconMap: Record<string, React.ComponentType<any>> = {
 const HERO_CAROUSEL_SLIDES = [
   {
     id: 'flota',
-    src: '/img/camiones-mudanzas-miranda.webp',
+    src: '/img/mudanzas-miranda-camiones.webp',
     alt: 'Camiones profesionales de Mudanzas Miranda estacionados listos para brindar servicio en Mendoza.',
   },
   {
     id: 'residencial',
-    src: '/img/mudanza-residencial-1200.webp',
+    src: '/img/mudanzas-miranda-embalaje.webp',
     alt: 'Operarios realizando embalaje cuidadoso de muebles para una mudanza en un departamento de Mendoza.',
   },
   {
     id: 'equipo',
-    src: '/img/mudanzas-miranda-1200.webp',
+    src: '/img/mudanzas-miranda-residencial.webp',
     alt: 'Equipo de estibadores de Mudanzas Miranda sonrientes al realizar una mudanza profesional en Mendoza.',
   },
 ];
@@ -99,10 +98,10 @@ export default function App() {
       const slugCandidate = htmlMatch
         ? htmlMatch[1]
         : serviceMatch
-        ? serviceMatch[1]
-        : simpleMatch
-        ? simpleMatch[1]
-        : '';
+          ? serviceMatch[1]
+          : simpleMatch
+            ? simpleMatch[1]
+            : '';
 
       const matchedDestination = destinations.find((d) => d.slug === slugCandidate);
       const matchedService = servicePages.find((s) => s.slug === slugCandidate);
@@ -220,11 +219,11 @@ export default function App() {
                     <div className="col-span-12 lg:col-span-6 space-y-6 text-center lg:text-left">
                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-500 text-xs font-bold uppercase tracking-wider">
                         <Truck className="w-4 h-4 animate-bounce" />
-                        Mudanzas Miranda Mendoza
+                        Mudanzas en Mendoza
                       </div>
 
                       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight tracking-tight">
-                        Mudanzas en Mendoza
+                        Mudanzas Miranda
                       </h1>
                       <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                         Con <strong>Mudanzas Miranda</strong>, dejamos atrás el caos de las mudanzas.
@@ -256,10 +255,10 @@ export default function App() {
                       <div className="relative w-full max-w-lg">
                         {/* Floating Stars Popover/Badge with Hover/Tap Tooltip */}
                         <div className="absolute -top-6 left-4 sm:-left-6 z-20 group/rating">
-                          <motion.div 
+                          <motion.div
                             initial={{ opacity: 0, y: 15 }}
-                            animate={{ 
-                              opacity: 1, 
+                            animate={{
+                              opacity: 1,
                               y: 0,
                               transition: { duration: 0.6, delay: 0.2 }
                             }}
@@ -278,18 +277,9 @@ export default function App() {
                                   ))}
                                 </div>
                               </div>
-                              <p className="text-[11px] text-slate-400 font-medium">496 opiniones de clientes en Google</p>
+                              <p className="text-[11px] text-slate-400 font-medium">597 opiniones de clientes en Google</p>
                             </div>
                           </motion.div>
-
-                          {/* Interactive Excerpt Tooltip */}
-                          <div className="absolute top-full left-0 mt-2 w-[260px] sm:w-72 bg-[#121212]/95 backdrop-blur-md border border-white/10 p-3.5 rounded-2xl shadow-2xl opacity-0 scale-95 group-hover/rating:opacity-100 group-hover/rating:scale-100 transition-all duration-200 pointer-events-none z-30">
-                            <p className="text-xs text-amber-400 font-bold mb-1">⭐ "Excelente servicio"</p>
-                            <p className="text-[11px] text-slate-300 italic leading-relaxed">
-                              "Puntuales, súper cuidadosos con el embalaje de la vajilla y muebles. ¡100% recomendados en Mendoza!"
-                            </p>
-                            <p className="text-[10px] text-slate-500 mt-1.5 text-right">— Carlos G., Mendoza Ciudad</p>
-                          </div>
                         </div>
 
                         {/* Image Frame with Carousel */}
@@ -325,7 +315,7 @@ export default function App() {
                           >
                             <ChevronLeft className="w-5 h-5" />
                           </button>
-                          
+
                           <button
                             onClick={(e) => {
                               e.preventDefault();
@@ -346,11 +336,10 @@ export default function App() {
                                   e.preventDefault();
                                   setHeroIndex(idx);
                                 }}
-                                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                  idx === heroIndex 
-                                    ? "bg-amber-500 w-4" 
-                                    : "bg-white/50 hover:bg-white"
-                                }`}
+                                className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === heroIndex
+                                  ? "bg-amber-500 w-4"
+                                  : "bg-white/50 hover:bg-white"
+                                  }`}
                                 aria-label={`Ir a la imagen ${idx + 1}`}
                               />
                             ))}
@@ -367,7 +356,7 @@ export default function App() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
                     <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
-                      Tu mudanza en manos de expertos
+                      Tu empresa de mudanzas en Mendoza
                     </h2>
                     <p className="text-slate-400 text-base leading-relaxed">
                       La tranquilidad de nuestros clientes es nuestra absoluta prioridad. Por eso, combinamos más de 20 años de experiencia, camiones equipados propios y un equipo profesional sumamente cuidadoso.
@@ -460,11 +449,10 @@ export default function App() {
                           <button
                             key={svc.id}
                             onClick={() => setActiveServiceTab(svc.id)}
-                            className={`flex items-center gap-3 px-5 py-4 rounded-xl text-left font-bold text-sm transition-all whitespace-nowrap lg:whitespace-normal cursor-pointer ${
-                              activeServiceTab === svc.id
-                                ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/10'
-                                : 'bg-[#111111] hover:bg-[#151515] text-slate-300 hover:text-white border border-white/10'
-                            }`}
+                            className={`flex items-center gap-3 px-5 py-4 rounded-xl text-left font-bold text-sm transition-all whitespace-nowrap lg:whitespace-normal cursor-pointer ${activeServiceTab === svc.id
+                              ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/10'
+                              : 'bg-[#111111] hover:bg-[#151515] text-slate-300 hover:text-white border border-white/10'
+                              }`}
                           >
                             <IconComponent className="w-5 h-5 flex-shrink-0" />
                             <span>{svc.shortTitle}</span>
@@ -562,7 +550,7 @@ export default function App() {
                   </div>
 
                   {filteredDestinations.length === 0 ? (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="text-center py-12 bg-[#111111] border border-white/5 rounded-3xl max-w-2xl mx-auto px-6 space-y-4 shadow-xl"
@@ -618,9 +606,6 @@ export default function App() {
                   )}
                 </div>
               </section>
-
-              {/* Real Photo Gallery Showcase */}
-              <PhotoCarousel />
 
               {/* Testimonials Review Section */}
               <section className="py-20 bg-[#0A0A0A]">
@@ -722,9 +707,8 @@ export default function App() {
                         >
                           <span className="text-base sm:text-lg">{faq.question}</span>
                           <ChevronDown
-                            className={`w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0 ml-4 ${
-                              openFaq === faq.id ? 'rotate-180 text-amber-500' : ''
-                            }`}
+                            className={`w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0 ml-4 ${openFaq === faq.id ? 'rotate-180 text-amber-500' : ''
+                              }`}
                           />
                         </button>
 
@@ -817,7 +801,7 @@ export default function App() {
               {/* Institutional Sections: Historia, Misión, Valores */}
               <section className="py-20 bg-[#0D0D0D]">
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-                  
+
                   {/* Grid for Historia & Misión */}
                   <div className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8 md:gap-12">
                     {/* HISTORIA */}
@@ -961,7 +945,7 @@ export default function App() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-wider">
                     <Award className="w-4 h-4" />
-                    Servicio Premium Miranda
+                    Servicios Mudanza Miranda
                   </div>
 
                   <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight tracking-tight max-w-4xl mx-auto">
@@ -988,7 +972,7 @@ export default function App() {
                       className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-2xl cursor-pointer"
                     >
                       <Phone className="w-5 h-5 text-amber-500" />
-                      Llamar un Asesor
+                      Contactar por Whatsapp
                     </a>
                   </div>
                 </div>
@@ -998,11 +982,11 @@ export default function App() {
               <section className="relative isolate py-8 sm:py-12 overflow-hidden bg-[#0A0A0A] border-b border-white/5">
                 {/* Visual Ambient Glows */}
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-amber-500/5 blur-[100px] rounded-full -z-10 pointer-events-none" />
-                
+
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="bg-[#111111] border border-white/10 rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                      
+
                       {/* Image Column */}
                       <div className="col-span-12 lg:col-span-7 relative rounded-2xl overflow-hidden border border-white/10 shadow-lg aspect-[16/10] sm:aspect-[16/9]">
                         <img
@@ -1015,7 +999,7 @@ export default function App() {
                           loading="lazy"
                         />
                       </div>
-                      
+
                       {/* Content Column (No longer covering the image) */}
                       <div className="col-span-12 lg:col-span-5 space-y-5 text-left">
                         <div className="space-y-3">
@@ -1029,7 +1013,7 @@ export default function App() {
                             Unidades habilitadas por la CNRT, acondicionadas con sistemas de amarre, mantas protectoras y seguimiento satelital constante para asegurar que cada bulto viaje con máxima protección en el Gran Mendoza y toda la provincia.
                           </p>
                         </div>
-                        
+
                         <div className="pt-2 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
                           <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl w-fit">
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -1038,7 +1022,7 @@ export default function App() {
                           <span className="text-xs text-slate-400 font-mono">Seguimiento GPS 24/7</span>
                         </div>
                       </div>
-                      
+
                     </div>
                   </div>
                 </div>
@@ -1189,7 +1173,7 @@ export default function App() {
                       href="#form"
                       className="w-full sm:w-auto flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-lg shadow-amber-600/10 cursor-pointer"
                     >
-                      Solicitar Presupuesto Especializado
+                      Solicitar Presupuesto
                     </a>
                     <a
                       href={`https://wa.me/5492615130910?text=Hola%20Mudanzas%20Miranda,%20quiero%20cotizar%20una%20mudanza%20para%20${encodeURIComponent(
@@ -1210,11 +1194,11 @@ export default function App() {
               <section className="relative isolate py-8 sm:py-12 overflow-hidden bg-[#0A0A0A] border-b border-white/5">
                 {/* Visual Ambient Glows */}
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-amber-500/5 blur-[100px] rounded-full -z-10 pointer-events-none" />
-                
+
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="bg-[#111111] border border-white/10 rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                      
+
                       {/* Image Column */}
                       <div className="col-span-12 lg:col-span-7 relative rounded-2xl overflow-hidden border border-white/10 shadow-lg aspect-[16/10] sm:aspect-[16/9]">
                         <img
@@ -1227,7 +1211,7 @@ export default function App() {
                           loading="lazy"
                         />
                       </div>
-                      
+
                       {/* Content Column (No longer covering the image) */}
                       <div className="col-span-12 lg:col-span-5 space-y-5 text-left">
                         <div className="space-y-3">
@@ -1241,7 +1225,7 @@ export default function App() {
                             Unidades habilitadas por la CNRT, acondicionadas con sistemas de amarre, mantas protectoras y seguimiento satelital constante para asegurar que cada bulto viaje con máxima protección en el Gran Mendoza y toda la provincia.
                           </p>
                         </div>
-                        
+
                         <div className="pt-2 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
                           <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl w-fit">
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -1250,7 +1234,7 @@ export default function App() {
                           <span className="text-xs text-slate-400 font-mono">Seguimiento GPS 24/7</span>
                         </div>
                       </div>
-                      
+
                     </div>
                   </div>
                 </div>

@@ -10,7 +10,7 @@ const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 const SITE_NAME = 'Mudanzas Miranda';
 const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-1200.jpg`;
 const RATING_VALUE = '4.9';
-const REVIEW_COUNT = '496';
+const REVIEW_COUNT = '597';
 
 const strategicDestinationSlugs = [
   'mudanzas-ciudad-mendoza',

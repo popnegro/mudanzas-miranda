@@ -49,7 +49,7 @@ export const services: Service[] = [
     icon: 'Warehouse',
     image: '/img/mudanza-guardamuebles-800.webp',
     alt: 'Depósito de guardamuebles limpio con unidades de almacenamiento seguras.',
-    ctaText: 'Reservar Espacio Guardamuebles'
+    ctaText: 'Consultar disponibilidad'
   },
   {
     id: 'logistica',

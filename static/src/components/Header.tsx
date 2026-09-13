@@ -17,6 +17,8 @@ const SITEMAP_DESTINATION_SLUGS = [
   'mudanzas-las-heras',
   'mudanzas-maipu',
   'mudanzas-lujan-de-cuyo',
+  'mudanzas-zona-este',
+  'mudanzas-valle-de-uco',
 ];
 
 export default function Header({ destinations, activePage, onNavigate }: HeaderProps) {
@@ -74,16 +76,15 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled
-          ? 'bg-[#0A0A0A]/95 backdrop-blur-md shadow-lg border-b border-white/10 py-3'
-          : 'bg-[#0A0A0A] py-4 border-b border-white/10'
-      }`}
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled
+        ? 'bg-[#0A0A0A]/95 backdrop-blur-md shadow-lg border-b border-white/10 py-3'
+        : 'bg-[#0A0A0A] py-4 border-b border-white/10'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <a href="/" onClick={(e) => { e.preventDefault(); handleLinkClick(''); }} className="flex-shrink-0 cursor-pointer block">
-            <img src="/img/brand-light.png" alt="Mudanzas Miranda" className="h-[38px] sm:h-[45.6px] w-auto object-contain block transition-transform duration-200 hover:scale-[1.02]" />
+            <img src="/img/brand-dark.png" alt="Mudanzas Miranda" className="h-[38px] sm:h-[45.6px] w-auto object-contain block transition-transform duration-200 hover:scale-[1.02]" />
           </a>
 
           <nav className="hidden lg:flex items-center gap-1">

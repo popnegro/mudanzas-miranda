@@ -14,6 +14,8 @@ const SITEMAP_DESTINATION_SLUGS = [
   'mudanzas-las-heras',
   'mudanzas-maipu',
   'mudanzas-lujan-de-cuyo',
+  'mudanzas-valle-de-uco',
+  'mudanzas-zona-este',
 ];
 
 export default function Footer({ destinations, onNavigate }: FooterProps) {
@@ -31,31 +33,24 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 items-start">
         <div className="space-y-6">
           <div className="space-y-3">
-            <a href="/" onClick={(e) => { e.preventDefault(); handleLinkClick(''); }} className="flex items-center cursor-pointer block" aria-label="Mudanzas Miranda — inicio">
-              <img src="/img/brand-light.png" alt="Mudanzas Miranda" className="h-10 w-auto object-contain block transition-transform duration-200 hover:scale-[1.02]" />
-            </a>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Mudanzas Miranda</h4>
             <p className="text-sm text-slate-400 leading-relaxed">Mudanzas Miranda es una empresa de mudanzas en Mendoza con más de 20 años de experiencia en mudanzas residenciales, comerciales y acarreos profesionales en Mendoza y el país.</p>
             <a href="/nosotros.html" onClick={(e) => { e.preventDefault(); handleLinkClick('nosotros'); }} className="text-amber-500 hover:text-amber-400 text-sm font-semibold flex items-center gap-1 cursor-pointer transition-colors pt-1">Conocé más sobre nosotros →</a>
           </div>
-
-          <address className="not-italic space-y-3 text-sm">
-            <div className="flex items-start gap-2">
-              <MapPin className="w-4 h-4 text-amber-500 flex-shrink-0 mt-1" aria-hidden="true" />
-              <a href="https://maps.google.com/?q=Armada+Argentina+584,+Mendoza,+Argentina" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-amber-500 transition-colors leading-relaxed">Armada Argentina 584, Mendoza, Argentina</a>
-            </div>
-            <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-amber-500 flex-shrink-0" aria-hidden="true" /><a href="tel:+5492615130910" className="text-slate-300 hover:text-amber-500 transition-colors font-medium">+54 9 261 513-0910</a></div>
-            <div className="flex items-center gap-2"><Mail className="w-4 h-4 text-amber-500 flex-shrink-0" aria-hidden="true" /><a href="mailto:info@mudanzasmiranda.com.ar" className="text-slate-300 hover:text-amber-500 transition-colors">info@mudanzasmiranda.com.ar</a></div>
-          </address>
-
-          <div className="space-y-2 pt-4 border-t border-white/10 text-sm">
-            <h5 className="font-bold text-white uppercase tracking-wider text-xs">Horarios de Atención</h5>
-            <div className="grid grid-cols-2 gap-3 text-slate-300">
-              <div><p className="font-semibold">Lunes a viernes</p><p className="text-xs text-slate-400">08:00 - 20:00</p></div>
-              <div><p className="font-semibold">Sábados</p><p className="text-xs text-slate-400">09:00 - 14:00</p></div>
-            </div>
-          </div>
         </div>
-
+        <nav aria-label="Contacto de Mudanzas Miranda" className="space-y-4">
+          <h4 className="text-sm font-bold text-white uppercase tracking-wider">Contacto</h4>
+          <ul className="space-y-3">
+            <address className="not-italic space-y-3 text-sm">
+              <div className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-amber-500 flex-shrink-0 mt-1" aria-hidden="true" />
+                <a href="https://maps.google.com/?q=Armada+Argentina+584,+Mendoza,+Argentina" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-amber-500 transition-colors leading-relaxed">Armada Argentina 584, Mendoza, Argentina</a>
+              </div>
+              <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-amber-500 flex-shrink-0" aria-hidden="true" /><a href="tel:+5492615130910" className="text-slate-300 hover:text-amber-500 transition-colors font-medium">+54 9 261 513-0910</a></div>
+              <div className="flex items-center gap-2"><Mail className="w-4 h-4 text-amber-500 flex-shrink-0" aria-hidden="true" /><a href="mailto:info@mudanzasmiranda.com.ar" className="text-slate-300 hover:text-amber-500 transition-colors">info@mudanzasmiranda.com.ar</a></div>
+            </address>
+          </ul>
+        </nav>
         <nav aria-label="Servicios de mudanzas" className="space-y-4">
           <h4 className="text-sm font-bold text-white uppercase tracking-wider">Nuestros Servicios</h4>
           <ul className="space-y-3">
@@ -69,17 +64,15 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
             ))}
           </ul>
         </nav>
-
-        <nav aria-label="Zonas de cobertura en Mendoza" className="space-y-4 md:col-span-2 lg:col-span-2">
+        <nav aria-label="Zonas de cobertura en Mendoza" className="space-y-4">
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Mudanzas en Mendoza</h4>
-            <p className="text-xs text-slate-400 leading-relaxed mt-2">Servicio de mudanzas y acarreos en Ciudad de Mendoza, Godoy Cruz, Guaymallén, Las Heras, Maipú y Luján de Cuyo.</p>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Lugares principales</h4>
           </div>
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+          <ul className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm">
             {sitemapDestinations.map((d) => (
               <li key={d.slug}>
                 <a href={`/mudanzas-mendoza/${d.slug}.html`} onClick={(e) => { e.preventDefault(); handleLinkClick(d.slug); }} className="group flex items-center gap-2 text-left text-slate-300 hover:text-amber-500 transition-all duration-200 hover:translate-x-0.5 cursor-pointer font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500/40 group-hover:bg-amber-500 transition-all duration-200 flex-shrink-0" aria-hidden="true" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
                   <span>Mudanzas {d.name.replace(' de Mendoza', '').replace('Mendoza', '')}</span>
                 </a>
               </li>
@@ -87,11 +80,10 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
           </ul>
         </nav>
       </div>
-
       <div className="bg-[#0A0A0A]/80 border-t border-white/5 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div className="text-center sm:text-left">
-            <p>© 2026 Mudanzas Miranda · Armada Argentina 584, Mendoza, Argentina</p>
+            <p>© 2026 Mudanzas Miranda · Powered by <a href="https://wa.me/5492616706710">SmartWeb</a></p>
           </div>
           <div className="flex items-center gap-4" aria-label="Redes sociales">
             <a href="https://www.instagram.com/mudanzasmiranda/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-white hover:bg-white/5 transition-all" aria-label="Instagram de Mudanzas Miranda"><Instagram className="w-5 h-5 text-amber-500" aria-hidden="true" /></a>

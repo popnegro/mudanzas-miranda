@@ -15,7 +15,7 @@ const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 const SITE_NAME = 'Mudanzas Miranda';
 const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-1200.jpg`;
 const RATING_VALUE = '4.9';
-const REVIEW_COUNT = '496';
+const REVIEW_COUNT = '597';
 
 export default function SEO({ title, description, canonicalUrl, isLocalPage = false, indexable = true, destinationData, serviceData }: SEOProps) {
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function SEO({ title, description, canonicalUrl, isLocalPage = fa
         telephone: '+5492615130910', email: 'info@mudanzasmiranda.com.ar',
         address: { '@type': 'PostalAddress', streetAddress: 'Armada Argentina 584', addressLocality: 'Mendoza', addressCountry: 'AR' },
         openingHoursSpecification: [
-          { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '08:00', closes: '20:00' },
+          { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:00', closes: '20:00' },
           { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '14:00' },
         ],
         sameAs: ['https://www.instagram.com/mudanzasmiranda/', 'https://www.facebook.com/mudanzasmiranda4'],
