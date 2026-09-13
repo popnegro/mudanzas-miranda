@@ -13,7 +13,7 @@ interface SEOProps {
 
 const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 const SITE_NAME = 'Mudanzas Miranda';
-const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-1200.jpg`;
+const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-residencial.webp`;
 const RATING_VALUE = '4.9';
 const REVIEW_COUNT = '597';
 
@@ -47,7 +47,7 @@ export default function SEO({ title, description, canonicalUrl, isLocalPage = fa
     const ogTags: Record<string, string> = {
       'og:title': title, 'og:description': description, 'og:url': canonicalUrl,
       'og:type': 'website', 'og:site_name': SITE_NAME, 'og:image': DEFAULT_IMAGE,
-      'og:image:width': '1200', 'og:image:height': '630', 'og:locale': 'es_AR',
+      'og:locale': 'es_AR',
     };
     Object.entries(ogTags).forEach(([property, content]) => {
       let tag = document.head.querySelector(`meta[property="${property}"]`) as HTMLMetaElement | null;
