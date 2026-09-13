@@ -308,6 +308,13 @@ textarea::placeholder {
   }
 }
 
+/* The current rating badge uses a hard-coded aggregate count that is not
+ * established as a live/verified source in the application. Hide the visual
+ * claim rather than presenting potentially stale social proof. */
+[class*="group/rating"] {
+  display: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
