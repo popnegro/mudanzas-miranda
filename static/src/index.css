@@ -86,14 +86,7 @@ img {
   transform-origin: left center;
 }
 
-/*
- * Light-theme compatibility layer.
- * The customer-facing app is Tailwind-based and historically used a dark
- * palette directly in component class names. These narrowly scoped overrides
- * switch the existing visual system to the approved light palette without
- * changing layout, content, routing, or behavior.
- */
-
+/* Existing visual language: light-surface compatibility without changing content. */
 .min-h-screen[class*="bg-[#0A0A0A]"] {
   background: var(--miranda-background) !important;
   color: var(--miranda-text) !important;
@@ -165,7 +158,6 @@ select[class*="bg-[#0A0A0A]"] {
   color: #68757D !important;
 }
 
-/* White text becomes charcoal on light surfaces, while CTA controls retain white. */
 .min-h-screen[class*="bg-[#0A0A0A]"] .text-white:not([class*="bg-amber-"]),
 .min-h-screen[class*="bg-[#0A0A0A]"] h1.text-white,
 .min-h-screen[class*="bg-[#0A0A0A]"] h2.text-white,
@@ -174,13 +166,29 @@ select[class*="bg-[#0A0A0A]"] {
   color: var(--miranda-text) !important;
 }
 
-/* Header */
+/* Header: same language, clearer hierarchy and larger hit areas. */
 header.sticky {
-  background: rgba(255, 255, 255, 0.96) !important;
+  background: rgba(255, 255, 255, 0.97) !important;
   color: var(--miranda-text) !important;
   border-color: var(--miranda-border) !important;
   box-shadow: 0 2px 16px rgba(36, 49, 58, 0.07);
   backdrop-filter: blur(14px);
+}
+
+header.sticky > div > div {
+  min-height: 56px;
+}
+
+header.sticky nav.hidden.lg\:flex {
+  gap: 0.25rem;
+}
+
+header.sticky nav.hidden.lg\:flex > div > button,
+header.sticky nav.hidden.lg\:flex > a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 header.sticky button:not([class*="bg-amber-"]),
@@ -192,6 +200,53 @@ header.sticky button:not([class*="bg-amber-"]):hover,
 header.sticky a:not([class*="bg-amber-"]):hover {
   color: var(--miranda-text) !important;
   background-color: rgba(36, 49, 58, 0.055) !important;
+}
+
+/* Desktop dropdowns: more readable width, stronger grouping and no hover gap. */
+header.sticky nav.hidden.lg\:flex > div > div.absolute {
+  margin-top: 0 !important;
+  padding-top: 0.5rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(36, 49, 58, 0.16);
+}
+
+header.sticky nav.hidden.lg\:flex > div:first-child > div.absolute {
+  width: 18rem;
+}
+
+header.sticky nav.hidden.lg\:flex > div:nth-child(2) > div.absolute {
+  width: 36rem;
+}
+
+header.sticky nav.hidden.lg\:flex > div > div.absolute a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile navigation: preserve every item, improve scanning and touch comfort. */
+header .lg\:hidden.fixed.right-0 {
+  width: min(100%, 420px);
+  padding: 1.25rem;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+header .lg\:hidden.fixed.right-0 nav > a,
+header .lg\:hidden.fixed.right-0 nav > div > button {
+  min-height: 48px;
+}
+
+header .lg\:hidden.fixed.right-0 nav > div > div a {
+  min-height: 44px;
+}
+
+header .lg\:hidden.fixed.right-0 .mt-auto a {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Dropdowns and mobile drawer */
@@ -207,12 +262,10 @@ section[class*="bg-[#0A0A0A]"] [class*="bg-[radial-gradient"] {
   background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F6F7F8 100%) !important;
 }
 
-/* Light cards retain elevation instead of dark glass. */
 [class*="shadow-2xl"] {
   box-shadow: 0 16px 40px rgba(36, 49, 58, 0.10) !important;
 }
 
-/* Form controls */
 input,
 textarea,
 select {
@@ -224,19 +277,11 @@ textarea::placeholder {
   color: #7A858C;
 }
 
-/* Keep image overlays and media controls intentionally dark for legibility. */
 [class*="bg-black/"] {
   color: #ffffff;
 }
 
-/*
- * Services refinement
- * -------------------
- * The service UI remains a tabbed interaction, but the active panel is now
- * treated as a predictable media/content card. Every service owns its visual
- * through the data model; the CSS only improves framing, hierarchy and touch
- * behavior and does not introduce replacement imagery.
- */
+/* Services: predictable media framing while preserving all service copy and CTAs. */
 #servicios picture {
   display: block;
   width: 100%;
@@ -275,15 +320,12 @@ textarea::placeholder {
   min-height: 48px;
 }
 
-/* Avoid hover zoom becoming distracting on touch devices. */
 @media (hover: none) {
   #servicios picture img {
     transform: none !important;
   }
 }
 
-/* On small screens, image precedes the copy so the service is understood
- * before the CTA without forcing users to scan a long text block first. */
 @media (max-width: 767px) {
   #servicios [class*="grid-cols-12"] {
     row-gap: 1.5rem;
@@ -300,19 +342,10 @@ textarea::placeholder {
   }
 }
 
-/* Preserve comfortable desktop proportions and prevent very tall service
- * imagery when copy length changes. */
 @media (min-width: 768px) {
   #servicios [class*="aspect-[4/3]"] {
     min-height: 280px;
   }
-}
-
-/* The current rating badge uses a hard-coded aggregate count that is not
- * established as a live/verified source in the application. Hide the visual
- * claim rather than presenting potentially stale social proof. */
-[class*="group/rating"] {
-  display: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
