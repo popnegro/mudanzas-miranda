@@ -26,7 +26,7 @@ interface PageDefinition {
 }
 
 const esc = (value: string) =>
-  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const canonical = (slug: string) => `${SITE_URL}${slug ? `/${slug}` : ''}`;
 
@@ -67,7 +67,6 @@ for (const service of servicePages) {
   });
 }
 
-// Generate a real static entry point for every destination in the canonical data source.
 for (const destination of destinations) {
   pages.push({
     file: `mudanzas-mendoza/${destination.slug}.html`,
