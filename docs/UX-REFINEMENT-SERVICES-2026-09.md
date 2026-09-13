@@ -2,43 +2,49 @@
 
 ## Alcance
 
-Refinamiento de la experiencia existente, sin cambio de lenguaje visual, arquitectura de navegación ni estrategia de contenidos.
+Refinamiento de la experiencia existente, sin rediseñar el lenguaje visual ni eliminar contenido, servicios, CTAs o bloques informativos.
 
 ## Hallazgos verificados
 
 1. La aplicación React mantiene una sección de servicios tabulada y renderiza una única ficha activa por vez.
-2. El modelo `services` ya asigna una imagen específica a cada servicio:
+2. El modelo `services` ya asigna una imagen específica en WebP a cada servicio:
    - Residencial → `/img/mudanza-residencial-800.webp`
    - Oficinas → `/img/mudanza-oficina-800.webp`
    - Combinadas → `/img/mudanza-combinada-800.webp`
    - Embalaje → `/img/mudanza-embalaje-800.webp`
    - Guardamuebles → `/img/mudanza-guardamuebles-800.webp`
    - Logística → `/img/mudanza-logistica-800.webp`
-3. El fallback visual del componente de servicios usa una imagen genérica (`mudanzas-miranda-800.jpg`), por lo que navegadores sin WebP podían mostrar una imagen que no correspondiera al servicio activo.
-4. En mobile, la lista de servicios es horizontal y necesita controles táctiles con un área de interacción cómoda.
-5. El cambio de servicio anima el panel completo; el refinamiento conserva la interacción pero mejora la estabilidad del bloque de imagen.
-6. El hero contenía una insignia con valoración agregada hard-codeada. Como no se verificó en esta auditoría que el dato sea una fuente viva, se evita mostrar ese claim como prueba social en la interfaz.
+3. El componente de servicios conserva un fallback `.jpg` en el `<img>` aunque el `<source>` principal usa WebP. Esto debe normalizarse para cumplir estrictamente el criterio de "solo WebP" en el código de imágenes.
+4. `PhotoCarousel.tsx` todavía contiene fallbacks y `srcSet` `.jpg` aunque su primera fuente es WebP; también debe normalizarse antes del cierre de la auditoría de assets.
+5. `SEO.tsx` utilizaba una imagen social `.jpg`; ahora apunta a `/img/mudanzas-miranda-residencial.webp`, un asset existente del repositorio.
+6. El menú desktop usa dropdowns de Servicios y Destinos. El menú mobile conserva Inicio, Nosotros, Servicios, Destinos y CTAs; el refinamiento debe mejorar jerarquía y área táctil sin ocultar elementos.
 
 ## Cambios realizados en esta rama
 
 - Refinamiento responsive de la sección `#servicios`.
-- Imagen de cada servicio tratada como medio principal del panel, con `object-fit: cover`, dimensiones mínimas y contenedor estable.
+- Cada servicio mantiene su imagen propia y contenido existente.
 - Mejora de objetivos táctiles de tabs y CTA.
-- Eliminación del scrollbar visual de la navegación horizontal de servicios sin eliminar su desplazamiento táctil.
-- En mobile, el bloque de imagen se prioriza visualmente antes del texto.
+- Eliminación únicamente del scrollbar visual de la navegación horizontal de servicios, manteniendo el desplazamiento táctil.
+- En mobile, el bloque de imagen se prioriza visualmente antes del texto sin eliminar copy.
 - Se evita el zoom de imagen en dispositivos touch.
-- Se conserva la paleta, tipografía, componentes y jerarquía visual existentes.
-- Se oculta la insignia de valoración hard-codeada para no presentar una cifra potencialmente stale como evidencia de confianza.
+- Refinamiento del menú desktop: áreas de interacción mínimas, dropdowns más legibles y separación visual más estable.
+- Refinamiento del menú mobile: panel más cómodo para lectura y navegación táctil, conservando todos los ítems y CTAs existentes.
+- Se restauró la visibilidad del contenido existente; no se oculta la insignia de valoración mediante CSS.
+- La metadata social principal de SEO usa un asset WebP existente.
+- No se agregaron imágenes externas ni placeholders.
 
 ## Assets
 
-La rama usa exclusivamente imágenes ya presentes en `static/public/img`; no se agregan imágenes externas ni placeholders.
+Los servicios activos usan assets locales bajo `/img/` y WebP como fuente principal. El repositorio todavía contiene referencias `.jpg` en componentes legacy/compatibilidad, por lo que la auditoría de "solo WebP" no debe marcarse como cerrada hasta normalizar esas referencias.
 
 ## Pendiente de validación
 
+- Normalizar `App.tsx` para eliminar el fallback `.jpg` del bloque de servicios.
+- Normalizar `PhotoCarousel.tsx` para eliminar `jpgSrcSet` y `defaultJpg` y usar únicamente assets WebP existentes.
+- Revisar `static/index.html` y el generador de páginas estáticas para metadata `.jpg` heredada.
 - Ejecutar `npm run lint`.
 - Ejecutar `npm run build`.
-- Smoke test desktop/mobile de la sección Servicios.
+- Smoke test desktop/mobile del menú y de la sección Servicios.
 - Verificar cada tab y confirmar que su imagen corresponde al servicio seleccionado.
 - Confirmar que el CTA de cada servicio mantiene el flujo hacia `#form`.
 - Revisar visualmente en el deployment generado por Vercel antes de mergear.
