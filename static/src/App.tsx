@@ -18,7 +18,6 @@ import {
   Warehouse,
   CheckCircle2,
   Calendar,
-  MessageSquare,
   ArrowLeft,
   ChevronLeft,
   ChevronRight,
@@ -40,8 +39,10 @@ import { servicePages } from './data/seoPages';
 import SEO from './components/SEO';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import QuoteForm from './components/QuoteForm';
+import FormSection from './components/FormSection';
+import FleetShowcase from './components/FleetShowcase';
 import RefactorDashboard from './components/RefactorDashboard';
+import WhatsAppIcon from './components/WhatsAppIcon';
 
 // Helper to map Lucide icon names to React components
 const IconMap: Record<string, React.ComponentType<any>> = {
@@ -733,21 +734,10 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Quote Form Section */}
-              <section id="form" className="py-20 bg-[#0A0A0A] border-t border-white/10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-                    <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
-                      Cotizá tu mudanza en 2 simples pasos
-                    </h2>
-                    <p className="text-slate-400 text-sm">
-                      Completá el formulario inteligente para recibir tu presupuesto adaptado sin compromisos.
-                    </p>
-                  </div>
-
-                  <QuoteForm />
-                </div>
-              </section>
+              <FormSection
+                title="Cotizá tu mudanza en 2 simples pasos"
+                subtitle="Completá el formulario inteligente para recibir tu presupuesto adaptado sin compromisos."
+              />
             </motion.div>
           ) : activePage === 'nosotros' ? (
             /* ==================== NOSOTROS (ABOUT US) VIEW ==================== */
@@ -798,19 +788,21 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Institutional Sections: Historia, Misión, Valores */}
+              {/* Institutional Sections: Historia, Misión, Valores — true 3-column grid on desktop, 1 column on mobile */}
               <section className="py-20 bg-[#0D0D0D]">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="grid grid-cols-12 gap-6 lg:gap-8">
 
-                  {/* Grid for Historia & Misión */}
-                  <div className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8 md:gap-12">
                     {/* HISTORIA */}
-                    <div className="col-span-12 md:col-span-6 bg-[#111111] border border-white/10 rounded-3xl p-8 sm:p-10 space-y-6 hover:border-amber-500/30 transition-all duration-300">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/25 text-amber-500">
-                        <History className="w-6 h-6" />
+                    <div className="col-span-12 sm:col-span-6 lg:col-span-4 flex flex-col gap-5 rounded-3xl border border-white/10 bg-[#111111] p-7 transition-all duration-300 hover:border-amber-500/30 sm:p-8">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-amber-500/25 bg-amber-500/10 text-amber-500">
+                        <History className="h-6 w-6" />
                       </div>
-                      <h2 className="text-2xl font-serif font-bold text-white">Nuestra Historia</h2>
-                      <div className="space-y-4 text-slate-300 text-sm leading-relaxed">
+                      <div className="space-y-2">
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-amber-500/80">Trayectoria</span>
+                        <h2 className="text-xl font-serif font-bold leading-snug text-white">Nuestra Historia</h2>
+                      </div>
+                      <div className="space-y-4 text-sm leading-relaxed text-slate-300">
                         <p>
                           Mudanzas Miranda nació hace más de dos décadas en la provincia de Mendoza como un emprendimiento familiar enfocado en brindar un servicio de transporte personalizado, cuidadoso y cercano.
                         </p>
@@ -821,12 +813,15 @@ export default function App() {
                     </div>
 
                     {/* MISIÓN */}
-                    <div className="col-span-12 md:col-span-6 bg-[#111111] border border-white/10 rounded-3xl p-8 sm:p-10 space-y-6 hover:border-amber-500/30 transition-all duration-300">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/25 text-amber-500">
-                        <Target className="w-6 h-6" />
+                    <div className="flex flex-col gap-5 rounded-3xl border border-white/10 bg-[#111111] p-7 transition-all duration-300 hover:border-amber-500/30 sm:p-8">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-amber-500/25 bg-amber-500/10 text-amber-500">
+                        <Target className="h-6 w-6" />
                       </div>
-                      <h2 className="text-2xl font-serif font-bold text-white">Nuestra Misión</h2>
-                      <div className="space-y-4 text-slate-300 text-sm leading-relaxed">
+                      <div className="space-y-2">
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-amber-500/80">Propósito</span>
+                        <h2 className="text-xl font-serif font-bold leading-snug text-white">Nuestra Misión</h2>
+                      </div>
+                      <div className="space-y-4 text-sm leading-relaxed text-slate-300">
                         <p>
                           Nuestra misión fundamental es redefinir la experiencia de mudarse, eliminando el estrés y la incertidumbre que comúnmente acompañan a los traslados y transportes residenciales o corporativos.
                         </p>
@@ -835,66 +830,56 @@ export default function App() {
                         </p>
                       </div>
                     </div>
-                  </div>
 
-                  {/* VALORES */}
-                  <div className="bg-[#111111] border border-white/10 rounded-3xl p-8 sm:p-10 space-y-8 hover:border-amber-500/30 transition-all duration-300">
-                    <div className="text-center space-y-3 max-w-2xl mx-auto">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/25 text-amber-500">
-                        <Heart className="w-6 h-6" />
+                    {/* VALORES */}
+                    <div className="flex flex-col gap-5 rounded-3xl border border-white/10 bg-[#111111] p-7 transition-all duration-300 hover:border-amber-500/30 sm:p-8">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-amber-500/25 bg-amber-500/10 text-amber-500">
+                        <Heart className="h-6 w-6" />
                       </div>
-                      <h2 className="text-3xl font-serif font-bold text-white">Nuestros Valores</h2>
-                      <p className="text-slate-400 text-sm">
-                        Los pilares éticos y operativos que guían cada uno de nuestros servicios diarios.
-                      </p>
+                      <div className="space-y-2">
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-amber-500/80">Principios</span>
+                        <h2 className="text-xl font-serif font-bold leading-snug text-white">Nuestros Valores</h2>
+                        <p className="text-sm leading-relaxed text-slate-300">
+                          Los pilares éticos y operativos que guían cada uno de nuestros servicios diarios.
+                        </p>
+                      </div>
+
+                      <div className="flex flex-1 flex-col gap-3 border-t border-white/5 pt-4">
+                        <div className="space-y-1">
+                          <h4 className="text-sm font-bold text-amber-500">Confianza y Respeto</h4>
+                          <p className="text-xs leading-relaxed text-slate-400">
+                            Tratamos tu hogar y tus pertenencias con la máxima delicadeza, reconociendo el valor sentimental de cada pieza.
+                          </p>
+                        </div>
+                        <div className="space-y-1">
+                          <h4 className="text-sm font-bold text-amber-500">Seguridad Total</h4>
+                          <p className="text-xs leading-relaxed text-slate-400">
+                            Implementamos protocolos rigurosos de embalaje y transporte junto con coberturas viales completas de tránsito.
+                          </p>
+                        </div>
+                        <div className="space-y-1">
+                          <h4 className="text-sm font-bold text-amber-500">Puntualidad Absoluta</h4>
+                          <p className="text-xs leading-relaxed text-slate-400">
+                            Planificamos detalladamente los horarios de carga y descarga para cumplir estrictamente con los tiempos pactados.
+                          </p>
+                        </div>
+                        <div className="space-y-1">
+                          <h4 className="text-sm font-bold text-amber-500">Transparencia</h4>
+                          <p className="text-xs leading-relaxed text-slate-400">
+                            Ofrecemos presupuestos cerrados, honestos y claros desde el primer momento, sin sorpresas ni cargos ocultos.
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="grid grid-cols-12 gap-4 sm:gap-6">
-                      <div className="col-span-12 sm:col-span-6 lg:col-span-3 space-y-2 p-4 bg-white/5 border border-white/5 rounded-2xl">
-                        <h4 className="font-bold text-amber-500 text-base">Confianza y Respeto</h4>
-                        <p className="text-xs text-slate-300 leading-relaxed">
-                          Tratamos tu hogar y tus pertenencias con la máxima delicadeza, reconociendo el valor sentimental de cada pieza.
-                        </p>
-                      </div>
-                      <div className="col-span-12 sm:col-span-6 lg:col-span-3 space-y-2 p-4 bg-white/5 border border-white/5 rounded-2xl">
-                        <h4 className="font-bold text-amber-500 text-base">Seguridad Total</h4>
-                        <p className="text-xs text-slate-300 leading-relaxed">
-                          Implementamos protocolos rigurosos de embalaje y transporte junto con coberturas viales completas de tránsito.
-                        </p>
-                      </div>
-                      <div className="col-span-12 sm:col-span-6 lg:col-span-3 space-y-2 p-4 bg-white/5 border border-white/5 rounded-2xl">
-                        <h4 className="font-bold text-amber-500 text-base">Puntualidad Absoluta</h4>
-                        <p className="text-xs text-slate-300 leading-relaxed">
-                          Planificamos detalladamente los horarios de carga y descarga para cumplir estrictamente con los tiempos pactados.
-                        </p>
-                      </div>
-                      <div className="col-span-12 sm:col-span-6 lg:col-span-3 space-y-2 p-4 bg-white/5 border border-white/5 rounded-2xl">
-                        <h4 className="font-bold text-amber-500 text-base">Transparencia</h4>
-                        <p className="text-xs text-slate-300 leading-relaxed">
-                          Ofrecemos presupuestos cerrados, honestos y claros desde el primer momento, sin sorpresas ni cargos ocultos.
-                        </p>
-                      </div>
-                    </div>
                   </div>
-
                 </div>
               </section>
 
-              {/* Institutional Quote Form */}
-              <section id="form" className="py-20 bg-[#0A0A0A] border-t border-white/10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-                    <h2 className="text-3xl font-serif font-bold text-white tracking-tight">
-                      ¿Listo para planificar tu mudanza?
-                    </h2>
-                    <p className="text-slate-400 text-sm">
-                      Completá el formulario inteligente para recibir tu presupuesto adaptado sin compromisos.
-                    </p>
-                  </div>
-
-                  <QuoteForm />
-                </div>
-              </section>
+              <FormSection
+                title="¿Listo para planificar tu mudanza?"
+                subtitle="Completá el formulario inteligente para recibir tu presupuesto adaptado sin compromisos."
+              />
             </motion.div>
           ) : activePage === 'test' ? (
             /* ==================== REFACTOR TEST VIEW ==================== */
@@ -978,55 +963,7 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Fleet Image Showcase Section */}
-              <section className="relative isolate py-8 sm:py-12 overflow-hidden bg-[#0A0A0A] border-b border-white/5">
-                {/* Visual Ambient Glows */}
-                <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-amber-500/5 blur-[100px] rounded-full -z-10 pointer-events-none" />
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="bg-[#111111] border border-white/10 rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-
-                      {/* Image Column */}
-                      <div className="col-span-12 lg:col-span-7 relative rounded-2xl overflow-hidden border border-white/10 shadow-lg aspect-[16/10] sm:aspect-[16/9]">
-                        <img
-                          src="/img/camiones-mudanzas-miranda.webp"
-                          alt="Flota de camiones modernos y equipados de Mudanzas Miranda"
-                          className="w-full h-full object-cover object-center select-none"
-                          referrerPolicy="no-referrer"
-                          width="1200"
-                          height="750"
-                          loading="lazy"
-                        />
-                      </div>
-
-                      {/* Content Column (No longer covering the image) */}
-                      <div className="col-span-12 lg:col-span-5 space-y-5 text-left">
-                        <div className="space-y-3">
-                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest font-mono">
-                            Nuestra Flota de Camiones
-                          </div>
-                          <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
-                            Equipados para Traslados de Alta Exigencia
-                          </h3>
-                          <p className="text-sm text-slate-300 leading-relaxed">
-                            Unidades habilitadas por la CNRT, acondicionadas con sistemas de amarre, mantas protectoras y seguimiento satelital constante para asegurar que cada bulto viaje con máxima protección en el Gran Mendoza y toda la provincia.
-                          </p>
-                        </div>
-
-                        <div className="pt-2 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
-                          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl w-fit">
-                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                            Unidades Listas en Ruta
-                          </div>
-                          <span className="text-xs text-slate-400 font-mono">Seguimiento GPS 24/7</span>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </section>
+              <FleetShowcase />
 
               {/* Service Details bento style */}
               <section className="py-16 bg-[#0D0D0D] border-b border-white/5">
@@ -1103,21 +1040,12 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Service Form Quote */}
-              <section id="form" className="py-16 bg-[#0A0A0A] border-t border-white/10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-                    <h2 className="text-3xl font-serif font-bold text-white tracking-tight">
-                      Cotizá tu servicio de {currentService.name}
-                    </h2>
-                    <p className="text-slate-400 text-sm">
-                      Completá el formulario inteligente. Tu selección de servicio ya se encuentra pre-marcada.
-                    </p>
-                  </div>
-
-                  <QuoteForm initialService={currentService.slug} />
-                </div>
-              </section>
+              <FormSection
+                title={`Cotizá tu servicio de ${currentService.name}`}
+                subtitle="Completá el formulario inteligente. Tu selección de servicio ya se encuentra pre-marcada."
+                initialService={currentService.slug}
+                compact
+              />
             </motion.div>
           ) : (
             /* ==================== LOCAL SEO DESTINATION VIEW ==================== */
@@ -1190,55 +1118,7 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Fleet Image Showcase Section */}
-              <section className="relative isolate py-8 sm:py-12 overflow-hidden bg-[#0A0A0A] border-b border-white/5">
-                {/* Visual Ambient Glows */}
-                <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-amber-500/5 blur-[100px] rounded-full -z-10 pointer-events-none" />
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="bg-[#111111] border border-white/10 rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-
-                      {/* Image Column */}
-                      <div className="col-span-12 lg:col-span-7 relative rounded-2xl overflow-hidden border border-white/10 shadow-lg aspect-[16/10] sm:aspect-[16/9]">
-                        <img
-                          src="/img/camiones-mudanzas-miranda.webp"
-                          alt="Flota de camiones modernos y equipados de Mudanzas Miranda"
-                          className="w-full h-full object-cover object-center select-none"
-                          referrerPolicy="no-referrer"
-                          width="1200"
-                          height="750"
-                          loading="lazy"
-                        />
-                      </div>
-
-                      {/* Content Column (No longer covering the image) */}
-                      <div className="col-span-12 lg:col-span-5 space-y-5 text-left">
-                        <div className="space-y-3">
-                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-bold uppercase tracking-widest font-mono">
-                            Nuestra Flota de Camiones
-                          </div>
-                          <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
-                            Equipados para Traslados de Alta Exigencia
-                          </h3>
-                          <p className="text-sm text-slate-300 leading-relaxed">
-                            Unidades habilitadas por la CNRT, acondicionadas con sistemas de amarre, mantas protectoras y seguimiento satelital constante para asegurar que cada bulto viaje con máxima protección en el Gran Mendoza y toda la provincia.
-                          </p>
-                        </div>
-
-                        <div className="pt-2 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
-                          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md text-slate-200 text-xs font-semibold px-4 py-2 rounded-xl w-fit">
-                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                            Unidades Listas en Ruta
-                          </div>
-                          <span className="text-xs text-slate-400 font-mono">Seguimiento GPS 24/7</span>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </section>
+              <FleetShowcase />
 
               {/* Local Editorial Content & Cross links */}
               <section className="py-16 bg-[#0D0D0D] border-b border-white/5">
@@ -1320,21 +1200,12 @@ export default function App() {
                 </div>
               </section>
 
-              {/* Local Form Quote Section */}
-              <section id="form" className="py-16 bg-[#0A0A0A] border-t border-white/10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-                    <h2 className="text-3xl font-serif font-bold text-white tracking-tight">
-                      Cotizá tu mudanza para {currentDestination?.name}
-                    </h2>
-                    <p className="text-slate-400 text-sm">
-                      Completá el formulario interactivo. El destino se encuentra pre-configurado para tu comodidad.
-                    </p>
-                  </div>
-
-                  <QuoteForm destinationName={currentDestination?.name} />
-                </div>
-              </section>
+              <FormSection
+                title={`Cotizá tu mudanza para ${currentDestination?.name}`}
+                subtitle="Completá el formulario interactivo. El destino se encuentra pre-configurado para tu comodidad."
+                destinationName={currentDestination?.name}
+                compact
+              />
             </motion.div>
           )}
         </AnimatePresence>
@@ -1343,16 +1214,20 @@ export default function App() {
       {/* 3. Premium Footer */}
       <Footer destinations={destinations} onNavigate={handleNavigation} />
 
-      {/* 4. Sticky Floating WhatsApp Widget - High CRO Booster */}
+      {/* 4. Sticky Floating WhatsApp Widget - visible at every breakpoint, fixed above safe-area insets */}
       <a
-        href={`https://wa.me/5492615130910?text=Hola%20Mudanzas%20Miranda!%20Quisiera%20consultar%20por%20un%20servicio%20de%20mudanza%20para%20Mendoza.`}
+        href="https://wa.me/5492615130910?text=Hola%20Mudanzas%20Miranda!%20Quisiera%20consultar%20por%20un%20servicio%20de%20mudanza%20para%20Mendoza."
         target="_blank"
         rel="noopener noreferrer"
-        className="hidden md:flex fixed bottom-6 right-6 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-2xl items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-all group ring-4 ring-green-500/10 animate-pulse"
+        className="group fixed z-40 flex items-center justify-center rounded-full bg-[#25D366] p-3.5 text-white shadow-2xl ring-4 ring-green-500/10 transition-all hover:scale-110 hover:bg-[#20ba56] active:scale-95 sm:p-4"
+        style={{
+          right: 'max(1rem, env(safe-area-inset-right))',
+          bottom: 'max(1rem, env(safe-area-inset-bottom))',
+        }}
         aria-label="Contactar a Mudanzas Miranda por WhatsApp"
       >
-        <MessageSquare className="w-7 h-7 fill-white stroke-[2]" />
-        <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all duration-300 text-sm font-bold whitespace-nowrap">
+        <WhatsAppIcon className="h-7 w-7 sm:h-7 sm:w-7" />
+        <span className="hidden max-w-0 overflow-hidden whitespace-nowrap text-sm font-bold transition-all duration-300 group-hover:max-w-xs group-hover:ml-2 sm:inline-block">
           ¿En qué te ayudamos?
         </span>
       </a>

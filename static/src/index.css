@@ -229,6 +229,20 @@ textarea::placeholder {
   color: #ffffff;
 }
 
+/*
+ * Quote-request ("Cotizá tu mudanza") sections use the site's existing
+ * primary brand color as their background instead of the generic dark/light
+ * surface, per the navigation/form redesign. Built from the same
+ * --miranda-primary / --miranda-primary-dark tokens already defined above —
+ * no new colors introduced. Text inside uses Tailwind's white/NN opacity
+ * utilities (e.g. text-white/90) rather than the plain `text-white` class,
+ * so it intentionally sits outside the light-theme compatibility overrides
+ * below and keeps rendering as light text on this dark-brand background.
+ */
+.quote-section {
+  background: linear-gradient(135deg, var(--miranda-primary) 0%, var(--miranda-primary-dark) 100%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
