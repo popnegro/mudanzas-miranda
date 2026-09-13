@@ -12,15 +12,6 @@ const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-1200.jpg`;
 const RATING_VALUE = '4.9';
 const REVIEW_COUNT = '597';
 
-const strategicDestinationSlugs = [
-  'mudanzas-ciudad-mendoza',
-  'mudanzas-godoy-cruz',
-  'mudanzas-guaymallen',
-  'mudanzas-las-heras',
-  'mudanzas-maipu',
-  'mudanzas-lujan-de-cuyo',
-] as const;
-
 interface PageDefinition {
   file: string;
   url: string;
@@ -35,7 +26,7 @@ interface PageDefinition {
 }
 
 const esc = (value: string) =>
-  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');
 
 const canonical = (slug: string) => `${SITE_URL}${slug ? `/${slug}` : ''}`;
 
@@ -76,9 +67,8 @@ for (const service of servicePages) {
   });
 }
 
-for (const slug of strategicDestinationSlugs) {
-  const destination = destinations.find((item) => item.slug === slug);
-  if (!destination) throw new Error(`Missing strategic destination: ${slug}`);
+// Generate a real static entry point for every destination in the canonical data source.
+for (const destination of destinations) {
   pages.push({
     file: `mudanzas-mendoza/${destination.slug}.html`,
     url: canonical(`mudanzas-mendoza/${destination.slug}.html`),
@@ -219,10 +209,16 @@ function renderPage(page: PageDefinition) {
   <body>
     <div id="root">
       <main>
-        <h1>${esc(page.heading)}</h1>
-        <p>${esc(page.intro)}</p>
-        ${bodyDetail}
-        <p><strong>Mudanzas Miranda</strong> · Armada Argentina 584, Mendoza · +54 9 261 513-0910 · info@mudanzasmiranda.com.ar</p>
+        <article>
+          <header>
+            <h1>${esc(page.heading)}</h1>
+          </header>
+          <p>${esc(page.intro)}</p>
+          ${bodyDetail}
+          <footer>
+            <p><strong>Mudanzas Miranda</strong> · Armada Argentina 584, Mendoza · +54 9 261 513-0910 · info@mudanzasmiranda.com.ar</p>
+          </footer>
+        </article>
       </main>
     </div>
     <script type="module" src="/src/main.tsx"></script>
