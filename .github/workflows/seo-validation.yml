@@ -35,14 +35,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Audit 14 canonical SEO/GEO entry points
+      - name: Audit canonical SEO/GEO entry points
         run: npm run audit:static-seo
 
       - name: Validate rating source of truth
         working-directory: .
         run: |
           grep -q "RATING_VALUE = '4.9'" static/src/components/SEO.tsx
-          grep -q "REVIEW_COUNT = '496'" static/src/components/SEO.tsx
+          grep -q "REVIEW_COUNT = '597'" static/src/components/SEO.tsx
 
       - name: Validate sitemap structure
         working-directory: .

@@ -19,85 +19,26 @@
   --miranda-border-soft: #E7EBEE;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--miranda-background-soft); }
+::-webkit-scrollbar-thumb { background: #B8C1C7; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #8E9AA2; }
 
-::-webkit-scrollbar-track {
-  background: var(--miranda-background-soft);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #B8C1C7;
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #8E9AA2;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-  background: var(--miranda-background);
-  color-scheme: light;
-}
-
-body {
-  min-width: 320px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  background: var(--miranda-background);
-  color: var(--miranda-text-secondary);
-}
-
-img {
-  max-width: 100%;
-}
-
-:focus-visible {
-  outline: 2px solid var(--miranda-accent);
-  outline-offset: 3px;
-}
-
-::selection {
-  background: var(--miranda-accent);
-  color: #ffffff;
-}
+html { scroll-behavior: smooth; scroll-padding-top: 80px; background: var(--miranda-background); color-scheme: light; }
+body { min-width: 320px; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; background: var(--miranda-background); color: var(--miranda-text-secondary); }
+img { max-width: 100%; }
+:focus-visible { outline: 2px solid var(--miranda-accent); outline-offset: 3px; }
+::selection { background: var(--miranda-accent); color: #ffffff; }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+.panel-logo { transform: scale(0.95); transform-origin: left center; }
 
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
-}
-
-.panel-logo {
-  transform: scale(0.95);
-  transform-origin: left center;
-}
-
-/*
- * Light-theme compatibility layer.
- * The customer-facing app is Tailwind-based and historically used a dark
- * palette directly in component class names. These narrowly scoped overrides
- * switch the existing visual system to the approved light palette without
- * changing layout, content, routing, or behavior.
- */
-
-.min-h-screen[class*="bg-[#0A0A0A]"] {
-  background: var(--miranda-background) !important;
-  color: var(--miranda-text) !important;
-}
+/* Light-theme compatibility layer. */
+.min-h-screen[class*="bg-[#0A0A0A]"] { background: var(--miranda-background) !important; color: var(--miranda-text) !important; }
 
 section[class*="bg-[#0A0A0A]"],
 header[class*="bg-[#0A0A0A]"],
@@ -109,72 +50,37 @@ section[class*="bg-[#080808]"] {
 
 [class*="bg-[#0A0A0A]"],
 [class*="bg-[#080808]"],
-[class*="bg-[#111111]"] {
-  background-color: var(--miranda-background) !important;
-}
+[class*="bg-[#111111]"] { background-color: var(--miranda-background) !important; }
 
 input[class*="bg-[#0A0A0A]"],
 textarea[class*="bg-[#0A0A0A]"],
-select[class*="bg-[#0A0A0A]"] {
-  background-color: var(--miranda-surface) !important;
-  color: var(--miranda-text) !important;
-}
+select[class*="bg-[#0A0A0A]"] { background-color: var(--miranda-surface) !important; color: var(--miranda-text) !important; }
 
 [class*="bg-[#0D0D0D]"],
 [class*="bg-[#0B0B0B]"],
 [class*="bg-[#121212]"],
 [class*="bg-[#161616]"],
-[class*="bg-slate-900"] {
-  background-color: var(--miranda-surface) !important;
-  color: var(--miranda-text) !important;
-}
+[class*="bg-slate-900"] { background-color: var(--miranda-surface) !important; color: var(--miranda-text) !important; }
 
-[class*="hover:bg-[#151515]"]:hover {
-  background-color: var(--miranda-background-soft) !important;
-}
-
+[class*="hover:bg-[#151515]"]:hover { background-color: var(--miranda-background-soft) !important; }
 [class*="bg-white/5"],
 [class*="bg-white/10"],
-[class*="bg-white/[0.02]"] {
-  background-color: rgba(36, 49, 58, 0.045) !important;
-}
-
+[class*="bg-white/[0.02]"] { background-color: rgba(36, 49, 58, 0.045) !important; }
 [class*="border-white/10"],
-[class*="border-white/5"] {
-  border-color: var(--miranda-border) !important;
-}
-
-[class*="text-slate-100"] {
-  color: #24313A !important;
-}
-
-[class*="text-slate-200"] {
-  color: #34434D !important;
-}
-
-[class*="text-slate-300"] {
-  color: #45545E !important;
-}
-
-[class*="text-slate-400"] {
-  color: #53606A !important;
-}
-
+[class*="border-white/5"] { border-color: var(--miranda-border) !important; }
+[class*="text-slate-100"] { color: #24313A !important; }
+[class*="text-slate-200"] { color: #34434D !important; }
+[class*="text-slate-300"] { color: #45545E !important; }
+[class*="text-slate-400"] { color: #53606A !important; }
 [class*="text-slate-500"],
-[class*="text-slate-600"] {
-  color: #68757D !important;
-}
+[class*="text-slate-600"] { color: #68757D !important; }
 
-/* White text becomes charcoal on light surfaces, while CTA controls retain white. */
 .min-h-screen[class*="bg-[#0A0A0A]"] .text-white:not([class*="bg-amber-"]),
 .min-h-screen[class*="bg-[#0A0A0A]"] h1.text-white,
 .min-h-screen[class*="bg-[#0A0A0A]"] h2.text-white,
 .min-h-screen[class*="bg-[#0A0A0A]"] h3.text-white,
-.min-h-screen[class*="bg-[#0A0A0A]"] p.text-white {
-  color: var(--miranda-text) !important;
-}
+.min-h-screen[class*="bg-[#0A0A0A]"] p.text-white { color: var(--miranda-text) !important; }
 
-/* Header */
 header.sticky {
   background: rgba(255, 255, 255, 0.96) !important;
   color: var(--miranda-text) !important;
@@ -182,78 +88,44 @@ header.sticky {
   box-shadow: 0 2px 16px rgba(36, 49, 58, 0.07);
   backdrop-filter: blur(14px);
 }
-
 header.sticky button:not([class*="bg-amber-"]),
-header.sticky a:not([class*="bg-amber-"]) {
-  color: var(--miranda-text-secondary);
-}
-
+header.sticky a:not([class*="bg-amber-"]) { color: var(--miranda-text-secondary); }
 header.sticky button:not([class*="bg-amber-"]):hover,
-header.sticky a:not([class*="bg-amber-"]):hover {
-  color: var(--miranda-text) !important;
-  background-color: rgba(36, 49, 58, 0.055) !important;
-}
+header.sticky a:not([class*="bg-amber-"]):hover { color: var(--miranda-text) !important; background-color: rgba(36, 49, 58, 0.055) !important; }
 
-/* Dropdowns and mobile drawer */
 header [class*="bg-[#0D0D0D]"],
-header [class*="bg-[#0B0B0B]"] {
-  background: var(--miranda-surface) !important;
-  color: var(--miranda-text) !important;
-  box-shadow: 0 16px 40px rgba(36, 49, 58, 0.14);
-}
+header [class*="bg-[#0B0B0B]"] { background: var(--miranda-surface) !important; color: var(--miranda-text) !important; box-shadow: 0 16px 40px rgba(36, 49, 58, 0.14); }
+section[class*="bg-[#0A0A0A]"] [class*="bg-[radial-gradient"] { background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F6F7F8 100%) !important; }
+[class*="shadow-2xl"] { box-shadow: 0 16px 40px rgba(36, 49, 58, 0.10) !important; }
+input, textarea, select { border-color: var(--miranda-border) !important; }
+input::placeholder, textarea::placeholder { color: #7A858C; }
+[class*="bg-black/"] { color: #ffffff; }
 
-/* Hero surface and decorative wash */
-section[class*="bg-[#0A0A0A]"] [class*="bg-[radial-gradient"] {
-  background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F6F7F8 100%) !important;
-}
+.quote-section { background: linear-gradient(135deg, var(--miranda-primary) 0%, var(--miranda-primary-dark) 100%); }
 
-/* Light cards retain elevation instead of dark glass. */
-[class*="shadow-2xl"] {
-  box-shadow: 0 16px 40px rgba(36, 49, 58, 0.10) !important;
-}
+/* P0 conversion hierarchy. */
+main > div > section:first-of-type > div:last-child { isolation: isolate; }
+main > div > section:first-of-type h1 { max-width: 12ch; margin-inline: 0; text-wrap: balance; }
+main > div > section:first-of-type h1 + p { max-width: 34rem; font-size: clamp(1.05rem, 1.2vw, 1.2rem); line-height: 1.65; font-weight: 500; }
+main > div > section:first-of-type a[href="#form"] { min-height: 54px; min-width: 210px; box-shadow: 0 12px 28px rgba(154, 45, 0, 0.18) !important; transform: translateY(0); }
+main > div > section:first-of-type a[href="#form"]:hover { transform: translateY(-1px); }
+main > div > section:first-of-type a[href*="wa.link"] { min-height: 54px; opacity: 0.88; border-color: var(--miranda-border) !important; background: rgba(255, 255, 255, 0.72) !important; color: var(--miranda-text) !important; }
+main > div > section:first-of-type a[href*="wa.link"]:hover { opacity: 1; background: var(--miranda-surface) !important; }
+main > div > section:first-of-type .group\/rating { transform: scale(0.9); transform-origin: left top; }
+main > div > section:first-of-type .group\/rating > div { box-shadow: 0 10px 26px rgba(36, 49, 58, 0.12) !important; }
+main > div > section:first-of-type button[aria-label="Imagen anterior"],
+main > div > section:first-of-type button[aria-label="Siguiente imagen"] { min-width: 44px; min-height: 44px; }
 
-/* Form controls */
-input,
-textarea,
-select {
-  border-color: var(--miranda-border) !important;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #7A858C;
-}
-
-/* Keep image overlays and media controls intentionally dark for legibility. */
-[class*="bg-black/"] {
-  color: #ffffff;
-}
-
-/*
- * Quote-request ("Cotizá tu mudanza") sections use the site's existing
- * primary brand color as their background instead of the generic dark/light
- * surface, per the navigation/form redesign. Built from the same
- * --miranda-primary / --miranda-primary-dark tokens already defined above —
- * no new colors introduced. Text inside uses Tailwind's white/NN opacity
- * utilities (e.g. text-white/90) rather than the plain `text-white` class,
- * so it intentionally sits outside the light-theme compatibility overrides
- * below and keeps rendering as light text on this dark-brand background.
- */
-.quote-section {
-  background: linear-gradient(135deg, var(--miranda-primary) 0%, var(--miranda-primary-dark) 100%);
+@media (max-width: 639px) {
+  main > div > section:first-of-type { padding-top: 3rem; padding-bottom: 3.5rem; }
+  main > div > section:first-of-type h1 { max-width: 11ch; margin-inline: auto; }
+  main > div > section:first-of-type h1 + p { max-width: 32rem; margin-inline: auto; }
+  main > div > section:first-of-type a[href="#form"],
+  main > div > section:first-of-type a[href*="wa.link"] { width: 100%; }
+  main > div > section:first-of-type .group\/rating { left: 0.5rem; top: -0.75rem; transform: scale(0.82); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }

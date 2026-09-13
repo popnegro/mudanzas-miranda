@@ -3,25 +3,19 @@ import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
+import { destinations } from './src/data/destinations';
+import { servicePages } from './src/data/seoPages';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const seoEntryPoints = [
+const seoEntryPointPaths = [
   'index.html',
   'nosotros.html',
-  'servicios/mudanzas-residenciales.html',
-  'servicios/mudanzas-oficinas.html',
-  'servicios/mudanzas-combinadas.html',
-  'servicios/embalaje-profesional.html',
-  'servicios/guardamuebles.html',
-  'servicios/logistica-integral.html',
-  'mudanzas-mendoza/mudanzas-ciudad-mendoza.html',
-  'mudanzas-mendoza/mudanzas-godoy-cruz.html',
-  'mudanzas-mendoza/mudanzas-guaymallen.html',
-  'mudanzas-mendoza/mudanzas-las-heras.html',
-  'mudanzas-mendoza/mudanzas-maipu.html',
-  'mudanzas-mendoza/mudanzas-lujan-de-cuyo.html',
-].reduce<Record<string, string>>((entries, entry) => {
+  ...servicePages.map((service) => `servicios/${service.slug}.html`),
+  ...destinations.map((destination) => `mudanzas-mendoza/${destination.slug}.html`),
+];
+
+const seoEntryPoints = seoEntryPointPaths.reduce<Record<string, string>>((entries, entry) => {
   entries[entry] = path.resolve(__dirname, entry);
   return entries;
 }, {});

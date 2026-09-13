@@ -1,6 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { destinations } from '../src/data/destinations';
+import { servicePages } from '../src/data/seoPages';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.resolve(__dirname, '..', 'dist');
@@ -9,18 +11,8 @@ const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 const pages = [
   '/',
   '/nosotros.html',
-  '/servicios/mudanzas-residenciales.html',
-  '/servicios/mudanzas-oficinas.html',
-  '/servicios/mudanzas-combinadas.html',
-  '/servicios/embalaje-profesional.html',
-  '/servicios/guardamuebles.html',
-  '/servicios/logistica-integral.html',
-  '/mudanzas-mendoza/mudanzas-ciudad-mendoza.html',
-  '/mudanzas-mendoza/mudanzas-godoy-cruz.html',
-  '/mudanzas-mendoza/mudanzas-guaymallen.html',
-  '/mudanzas-mendoza/mudanzas-las-heras.html',
-  '/mudanzas-mendoza/mudanzas-maipu.html',
-  '/mudanzas-mendoza/mudanzas-lujan-de-cuyo.html',
+  ...servicePages.map((service) => `/servicios/${service.slug}.html`),
+  ...destinations.map((destination) => `/mudanzas-mendoza/${destination.slug}.html`),
 ];
 
 const fileFor = (urlPath: string) => urlPath === '/' ? path.join(DIST, 'index.html') : path.join(DIST, urlPath.slice(1));
@@ -35,7 +27,7 @@ for (const page of pages) {
   required(html, /<meta[^>]+name="description"[^>]+content="[^"]+"/i, 'description', page);
   required(html, new RegExp(`<link[^>]+rel="canonical"[^>]+href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'i'), 'canonical', page);
   required(html, /<meta[^>]+name="robots"[^>]+content="index,follow"/i, 'indexable robots', page);
-  required(html, /<h1>[^<]+<\/h1>/i, 'initial H1', page);
+  required(html, /<main[\s\S]*?<h1>[^<]+<\/h1>/i, 'semantic main/H1', page);
   required(html, /<script[^>]+id="seo-structured-data"[^>]+type="application\/ld\+json">/i, 'initial JSON-LD', page);
 
   const schemaMatch = html.match(/<script[^>]+id="seo-structured-data"[^>]*>([\s\S]*?)<\/script>/i);
