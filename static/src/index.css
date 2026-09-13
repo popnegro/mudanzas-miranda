@@ -229,6 +229,85 @@ textarea::placeholder {
   color: #ffffff;
 }
 
+/*
+ * Services refinement
+ * -------------------
+ * The service UI remains a tabbed interaction, but the active panel is now
+ * treated as a predictable media/content card. Every service owns its visual
+ * through the data model; the CSS only improves framing, hierarchy and touch
+ * behavior and does not introduce replacement imagery.
+ */
+#servicios picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#servicios picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  object-position: center;
+}
+
+#servicios [class*="aspect-[4/3]"] {
+  min-height: 220px;
+  isolation: isolate;
+}
+
+#servicios button {
+  min-height: 48px;
+  touch-action: manipulation;
+}
+
+#servicios > div > div > div:first-child {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#servicios > div > div > div:first-child::-webkit-scrollbar {
+  display: none;
+}
+
+#servicios a[class*="bg-amber-600"] {
+  min-height: 48px;
+}
+
+/* Avoid hover zoom becoming distracting on touch devices. */
+@media (hover: none) {
+  #servicios picture img {
+    transform: none !important;
+  }
+}
+
+/* On small screens, image precedes the copy so the service is understood
+ * before the CTA without forcing users to scan a long text block first. */
+@media (max-width: 767px) {
+  #servicios [class*="grid-cols-12"] {
+    row-gap: 1.5rem;
+  }
+
+  #servicios [class*="aspect-[4/3]"] {
+    order: -1;
+    min-height: 210px;
+  }
+
+  #servicios a[class*="bg-amber-600"] {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Preserve comfortable desktop proportions and prevent very tall service
+ * imagery when copy length changes. */
+@media (min-width: 768px) {
+  #servicios [class*="aspect-[4/3]"] {
+    min-height: 280px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
