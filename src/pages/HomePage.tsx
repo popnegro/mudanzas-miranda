@@ -15,23 +15,14 @@ const HERO_CAROUSEL_SLIDES = [
 ];
 
 interface HomePageProps {
-  activeServiceTab: string;
-  setActiveServiceTab: React.Dispatch<React.SetStateAction<string>>;
-  openFaq: string | null;
-  setOpenFaq: React.Dispatch<React.SetStateAction<string | null>>;
-  activeTestimonial: number;
-  setActiveTestimonial: React.Dispatch<React.SetStateAction<number>>;
-  destSearch: string;
-  setDestSearch: React.Dispatch<React.SetStateAction<string>>;
-  filteredDestinations: typeof destinations;
-  regions: Record<string, typeof destinations>;
-  handleNavigation: (slug: string) => void;
-  heroIndex: number;
-  setHeroIndex: React.Dispatch<React.SetStateAction<number>>;
-  previousHero: () => void;
-  nextHero: () => void;
+  activeServiceTab: string; setActiveServiceTab: React.Dispatch<React.SetStateAction<string>>;
+  openFaq: string | null; setOpenFaq: React.Dispatch<React.SetStateAction<string | null>>;
+  activeTestimonial: number; setActiveTestimonial: React.Dispatch<React.SetStateAction<number>>;
+  destSearch: string; setDestSearch: React.Dispatch<React.SetStateAction<string>>;
+  filteredDestinations: typeof destinations; regions: Record<string, typeof destinations>;
+  handleNavigation: (slug: string) => void; heroIndex: number;
+  setHeroIndex: React.Dispatch<React.SetStateAction<number>>; previousHero: () => void; nextHero: () => void;
 }
-
 export default function HomePage(props: HomePageProps) {
   const { activeServiceTab, setActiveServiceTab, openFaq, setOpenFaq, activeTestimonial, setActiveTestimonial, destSearch, setDestSearch, filteredDestinations, regions, handleNavigation, heroIndex, setHeroIndex, previousHero, nextHero } = props;
   return (

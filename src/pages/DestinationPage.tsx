@@ -14,11 +14,7 @@ const HERO_CAROUSEL_SLIDES = [
   { id: 'equipo', src: '/img/mudanzas-miranda-residencial.webp', alt: 'Equipo de estibadores de Mudanzas Miranda sonrientes al realizar una mudanza profesional en Mendoza.' },
 ];
 
-interface DestinationPageProps {
-  currentDestination: (typeof destinations)[number];
-  handleNavigation: (slug: string) => void;
-}
-
+interface DestinationPageProps { currentDestination: (typeof destinations)[number]; handleNavigation: (slug: string) => void; }
 export default function DestinationPage({ currentDestination, handleNavigation }: DestinationPageProps) {
   return (
             <motion.div
