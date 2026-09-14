@@ -37,5 +37,6 @@ jobs:
       - name: Validate sitemap structure
         run: |
           test -f sitemap.xml
-          test "$(grep -c '<loc>' sitemap.xml)" -eq "14"
+          sitemap_urls="$(grep -c '<loc>' sitemap.xml)"
+          test "$sitemap_urls" -eq "27"
           ! grep -q '/test.html' sitemap.xml
