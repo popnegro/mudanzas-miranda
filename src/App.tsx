@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Award,
@@ -33,6 +33,7 @@ import {
 import { destinations } from './data/destinations';
 import { services, faqs, testimonials } from './data/staticData';
 import { servicePages } from './data/seoPages';
+import { getPageSeo, useAppRouting, useHeroCarousel } from './app';
 
 
 // Component imports
@@ -72,72 +73,14 @@ const HERO_CAROUSEL_SLIDES = [
 ];
 
 export default function App() {
-  const [activePage, setActivePage] = useState<string>(''); // empty string means main page, otherwise slug
   const [activeServiceTab, setActiveServiceTab] = useState<string>('residencial');
   const [openFaq, setOpenFaq] = useState<string | null>(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [heroIndex, setHeroIndex] = useState(0);
   const [destSearch, setDestSearch] = useState('');
 
-  // Hero Image Carousel Auto-play
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setHeroIndex((prev) => (prev + 1) % HERO_CAROUSEL_SLIDES.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+  const { heroIndex, setHeroIndex, previous: previousHero, next: nextHero } = useHeroCarousel(HERO_CAROUSEL_SLIDES.length);
 
-  // Sync state with URL pathname on mount & popstate (supporting SEO paths)
-  useEffect(() => {
-    const handleUrlChange = () => {
-      const path = window.location.pathname;
-      const htmlMatch = path.match(/\/mudanzas-mendoza\/(mudanzas-[a-z-]+)\.html/);
-      const serviceMatch = path.match(/\/servicios\/([a-z-]+)\.html/);
-      const simpleMatch = path.match(/^\/([a-z-]+)(\.html)?$/);
-
-      const slugCandidate = htmlMatch
-        ? htmlMatch[1]
-        : serviceMatch
-          ? serviceMatch[1]
-          : simpleMatch
-            ? simpleMatch[1]
-            : '';
-
-      const matchedDestination = destinations.find((d) => d.slug === slugCandidate);
-      const matchedService = servicePages.find((s) => s.slug === slugCandidate);
-
-      if (matchedDestination) {
-        setActivePage(matchedDestination.slug);
-      } else if (matchedService) {
-        setActivePage(matchedService.slug);
-      } else if (slugCandidate === 'nosotros') {
-        setActivePage('nosotros');
-      } else {
-        setActivePage('');
-      }
-    };
-
-    handleUrlChange();
-    window.addEventListener('popstate', handleUrlChange);
-    return () => window.removeEventListener('popstate', handleUrlChange);
-  }, []);
-
-  // Handle SPA routing navigation
-  const handleNavigation = (slug: string) => {
-    setActivePage(slug);
-    let newPath = '/';
-    if (slug) {
-      if (destinations.some((d) => d.slug === slug)) {
-        newPath = `/mudanzas-mendoza/${slug}.html`;
-      } else if (servicePages.some((s) => s.slug === slug)) {
-        newPath = `/servicios/${slug}.html`;
-      } else if (slug === 'nosotros') {
-        newPath = '/nosotros.html';
-      }
-    }
-    window.history.pushState({}, '', newPath);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const { activePage, currentDestination, currentService, navigate: handleNavigation } = useAppRouting();
 
   // Group destinations by region for display (filtered by destSearch state)
   const filteredDestinations = destinations.filter((d) =>
@@ -151,26 +94,11 @@ export default function App() {
   };
 
   // SEO details for active view
-  const currentDestination = destinations.find((d) => d.slug === activePage);
-  const currentService = servicePages.find((s) => s.slug === activePage);
-
-  let pageTitle = 'Mudanzas en Mendoza - Profesionales y Seguras | Mudanzas Miranda';
-  let pageDescription = 'Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas. Rápido, seguro y sin estrés. ¡Cotizá tu mudanza online en minutos!';
-  let pageCanonical = 'https://www.mudanzasmiranda.com.ar';
-
-  if (activePage === 'nosotros') {
-    pageTitle = 'Sobre Nosotros - Historia, Misión y Valores | Mudanzas Miranda';
-    pageDescription = 'Conocé la historia, misión y valores de Mudanzas Miranda. Más de 20 años de trayectoria brindando tranquilidad y confianza en mudanzas en Mendoza.';
-    pageCanonical = 'https://www.mudanzasmiranda.com.ar/nosotros.html';
-  } else if (currentDestination) {
-    pageTitle = currentDestination.title;
-    pageDescription = currentDestination.description;
-    pageCanonical = `https://www.mudanzasmiranda.com.ar/mudanzas-mendoza/${currentDestination.slug}.html`;
-  } else if (currentService) {
-    pageTitle = currentService.title;
-    pageDescription = currentService.description;
-    pageCanonical = `https://www.mudanzasmiranda.com.ar/servicios/${currentService.slug}.html`;
-  }
+  const { title: pageTitle, description: pageDescription, canonicalUrl: pageCanonical } = getPageSeo(
+    activePage,
+    currentDestination,
+    currentService,
+  );
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-white w-full overflow-x-hidden">
@@ -300,7 +228,7 @@ export default function App() {
                           <button
                             onClick={(e) => {
                               e.preventDefault();
-                              setHeroIndex((prev) => (prev === 0 ? HERO_CAROUSEL_SLIDES.length - 1 : prev - 1));
+                              previousHero();
                             }}
                             className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 border border-white/10 text-white p-2.5 rounded-full backdrop-blur-sm opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus:opacity-100 transition-all duration-300 z-10 hover:scale-105"
                             aria-label="Imagen anterior"
@@ -311,7 +239,7 @@ export default function App() {
                           <button
                             onClick={(e) => {
                               e.preventDefault();
-                              setHeroIndex((prev) => (prev + 1) % HERO_CAROUSEL_SLIDES.length);
+                              nextHero();
                             }}
                             className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 border border-white/10 text-white p-2.5 rounded-full backdrop-blur-sm opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus:opacity-100 transition-all duration-300 z-10 hover:scale-105"
                             aria-label="Siguiente imagen"
