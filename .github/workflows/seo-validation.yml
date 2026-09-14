@@ -1,16 +1,13 @@
-name: SEO technical validation
+name: SEO Technical Validation
 
 on:
-  pull_request:
-    branches: ["main"]
   push:
-    branches: ["main"]
-
-permissions:
-  contents: read
+    branches: [main, chore/hardening-refactor-app]
+  pull_request:
+    branches: [main]
 
 jobs:
-  validate:
+  seo-validation:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,7 +33,11 @@ jobs:
 
       - name: Validate sitemap structure
         run: |
-          test -f sitemap.xml
-          sitemap_urls="$(grep -c '<loc>' sitemap.xml)"
+          test -f public/sitemap.xml
+          sitemap_urls="$(grep -c '<loc>' public/sitemap.xml)"
           test "$sitemap_urls" -eq "27"
-          ! grep -q '/test.html' sitemap.xml
+          ! grep -q '/test.html' public/sitemap.xml
+          test -f dist/sitemap.xml
+          dist_sitemap_urls="$(grep -c '<loc>' dist/sitemap.xml)"
+          test "$dist_sitemap_urls" -eq "27"
+          ! grep -q '/test.html' dist/sitemap.xml
