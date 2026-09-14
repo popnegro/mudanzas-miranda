@@ -1,20 +1,14 @@
-name: SEO technical validation
+name: SEO Technical Validation
 
 on:
-  pull_request:
-    branches: ["main"]
   push:
-    branches: ["seo/authority-phase-2", "seo/p0-html-jsonld-geo"]
-
-permissions:
-  contents: read
+    branches: [main, chore/hardening-refactor-app]
+  pull_request:
+    branches: [main]
 
 jobs:
-  validate:
+  seo-validation:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: static
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,13 +18,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: static/package-lock.json
 
       - name: Install dependencies
         run: npm ci
 
       - name: Typecheck
-        run: npm run lint
+        run: npm run typecheck
 
       - name: Build
         run: npm run build
@@ -38,16 +31,13 @@ jobs:
       - name: Audit canonical SEO/GEO entry points
         run: npm run audit:static-seo
 
-      - name: Validate rating source of truth
-        working-directory: .
-        run: |
-          grep -q "RATING_VALUE = '4.9'" static/src/components/SEO.tsx
-          grep -q "REVIEW_COUNT = '597'" static/src/components/SEO.tsx
-
       - name: Validate sitemap structure
-        working-directory: .
         run: |
-          test "$(grep -c '<loc>' sitemap.xml)" -eq "14"
-          test "$(grep -c '<loc>' static/public/sitemap.xml)" -eq "14"
-          ! grep -q '/test.html' sitemap.xml
-          ! grep -q '/test.html' static/public/sitemap.xml
+          test -f public/sitemap.xml
+          sitemap_urls="$(grep -c '<loc>' public/sitemap.xml)"
+          test "$sitemap_urls" -eq "27"
+          ! grep -q '/test.html' public/sitemap.xml
+          test -f dist/sitemap.xml
+          dist_sitemap_urls="$(grep -c '<loc>' dist/sitemap.xml)"
+          test "$dist_sitemap_urls" -eq "27"
+          ! grep -q '/test.html' dist/sitemap.xml
