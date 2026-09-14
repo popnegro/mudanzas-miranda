@@ -10,7 +10,8 @@
     "audit:static-seo": "tsx scripts/audit-static-seo.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "npm run typecheck"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
