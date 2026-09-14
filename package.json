@@ -8,6 +8,7 @@
     "prebuild": "tsx scripts/generate-static-pages.ts && tsx scripts/generate-sitemap.ts",
     "build": "vite build",
     "audit:static-seo": "tsx scripts/audit-static-seo.ts",
+    "validate:app-composition": "tsx scripts/validate-app-composition.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "typecheck": "tsc --noEmit",
