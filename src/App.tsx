@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { destinations } from './data/destinations';
-import { getPageSeo, useAppRouting, useHeroCarousel } from './app';
+import { getPageSeo, useAppRouting, useHeroCarousel, useHomePageState } from './app';
 import SEO from './components/SEO';
 import Footer from './components/Footer';
 import WhatsAppIcon from './components/WhatsAppIcon';
@@ -16,25 +16,15 @@ const HERO_CAROUSEL_SLIDES = [
 ];
 
 export default function App() {
-  const [activeServiceTab, setActiveServiceTab] = useState('residencial');
-  const [openFaq, setOpenFaq] = useState<string | null>(null);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [destSearch, setDestSearch] = useState('');
-
+  const {
+    activeServiceTab, setActiveServiceTab,
+    openFaq, setOpenFaq,
+    activeTestimonial, setActiveTestimonial,
+    destSearch, setDestSearch,
+    filteredDestinations, regions,
+  } = useHomePageState();
   const { heroIndex, setHeroIndex, previous: previousHero, next: nextHero } = useHeroCarousel(HERO_CAROUSEL_SLIDES.length);
   const { activePage, currentDestination, currentService, navigate: handleNavigation } = useAppRouting();
-
-  const filteredDestinations = destinations.filter((d) =>
-    !destSearch ||
-    d.name.toLowerCase().includes(destSearch.toLowerCase()) ||
-    d.region.toLowerCase().includes(destSearch.toLowerCase()),
-  );
-
-  const regions = {
-    'Gran Mendoza': filteredDestinations.filter((d) => d.region === 'Gran Mendoza'),
-    'Zona Este y Valle de Uco': filteredDestinations.filter((d) => d.region === 'Zona Este y Valle de Uco'),
-    'Sur de Mendoza': filteredDestinations.filter((d) => d.region === 'Sur de Mendoza'),
-  };
 
   const { title: pageTitle, description: pageDescription, canonicalUrl: pageCanonical } = getPageSeo(
     activePage,
@@ -47,23 +37,7 @@ export default function App() {
       <SEO title={pageTitle} description={pageDescription} canonicalUrl={pageCanonical} isLocalPage={!!currentDestination} destinationData={currentDestination} serviceData={currentService} />
       <main className="flex-grow min-h-[60vh]">
         {!activePage ? (
-          <HomePage
-            activeServiceTab={activeServiceTab}
-            setActiveServiceTab={setActiveServiceTab}
-            openFaq={openFaq}
-            setOpenFaq={setOpenFaq}
-            activeTestimonial={activeTestimonial}
-            setActiveTestimonial={setActiveTestimonial}
-            destSearch={destSearch}
-            setDestSearch={setDestSearch}
-            filteredDestinations={filteredDestinations}
-            regions={regions}
-            handleNavigation={handleNavigation}
-            heroIndex={heroIndex}
-            setHeroIndex={setHeroIndex}
-            previousHero={previousHero}
-            nextHero={nextHero}
-          />
+          <HomePage activeServiceTab={activeServiceTab} setActiveServiceTab={setActiveServiceTab} openFaq={openFaq} setOpenFaq={setOpenFaq} activeTestimonial={activeTestimonial} setActiveTestimonial={setActiveTestimonial} destSearch={destSearch} setDestSearch={setDestSearch} filteredDestinations={filteredDestinations} regions={regions} handleNavigation={handleNavigation} heroIndex={heroIndex} setHeroIndex={setHeroIndex} previousHero={previousHero} nextHero={nextHero} />
         ) : activePage === 'nosotros' ? (
           <AboutPage handleNavigation={handleNavigation} />
         ) : currentService ? (
