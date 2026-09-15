@@ -40,32 +40,32 @@ img { max-width: 100%; }
 .panel-logo { transform: scale(0.95); transform-origin: left center; }
 
 /* Light-theme compatibility layer. */
-.min-h-screen[class*="bg-[#0A0A0A"]] { background: var(--miranda-background) !important; color: var(--miranda-text) !important; }
+.min-h-screen[class*="bg-[#0A0A0A]"] { background: var(--miranda-background) !important; color: var(--miranda-text) !important; }
 
-section[class*="bg-[#0A0A0A"],
-header[class*="bg-[#0A0A0A"],
-footer[class*="bg-[#0A0A0A"],
-section[class*="bg-[#080808"]"] {
+section[class*="bg-[#0A0A0A]"],
+header[class*="bg-[#0A0A0A]"],
+footer[class*="bg-[#0A0A0A]"],
+section[class*="bg-[#080808]"] {
   background: var(--miranda-surface) !important;
   color: var(--miranda-text) !important;
 }
 
-[class*="bg-[#0A0A0A"],
-[class*="bg-[#080808"]"] { background-color: var(--miranda-background) !important; }
+[class*="bg-[#0A0A0A]"],
+[class*="bg-[#080808]"] { background-color: var(--miranda-background) !important; }
 
-input[class*="bg-[#0A0A0A"],
-textarea[class*="bg-[#0A0A0A"],
-select[class*="bg-[#0A0A0A"]"] { background-color: var(--miranda-surface) !important; color: var(--miranda-text) !important; }
+input[class*="bg-[#0A0A0A]"],
+textarea[class*="bg-[#0A0A0A]"],
+select[class*="bg-[#0A0A0A]"] { background-color: var(--miranda-surface) !important; color: var(--miranda-text) !important; }
 
 /* #111111 is the most common card/panel fill (service cards, FAQ, testimonials,
    the quote form). It must resolve to --miranda-surface (white), NOT
    --miranda-background (the page's own off-white) -- otherwise cards become
    visually indistinguishable from the page behind them (border contrast ~1.2:1). */
-[class*="bg-[#111111"],
-[class*="bg-[#0D0D0D"],
-[class*="bg-[#0B0B0B"],
-[class*="bg-[#121212"],
-[class*="bg-[#161616"],
+[class*="bg-[#111111]"],
+[class*="bg-[#0D0D0D]"],
+[class*="bg-[#0B0B0B]"],
+[class*="bg-[#121212]"],
+[class*="bg-[#161616]"],
 [class*="bg-slate-900"] { background-color: var(--miranda-surface) !important; color: var(--miranda-text) !important; }
 
 [class*="bg-white/5"],
@@ -80,11 +80,11 @@ select[class*="bg-[#0A0A0A"]"] { background-color: var(--miranda-surface) !impor
 [class*="text-slate-500"],
 [class*="text-slate-600"] { color: #68757D !important; }
 
-.min-h-screen[class*="bg-[#0A0A0A"]] .text-white:not([class*="bg-amber-"]),
-.min-h-screen[class*="bg-[#0A0A0A"]] h1.text-white,
-.min-h-screen[class*="bg-[#0A0A0A"]] h2.text-white,
-.min-h-screen[class*="bg-[#0A0A0A"]] h3.text-white,
-.min-h-screen[class*="bg-[#0A0A0A"]] p.text-white { color: var(--miranda-text) !important; }
+.min-h-screen[class*="bg-[#0A0A0A]"] .text-white:not([class*="bg-amber-"]),
+.min-h-screen[class*="bg-[#0A0A0A]"] h1.text-white,
+.min-h-screen[class*="bg-[#0A0A0A]"] h2.text-white,
+.min-h-screen[class*="bg-[#0A0A0A]"] h3.text-white,
+.min-h-screen[class*="bg-[#0A0A0A]"] p.text-white { color: var(--miranda-text) !important; }
 
 header.sticky {
   background: rgba(255, 255, 255, 0.96) !important;
@@ -98,9 +98,9 @@ header.sticky a:not([class*="bg-amber-"]) { color: var(--miranda-text-secondary)
 header.sticky button:not([class*="bg-amber-"]):hover,
 header.sticky a:not([class*="bg-amber-"]):hover { color: var(--miranda-text) !important; background-color: rgba(36, 49, 58, 0.055) !important; }
 
-header [class*="bg-[#0D0D0D"],
-header [class*="bg-[#0B0B0B"]"] { background: var(--miranda-surface) !important; color: var(--miranda-text) !important; box-shadow: 0 16px 40px rgba(36, 49, 58, 0.14); }
-section[class*="bg-[#0A0A0A"]] [class*="bg-[radial-gradient"] { background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F6F7F8 100%) !important; }
+header [class*="bg-[#0D0D0D]"],
+header [class*="bg-[#0B0B0B]"] { background: var(--miranda-surface) !important; color: var(--miranda-text) !important; box-shadow: 0 16px 40px rgba(36, 49, 58, 0.14); }
+section[class*="bg-[#0A0A0A]"] [class*="bg-[radial-gradient"] { background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F6F7F8 100%) !important; }
 [class*="shadow-2xl"] { box-shadow: 0 16px 40px rgba(36, 49, 58, 0.10) !important; }
 input, textarea, select { border-color: var(--miranda-border) !important; }
 input::placeholder, textarea::placeholder { color: #7A858C; }
