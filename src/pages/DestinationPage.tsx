@@ -78,7 +78,7 @@ export default function DestinationPage({ currentDestination, activePage, handle
                   </div>
                 </div>
               </section>
-              <FormSection title={`Cotizá tu mudanza para ${currentDestination?.name}`} subtitle="Completá el formulario interactivo. El destino se encuentra pre-configurado para tu comodidad." destinationName={currentDestination?.name} compact />
+              <FormSection title={`Cotizá tu mudanza para ${currentDestination?.name}`} destinationName={currentDestination?.name} compact />
             </motion.div>
   );
 }
