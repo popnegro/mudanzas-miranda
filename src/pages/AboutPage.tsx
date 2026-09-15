@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Heart, History, Target, Users, type LucideIcon } from 'lucide-react';
+import type { ReactNode } from 'react';
 import FormSection from '../components/FormSection';
 
 interface AboutPageProps {
@@ -10,7 +11,7 @@ interface InstitutionalCardProps {
   eyebrow: string;
   title: string;
   icon: LucideIcon;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const cardClassName =
