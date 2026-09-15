@@ -35,6 +35,12 @@ jobs:
       - name: Dependency audit
         run: npm audit --audit-level=high
 
+      - name: Validate app composition
+        run: npm run validate:app-composition
+
+      - name: Audit static SEO
+        run: npm run audit:static-seo
+
       - name: Build
         run: npm run build
 

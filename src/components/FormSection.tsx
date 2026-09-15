@@ -2,6 +2,8 @@ import QuoteForm from './QuoteForm';
 
 interface FormSectionProps {
   title: string;
+  /** @deprecated Kept for backwards-compatible callers; subtitles are intentionally not rendered. */
+  subtitle?: string;
   destinationName?: string;
   initialService?: string;
   compact?: boolean;

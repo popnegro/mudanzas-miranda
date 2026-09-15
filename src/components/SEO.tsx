@@ -14,8 +14,6 @@ interface SEOProps {
 const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 const SITE_NAME = 'Mudanzas Miranda';
 const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-1200.jpg`;
-const RATING_VALUE = '4.9';
-const REVIEW_COUNT = '597';
 
 export default function SEO({ title, description, canonicalUrl, isLocalPage = false, indexable = true, destinationData, serviceData }: SEOProps) {
   useEffect(() => {
@@ -79,10 +77,6 @@ export default function SEO({ title, description, canonicalUrl, isLocalPage = fa
           { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '14:00' },
         ],
         sameAs: ['https://www.instagram.com/mudanzasmiranda/', 'https://www.facebook.com/mudanzasmiranda4'],
-        aggregateRating: {
-          '@type': 'AggregateRating', ratingValue: RATING_VALUE, reviewCount: REVIEW_COUNT,
-          bestRating: '5', worstRating: '1',
-        },
         areaServed: { '@type': 'AdministrativeArea', name: 'Mendoza, Argentina' },
       },
       {
