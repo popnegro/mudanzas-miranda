@@ -40,7 +40,7 @@ img { max-width: 100%; }
 .panel-logo { transform: scale(0.95); transform-origin: left center; }
 
 /* Light-theme compatibility layer. */
-.min-h-screen[class*="bg-[#0A0A0A]"] { background: var(--miranda-background) !important; color: var(--miranda-text) !important; }
+.min-h-screen[class*="bg-[#0A0A0A"]] { background: var(--miranda-background) !important; color: var(--miranda-text) !important; }
 
 section[class*="bg-[#0A0A0A"],
 header[class*="bg-[#0A0A0A"],
@@ -150,11 +150,15 @@ main > div > section:first-of-type button[aria-label="Siguiente imagen"] { min-w
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
-/* Header navigation: hover is color-only; active items retain the rounded surface. */
+/* Header navigation: hover is color-only. Active items keep their rounded surface. */
 header.sticky button:not([class*="bg-amber-"]):hover,
-header.sticky a:not([class*="bg-amber-"]):not([class*="bg-white/5"]):hover {
+header.sticky a:not([class*="bg-amber-"]):hover {
   color: var(--miranda-text) !important;
   background-color: transparent !important;
+}
+header.sticky a[class*="bg-white/5"]:hover,
+header.sticky button[class*="bg-white/5"]:hover {
+  background-color: rgba(36, 49, 58, 0.045) !important;
 }
 header.sticky > div > div > a:first-child:hover,
 header.sticky #mobile-navigation > div:first-child > a:hover {
