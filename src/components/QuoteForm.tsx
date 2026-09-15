@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, ArrowLeft, Navigation, CheckCircle2, Phone, User, Calendar, MapPin, Briefcase } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Navigation, CheckCircle2, Phone, User, Calendar, MapPin, Briefcase, ChevronDown } from 'lucide-react';
 
 interface QuoteFormProps {
   destinationName?: string;
@@ -169,9 +169,10 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
               <label htmlFor="quote-service" className="sr-only">Tipo de servicio</label>
               <div className="relative">
                 <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" aria-hidden="true" />
-                <select id="quote-service" name="service" value={formData.service} onChange={handleChange} aria-invalid={Boolean(errors.service)} aria-describedby={errors.service ? 'quote-service-error' : undefined} className={`${fieldClass(errors.service)} pl-10 appearance-none`}>
+                <select id="quote-service" name="service" value={formData.service} onChange={handleChange} aria-invalid={Boolean(errors.service)} aria-describedby={errors.service ? 'quote-service-error' : undefined} className={`${fieldClass(errors.service)} pl-10 pr-10 appearance-none`}>
                   <option value="residencial">Mudanza Residencial</option><option value="oficina">Mudanza de Oficina</option><option value="embalaje">Embalaje Profesional</option><option value="guardamuebles">Guardamuebles</option><option value="logistica">Logística y Distribución</option><option value="otro">Otro</option>
                 </select>
+                <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" aria-hidden="true" />
               </div>
               {errors.service && <p id="quote-service-error" role="alert" className="text-red-500 text-xs mt-1">{errors.service}</p>}
             </div>
