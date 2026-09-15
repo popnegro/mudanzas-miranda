@@ -15,7 +15,7 @@ interface InstitutionalCardProps {
 }
 
 const cardClassName =
-  'col-span-12 sm:col-span-6 lg:col-span-4 flex flex-col gap-5 rounded-3xl border border-white/10 bg-[#111111] p-7 transition-all duration-300 hover:border-amber-500/30 sm:p-8';
+  'flex h-full flex-col gap-5 rounded-3xl border border-white/10 bg-[#111111] p-7 transition-all duration-300 hover:border-amber-500/30 sm:p-8';
 
 function InstitutionalCard({ eyebrow, title, icon: Icon, children }: InstitutionalCardProps) {
   return (
@@ -88,7 +88,7 @@ export default function AboutPage({ handleNavigation }: AboutPageProps) {
       {/* Institutional Sections */}
       <section className="py-20 bg-[#0D0D0D]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-12 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             <InstitutionalCard eyebrow="Trayectoria" title="Nuestra Historia" icon={History}>
               <div className="space-y-4 text-sm leading-relaxed text-slate-300">
                 <p>
