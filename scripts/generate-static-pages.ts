@@ -208,7 +208,7 @@ function renderPage(page: PageDefinition) {
   <body>
     <div id="root">
       <main>
-        <article>
+        <article style="display: none;">
           <header>
             <h1>${esc(page.heading)}</h1>
           </header>
