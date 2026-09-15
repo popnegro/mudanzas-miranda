@@ -68,8 +68,6 @@ select[class*="bg-[#0A0A0A"]"] { background-color: var(--miranda-surface) !impor
 [class*="bg-[#161616"],
 [class*="bg-slate-900"] { background-color: var(--miranda-surface) !important; color: var(--miranda-text) !important; }
 
-[class*="hover:bg-[#151515"]:hover,
-[class*="hover:bg-[#151515"]:hover { background-color: var(--miranda-background-soft) !important; }
 [class*="bg-white/5"],
 [class*="bg-white/10"],
 [class*="bg-white/[0.02]"] { background-color: rgba(36, 49, 58, 0.045) !important; }
