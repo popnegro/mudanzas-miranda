@@ -75,7 +75,7 @@ export default function AboutPage({ handleNavigation }: AboutPageProps) {
             Trayectoria y Compromiso Institucional
           </div>
 
-          <h1 className="text-center text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight tracking-tight max-w-4xl mx-auto">
+          <h1 className="mx-auto max-w-4xl text-center text-4xl font-serif font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
             Nuestra Identidad y Compromiso con Mendoza
           </h1>
 
@@ -149,10 +149,7 @@ export default function AboutPage({ handleNavigation }: AboutPageProps) {
         </div>
       </section>
 
-      <FormSection
-        title="¿Listo para planificar tu mudanza?"
-        subtitle="Completá el formulario inteligente para recibir tu presupuesto adaptado sin compromisos."
-      />
+      <FormSection title="Tu mudanza en 2 pasos" />
     </motion.div>
   );
 }
