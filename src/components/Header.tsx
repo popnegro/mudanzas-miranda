@@ -103,14 +103,14 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
             <img src="/img/brand-dark.png" alt="Mudanzas Miranda" className="block h-[38px] w-auto object-contain sm:h-[45.6px]" />
           </a>
 
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Navegación principal">
+          <nav className="hidden lg:flex items-center gap-2" aria-label="Navegación principal">
             <div className="relative">
               <button
                 type="button"
                 aria-haspopup="menu"
                 aria-expanded={openDesktopMenu === 'services'}
                 onClick={() => setOpenDesktopMenu(openDesktopMenu === 'services' ? null : 'services')}
-                className={`flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold transition-colors ${servicePages.some((service) => service.slug === activePage) ? 'bg-white/5 text-amber-500' : 'text-slate-300 hover:bg-white/5 hover:text-white'}`}
+                className={`flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${servicePages.some((service) => service.slug === activePage) ? 'text-amber-500' : 'text-slate-300 hover:text-white'}`}
               >
                 Servicios
                 <ChevronDown className={`h-4 w-4 transition-transform ${openDesktopMenu === 'services' ? 'rotate-180' : ''}`} />
@@ -118,21 +118,23 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
 
               {openDesktopMenu === 'services' && (
                 <div role="menu" className="absolute left-0 top-full mt-2 w-72 rounded-2xl border border-white/10 bg-[#0D0D0D] p-3 shadow-2xl">
-                  {servicePages.map((service) => (
-                    <a
-                      key={service.slug}
-                      role="menuitem"
-                      href={getUrlForSlug(service.slug)}
-                      onClick={(event) => { event.preventDefault(); handleNavigation(service.slug); }}
-                      className={`block rounded-xl px-3 py-3 text-sm leading-snug transition-colors ${activePage === service.slug ? 'bg-white/5 font-semibold text-amber-500' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}
-                    >
-                      {service.heroHeadline.replace(' Premium', '')}
-                    </a>
-                  ))}
+                  <div className="space-y-1">
+                    {servicePages.map((service) => (
+                      <a
+                        key={service.slug}
+                        role="menuitem"
+                        href={getUrlForSlug(service.slug)}
+                        onClick={(event) => { event.preventDefault(); handleNavigation(service.slug); }}
+                        className={`block rounded-lg px-4 py-3 text-sm leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === service.slug ? 'font-semibold text-amber-500' : 'text-slate-400 hover:text-white'}`}
+                      >
+                        {service.heroHeadline.replace(' Premium', '')}
+                      </a>
+                    ))}
+                  </div>
                   <button
                     type="button"
                     onClick={() => scrollHomeSection('servicios')}
-                    className="mt-2 w-full rounded-xl border-t border-white/10 px-3 pt-3 text-sm font-semibold text-amber-500 hover:bg-amber-500/10"
+                    className="mt-2 w-full border-t border-white/10 px-4 pt-3 text-left text-sm font-semibold text-amber-500 transition-colors hover:text-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70"
                   >
                     Ver todos los servicios
                   </button>
@@ -146,7 +148,7 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
                 aria-haspopup="menu"
                 aria-expanded={openDesktopMenu === 'destinations'}
                 onClick={() => setOpenDesktopMenu(openDesktopMenu === 'destinations' ? null : 'destinations')}
-                className={`flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold transition-colors ${sitemapDestinations.some((destination) => destination.slug === activePage) ? 'bg-white/5 text-amber-500' : 'text-slate-300 hover:bg-white/5 hover:text-white'}`}
+                className={`flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${sitemapDestinations.some((destination) => destination.slug === activePage) ? 'text-amber-500' : 'text-slate-300 hover:text-white'}`}
               >
                 Destinos
                 <ChevronDown className={`h-4 w-4 transition-transform ${openDesktopMenu === 'destinations' ? 'rotate-180' : ''}`} />
@@ -164,7 +166,7 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
                       role="menuitem"
                       href={getUrlForSlug(destination.slug)}
                       onClick={(event) => { event.preventDefault(); handleNavigation(destination.slug); }}
-                      className={`flex min-h-11 items-center gap-2 rounded-lg px-2 py-2 text-sm leading-snug transition-colors ${activePage === destination.slug ? 'font-semibold text-amber-500' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}
+                      className={`flex min-h-11 items-center gap-2 px-2 py-2 text-sm leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === destination.slug ? 'font-semibold text-amber-500' : 'text-slate-400 hover:text-white'}`}
                     >
                       <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500/50" />
                       {destination.name}
@@ -174,13 +176,13 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
               )}
             </div>
 
-            <a href="/nosotros.html" onClick={(event) => { event.preventDefault(); handleNavigation('nosotros'); }} className={`flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold transition-colors ${activePage === 'nosotros' ? 'bg-white/10 text-amber-500' : 'text-slate-300 hover:bg-white/5 hover:text-white'}`}>
+            <a href="/nosotros.html" onClick={(event) => { event.preventDefault(); handleNavigation('nosotros'); }} className={`flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === 'nosotros' ? 'text-amber-500' : 'text-slate-300 hover:text-white'}`}>
               Nosotros
             </a>
           </nav>
 
           <div className="hidden lg:flex items-center">
-            <a href="#form" onClick={(event) => { if (activePage) { event.preventDefault(); scrollHomeSection('form'); } }} className="flex min-h-11 items-center gap-1.5 rounded-xl bg-amber-600 px-4 text-sm font-semibold text-white shadow-lg shadow-amber-600/10 transition-all hover:bg-amber-700 hover:scale-[1.02]">
+            <a href="#form" onClick={(event) => { if (activePage) { event.preventDefault(); scrollHomeSection('form'); } }} className="flex min-h-11 items-center gap-1.5 rounded-xl bg-amber-600 px-4 text-sm font-semibold text-white shadow-lg shadow-amber-600/10 transition-all hover:bg-amber-700 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70">
               <MessageSquare className="h-4 w-4" />
               Cotizar Mudanza
             </a>
@@ -192,7 +194,7 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-navigation"
             aria-label={isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
-            className="flex min-h-11 min-w-11 items-center justify-center rounded-xl text-slate-300 hover:bg-white/10 hover:text-white lg:hidden"
+            className="flex min-h-11 min-w-11 items-center justify-center rounded-xl text-slate-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 lg:hidden"
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -206,10 +208,10 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
               type="button"
               aria-label="Cerrar menú"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.65 }}
+              animate={{ opacity: 0.55 }}
               exit={{ opacity: 0 }}
               onClick={closeAllMenus}
-              className="fixed inset-0 top-0 z-30 bg-black lg:hidden"
+              className="fixed inset-0 z-30 bg-black lg:hidden"
             />
             <motion.div
               id="mobile-navigation"
@@ -217,47 +219,47 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
               role="dialog"
               aria-modal="true"
               aria-label="Menú de navegación"
-              initial={{ opacity: 0, x: '100%' }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed right-0 top-0 z-40 flex h-full w-full max-w-sm flex-col overflow-y-auto border-l border-white/10 bg-[#0B0B0B] p-6 pt-24 shadow-2xl lg:hidden"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18 }}
+              className="absolute left-0 right-0 top-full z-40 max-h-[calc(100dvh-72px)] overflow-y-auto border-t border-white/10 bg-[#0B0B0B] px-4 pb-6 pt-3 shadow-2xl sm:px-6 lg:hidden"
             >
-              <nav className="flex flex-1 flex-col gap-1" aria-label="Navegación móvil">
-                <a href="/" onClick={(event) => { event.preventDefault(); handleNavigation(''); }} className={`flex min-h-12 items-center gap-3 rounded-xl px-4 text-sm font-semibold ${activePage === '' ? 'bg-white/5 text-amber-500' : 'text-slate-300 hover:bg-white/5 hover:text-white'}`}>
+              <nav className="flex flex-col gap-1" aria-label="Navegación móvil">
+                <a href="/" onClick={(event) => { event.preventDefault(); handleNavigation(''); }} className={`flex min-h-12 items-center gap-3 rounded-xl px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === '' ? 'text-amber-500' : 'text-slate-300 hover:text-white'}`}>
                   <Home className="h-4 w-4" /> Inicio
                 </a>
-                <a href="/nosotros.html" onClick={(event) => { event.preventDefault(); handleNavigation('nosotros'); }} className={`flex min-h-12 items-center gap-3 rounded-xl px-4 text-sm font-semibold ${activePage === 'nosotros' ? 'bg-white/5 text-amber-500' : 'text-slate-300 hover:bg-white/5 hover:text-white'}`}>
+                <a href="/nosotros.html" onClick={(event) => { event.preventDefault(); handleNavigation('nosotros'); }} className={`flex min-h-12 items-center gap-3 rounded-xl px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === 'nosotros' ? 'text-amber-500' : 'text-slate-300 hover:text-white'}`}>
                   <Info className="h-4 w-4" /> Nosotros
                 </a>
 
                 <div className="mt-2 border-t border-white/10 pt-2">
-                  <button type="button" aria-expanded={openMobileMenu === 'services'} onClick={() => setOpenMobileMenu(openMobileMenu === 'services' ? null : 'services')} className="flex min-h-12 w-full items-center justify-between rounded-xl px-4 text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-white">
+                  <button type="button" aria-expanded={openMobileMenu === 'services'} onClick={() => setOpenMobileMenu(openMobileMenu === 'services' ? null : 'services')} className="flex min-h-12 w-full items-center justify-between rounded-xl px-4 text-sm font-semibold text-slate-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70">
                     <span className="flex items-center gap-3"><Compass className="h-4 w-4" /> Servicios</span>
                     <ChevronDown className={`h-4 w-4 transition-transform ${openMobileMenu === 'services' ? 'rotate-180' : ''}`} />
                   </button>
                   {openMobileMenu === 'services' && (
-                    <div className="ml-4 border-l border-white/10 pl-2">
+                    <div className="ml-4 space-y-1 border-l border-white/10 pl-2">
                       {servicePages.map((service) => (
-                        <a key={service.slug} href={getUrlForSlug(service.slug)} onClick={(event) => { event.preventDefault(); handleNavigation(service.slug); }} className={`flex min-h-11 items-center justify-between rounded-lg px-3 text-sm ${activePage === service.slug ? 'bg-white/5 text-amber-500' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}>
+                        <a key={service.slug} href={getUrlForSlug(service.slug)} onClick={(event) => { event.preventDefault(); handleNavigation(service.slug); }} className={`flex min-h-11 items-center justify-between px-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === service.slug ? 'font-semibold text-amber-500' : 'text-slate-400 hover:text-white'}`}>
                           {service.name}
                           <ArrowRight className="h-3.5 w-3.5" />
                         </a>
                       ))}
-                      <button type="button" onClick={() => scrollHomeSection('servicios')} className="min-h-11 w-full rounded-lg px-3 text-left text-sm font-semibold text-amber-500 hover:bg-amber-500/10">Ver todos los servicios</button>
+                      <button type="button" onClick={() => scrollHomeSection('servicios')} className="min-h-11 w-full px-3 text-left text-sm font-semibold text-amber-500 transition-colors hover:text-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70">Ver todos los servicios</button>
                     </div>
                   )}
                 </div>
 
                 <div className="border-t border-white/10 pt-2">
-                  <button type="button" aria-expanded={openMobileMenu === 'destinations'} onClick={() => setOpenMobileMenu(openMobileMenu === 'destinations' ? null : 'destinations')} className="flex min-h-12 w-full items-center justify-between rounded-xl px-4 text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-white">
+                  <button type="button" aria-expanded={openMobileMenu === 'destinations'} onClick={() => setOpenMobileMenu(openMobileMenu === 'destinations' ? null : 'destinations')} className="flex min-h-12 w-full items-center justify-between rounded-xl px-4 text-sm font-semibold text-slate-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70">
                     <span className="flex items-center gap-3"><Navigation className="h-4 w-4" /> Destinos</span>
                     <ChevronDown className={`h-4 w-4 transition-transform ${openMobileMenu === 'destinations' ? 'rotate-180' : ''}`} />
                   </button>
                   {openMobileMenu === 'destinations' && (
                     <div className="ml-4 grid grid-cols-2 gap-x-2 gap-y-1.5 border-l border-white/10 pl-2">
                       {sitemapDestinations.map((destination) => (
-                        <a key={destination.slug} href={getUrlForSlug(destination.slug)} onClick={(event) => { event.preventDefault(); handleNavigation(destination.slug); }} className={`flex min-h-11 items-center rounded-lg px-3 text-xs ${activePage === destination.slug ? 'bg-white/5 text-amber-500' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}>
+                        <a key={destination.slug} href={getUrlForSlug(destination.slug)} onClick={(event) => { event.preventDefault(); handleNavigation(destination.slug); }} className={`flex min-h-11 items-center px-3 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === destination.slug ? 'font-semibold text-amber-500' : 'text-slate-400 hover:text-white'}`}>
                           {destination.name.replace('Mudanzas en ', '').replace(' de Mendoza', '').replace('Mendoza', '')}
                         </a>
                       ))}
@@ -266,12 +268,9 @@ export default function Header({ destinations, activePage, onNavigate }: HeaderP
                 </div>
               </nav>
 
-              <div className="space-y-2 border-t border-white/10 pt-4">
-                <a href="#form" onClick={(event) => { if (activePage) { event.preventDefault(); scrollHomeSection('form'); } else { closeAllMenus(); } }} className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-600 px-4 text-sm font-bold text-white hover:bg-amber-700">
-                  <MessageSquare className="h-4 w-4" /> Cotizar mi Mudanza
-                </a>
-                <a href="https://wa.link/zn3zij" target="_blank" rel="noopener noreferrer" className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 text-sm font-bold text-white hover:bg-[#20ba56]">
-                  <MessageSquare className="h-4 w-4" /> Chatear por WhatsApp
+              <div className="mt-4 border-t border-white/10 pt-4">
+                <a href="#form" onClick={(event) => { if (activePage) { event.preventDefault(); scrollHomeSection('form'); } else { closeAllMenus(); } }} className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-600 px-4 text-sm font-bold text-white transition-colors hover:bg-amber-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70">
+                  <MessageSquare className="h-4 w-4" /> Cotizar Mudanza
                 </a>
               </div>
             </motion.div>
