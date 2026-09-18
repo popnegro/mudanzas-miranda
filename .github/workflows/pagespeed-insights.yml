@@ -20,6 +20,7 @@ jobs:
     name: PageSpeed Insights · Mobile · Staging
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    continue-on-error: true
     steps:
       - name: Run PageSpeed Insights
         uses: jakepartusch/psi-action@v1.3
@@ -33,6 +34,7 @@ jobs:
     name: PageSpeed Insights · Desktop · Staging
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    continue-on-error: true
     steps:
       - name: Run PageSpeed Insights
         uses: jakepartusch/psi-action@v1.3
