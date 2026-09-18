@@ -57,10 +57,6 @@ input[class*="bg-[#0A0A0A]"],
 textarea[class*="bg-[#0A0A0A]"],
 select[class*="bg-[#0A0A0A]"] { background-color: var(--miranda-surface) !important; color: var(--miranda-text) !important; }
 
-/* #111111 is the most common card/panel fill (service cards, FAQ, testimonials,
-   the quote form). It must resolve to --miranda-surface (white), NOT
-   --miranda-background (the page's own off-white) -- otherwise cards become
-   visually indistinguishable from the page behind them (border contrast ~1.2:1). */
 [class*="bg-[#111111]"],
 [class*="bg-[#0D0D0D]"],
 [class*="bg-[#0B0B0B]"],
@@ -92,6 +88,7 @@ header.sticky {
   border-color: var(--miranda-border) !important;
   box-shadow: 0 2px 16px rgba(36, 49, 58, 0.07);
   backdrop-filter: blur(14px);
+  isolation: isolate;
 }
 header.sticky button:not([class*="bg-amber-"]),
 header.sticky a:not([class*="bg-amber-"]) { color: var(--miranda-text-secondary); }
@@ -100,6 +97,7 @@ header.sticky a:not([class*="bg-amber-"]):hover { color: var(--miranda-text) !im
 
 header [class*="bg-[#0D0D0D]"],
 header [class*="bg-[#0B0B0B]"] { background: var(--miranda-surface) !important; color: var(--miranda-text) !important; box-shadow: 0 16px 40px rgba(36, 49, 58, 0.14); }
+header.sticky [role="menu"] { z-index: 60; pointer-events: auto; }
 section[class*="bg-[#0A0A0A]"] [class*="bg-[radial-gradient"] { background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F6F7F8 100%) !important; }
 [class*="shadow-2xl"] { box-shadow: 0 16px 40px rgba(36, 49, 58, 0.10) !important; }
 input, textarea, select { border-color: var(--miranda-border) !important; }
@@ -108,11 +106,6 @@ input::placeholder, textarea::placeholder { color: #7A858C; }
 
 .quote-section { background: linear-gradient(135deg, var(--miranda-primary) 0%, var(--miranda-primary-dark) 100%); }
 
-/* Brand-accent contrast fix.
-   Tailwind's amber-500 (#F59E0B) on white is ~2.15:1 and amber-600 (#D97706)
-   with white button text is ~3.19:1 -- both fail WCAG AA (4.5:1) for text.
-   Route both to --miranda-primary (#9A2D00), which hits 7.6:1 on white and on
-   white text, while keeping the same visual role (active nav state, CTA). */
 [class*="text-amber-500"] { color: var(--miranda-primary) !important; }
 [class*="bg-amber-500\/10"] { background-color: rgba(154, 45, 0, 0.08) !important; }
 [class*="bg-amber-600"] { background-color: var(--miranda-primary) !important; }
@@ -121,7 +114,6 @@ input::placeholder, textarea::placeholder { color: #7A858C; }
 [class*="focus:ring-amber-500"]:focus { --tw-ring-color: var(--miranda-primary) !important; }
 [class*="focus:border-amber-500"]:focus { border-color: var(--miranda-primary) !important; }
 
-/* P0 conversion hierarchy. Hero typography is controlled by each page's Tailwind layout. */
 main > div > section:first-of-type > div:last-child { isolation: isolate; }
 main > div > section:first-of-type h1 + p { max-width: 34rem; font-size: clamp(1.05rem, 1.2vw, 1.2rem); line-height: 1.65; font-weight: 500; }
 main > div > section:first-of-type a[href="#form"] { min-height: 54px; min-width: 210px; box-shadow: 0 12px 28px rgba(154, 45, 0, 0.18) !important; transform: translateY(0); }
@@ -132,6 +124,15 @@ main > div > section:first-of-type .group\/rating { transform: scale(0.9); trans
 main > div > section:first-of-type .group\/rating > div { box-shadow: 0 10px 26px rgba(36, 49, 58, 0.12) !important; }
 main > div > section:first-of-type button[aria-label="Imagen anterior"],
 main > div > section:first-of-type button[aria-label="Siguiente imagen"] { min-width: 44px; min-height: 44px; }
+
+@media (min-width: 1024px) {
+  header.sticky nav[aria-label="Navegación principal"] { display: flex !important; visibility: visible !important; opacity: 1 !important; }
+}
+
+@media (max-width: 1023px) {
+  header.sticky button[aria-controls="mobile-navigation"] { display: flex !important; visibility: visible !important; opacity: 1 !important; }
+  header.sticky #mobile-navigation { z-index: 60; pointer-events: auto; }
+}
 
 @media (max-width: 639px) {
   main > div > section:first-of-type { padding-top: 3rem; padding-bottom: 3.5rem; }
@@ -146,7 +147,6 @@ main > div > section:first-of-type button[aria-label="Siguiente imagen"] { min-w
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
-/* Header navigation: hover is color-only. Active items keep their rounded surface. */
 header.sticky button:not([class*="bg-amber-"]):hover,
 header.sticky a:not([class*="bg-amber-"]):hover {
   color: var(--miranda-text) !important;
