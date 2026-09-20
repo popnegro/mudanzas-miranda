@@ -11,6 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const seoEntryPointPaths = [
   'index.html',
   'nosotros.html',
+  'servicios/index.html',
   ...servicePages.map((service) => `servicios/${service.slug}.html`),
   ...destinations.map((destination) => `mudanzas-mendoza/${destination.slug}.html`),
 ];
