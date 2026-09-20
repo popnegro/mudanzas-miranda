@@ -65,6 +65,8 @@ export default function Header({
       return `/mudanzas-mendoza/${slug}.html`;
     }
 
+    if (slug === 'servicios') return '/servicios/';
+
     if (servicePages.some((service) => service.slug === slug)) {
       return `/servicios/${slug}.html`;
     }
@@ -475,13 +477,16 @@ export default function Header({
                       </a>
                     ))}
 
-                    <button
-                      type="button"
-                      onClick={() => scrollHomeSection('servicios')}
-                      className="min-h-11 w-full rounded-lg px-3 text-left text-sm font-semibold text-amber-500 transition-colors hover:bg-amber-500/10 hover:text-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70"
+                    <a
+                      href="/servicios/"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        handleNavigation('servicios');
+                      }}
+                      className="flex min-h-11 w-full items-center rounded-lg px-3 text-left text-sm font-semibold text-amber-500 transition-colors hover:bg-amber-500/10 hover:text-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70"
                     >
                       Ver todos los servicios
-                    </button>
+                    </a>
                   </div>
                 )}
               </div>
