@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Award, Truck, ShieldCheck, Star, ChevronDown, Phone, Mail, MapPin, Clock, ArrowRight, Home, Building, Users, Package, Warehouse, CheckCircle2, Calendar, ArrowLeft, ChevronLeft, ChevronRight, Navigation, History, Target, Heart, Search, X } from 'lucide-react';
+import { MapPin, Phone, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { services, faqs, testimonials } from '../data/staticData';
 import { servicePages } from '../data/seoPages';
 import { destinations } from '../data/destinations';
@@ -84,20 +84,30 @@ export default function DestinationPage({ currentDestination, activePage, handle
             </div>
           </article>
 
-          <section aria-labelledby="destination-benefits-title" className="space-y-5">
-            <h3 id="destination-benefits-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-800">
-              Por qué elegirnos para tu traslado en {currentDestination?.name}
-            </h3>
+          <section aria-labelledby="destination-services-title" className="space-y-5">
+            <div>
+              <h3 id="destination-services-title" className="text-xl sm:text-2xl font-bold tracking-tight text-slate-800">
+                Servicios disponibles en {currentDestination?.name}
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-slate-500">
+                Elegí la solución según el tipo de traslado que necesitás realizar en esta localidad.
+              </p>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
-              {destinationBenefits.map(([title, text]) => (
-                <div key={title} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-600" aria-hidden="true" />
-                  <div>
-                    <p className="text-sm font-bold text-slate-800">{title}</p>
-                    <p className="mt-0.5 text-xs sm:text-sm leading-5 text-slate-500">{text}</p>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {servicePages.map((service) => (
+                <a
+                  key={service.slug}
+                  href={`/servicios/${service.slug}.html`}
+                  onClick={(e) => { e.preventDefault(); handleNavigation(service.slug); }}
+                  className="group rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:border-orange-200 hover:bg-orange-50"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <h4 className="text-sm font-bold text-slate-800 group-hover:text-orange-800">{service.name}</h4>
+                    <ArrowRight className="h-4 w-4 flex-shrink-0 text-orange-600" aria-hidden="true" />
                   </div>
-                </div>
+                  <p className="mt-2 text-xs leading-5 text-slate-500">{service.heroSubheadline}</p>
+                </a>
               ))}
             </div>
           </section>
