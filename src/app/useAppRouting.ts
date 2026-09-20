@@ -19,6 +19,7 @@ export function useAppRouting() {
     if (destinations.some((item) => item.slug === slugCandidate)) return slugCandidate;
     if (servicePages.some((item) => item.slug === slugCandidate)) return slugCandidate;
     if (slugCandidate === 'nosotros') return 'nosotros';
+    if (slugCandidate === 'servicios') return 'servicios';
     return '';
   }, []);
 
@@ -39,6 +40,8 @@ export function useAppRouting() {
         newPath = `/servicios/${slug}.html`;
       } else if (slug === 'nosotros') {
         newPath = '/nosotros.html';
+      } else if (slug === 'servicios') {
+        newPath = '/servicios/';
       }
     }
     window.history.pushState({}, '', newPath);
