@@ -92,27 +92,20 @@ export default function ServicePage({ currentService, activePage, handleNavigati
                     </div>
                   </div>
 
-                  {/* Highlights section */}
-                  <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-white tracking-tight">Beneficios Exclusivos del Servicio</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="bg-[#111111] border border-white/5 p-6 rounded-2xl space-y-3">
-                        <div className="p-3 bg-amber-500/10 text-amber-500 rounded-xl w-fit"><ShieldCheck className="w-6 h-6" /></div>
-                        <h4 className="text-sm font-bold text-white uppercase tracking-wider">Seguridad Garantizada</h4>
-                        <p className="text-xs text-slate-400">Pertenencias protegidas por mantas de lana suave industriales y fajas elásticas.</p>
-                      </div>
-                      <div className="bg-[#111111] border border-white/5 p-6 rounded-2xl space-y-3">
-                        <div className="p-3 bg-amber-500/10 text-amber-500 rounded-xl w-fit"><Truck className="w-6 h-6" /></div>
-                        <h4 className="text-sm font-bold text-white uppercase tracking-wider">Flota Autorizada</h4>
-                        <p className="text-xs text-slate-400">Unidades habilitadas por la CNRT, con seguimiento satelital de seguridad en ruta.</p>
-                      </div>
-                      <div className="bg-[#111111] border border-white/5 p-6 rounded-2xl space-y-3">
-                        <div className="p-3 bg-amber-500/10 text-amber-500 rounded-xl w-fit"><Clock className="w-6 h-6" /></div>
-                        <h4 className="text-sm font-bold text-white uppercase tracking-wider">Puntualidad Absoluta</h4>
-                        <p className="text-xs text-slate-400">Llegamos puntualmente en la fecha coordinada para evitar demoras innecesarias.</p>
-                      </div>
+                  {/* Service-specific content */}
+                  <section aria-labelledby="service-scope-title" className="space-y-6">
+                    <h3 id="service-scope-title" className="text-xl font-bold text-white tracking-tight">
+                      Qué tenés que saber sobre {currentService.name}
+                    </h3>
+                    <div className="bg-[#111111] border border-white/10 rounded-2xl p-6">
+                      <p className="text-sm sm:text-base leading-7 text-slate-300">
+                        {currentService.leadText}
+                      </p>
+                      <p className="mt-5 text-sm sm:text-base leading-7 text-slate-400">
+                        {currentService.detailText}
+                      </p>
                     </div>
-                  </div>
+                  </section>
 
                   {/* Services internal cross-linking */}
                   <div className="border-t border-white/10 pt-8 space-y-3">
