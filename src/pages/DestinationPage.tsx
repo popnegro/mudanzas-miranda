@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'motion/react';
-import { MapPin, Phone, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { MapPin, Phone, ArrowRight } from 'lucide-react';
 import { services, faqs, testimonials } from '../data/staticData';
 import { servicePages } from '../data/seoPages';
 import { destinations } from '../data/destinations';
@@ -15,13 +14,6 @@ const HERO_CAROUSEL_SLIDES = [
 ];
 
 interface DestinationPageProps { currentDestination: (typeof destinations)[number]; activePage: string; handleNavigation: (slug: string) => void; }
-
-const destinationBenefits = [
-  ['Operarios Locales', 'Choferes que conocen a la perfección cada calle, avenida y acceso rápido.'],
-  ['Trámites y Permisos', 'Gestionamos autorizaciones de estacionamiento y mudanza en altura si aplica.'],
-  ['Embalaje Adaptado', 'Protección con cartón y plástico burbuja reforzado en calles de tierra o ruta.'],
-  ['Seguro Vehicular Total', 'Garantía vial total con cobertura activa de siniestros de tránsito.'],
-] as const;
 
 export default function DestinationPage({ currentDestination, activePage, handleNavigation }: DestinationPageProps) {
   return (
