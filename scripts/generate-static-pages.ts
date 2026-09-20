@@ -20,7 +20,7 @@ interface PageDefinition {
   heading: string;
   intro: string;
   detail?: string;
-  kind: 'home' | 'about' | 'service' | 'local';
+  kind: 'home' | 'about' | 'service' | 'local' | 'services-index';
   serviceName?: string;
   destinationName?: string;
 }
@@ -40,6 +40,16 @@ const pages: PageDefinition[] = [
     intro: 'Mudanzas Miranda es una empresa de mudanzas y traslados en Mendoza. Realizamos mudanzas residenciales, de oficinas, embalaje profesional, guardamuebles, mudanzas combinadas y logística integral.',
     detail: 'Atendemos Mendoza y las principales zonas del Gran Mendoza con presupuesto personalizado, coordinación previa y contacto directo.',
     kind: 'home',
+  },
+  {
+    file: 'servicios/index.html',
+    url: canonical('servicios/'),
+    title: 'Servicios de Mudanzas en Mendoza | Mudanzas Miranda',
+    description: 'Conocé los servicios de Mudanzas Miranda en Mendoza: mudanzas residenciales, oficinas, embalaje profesional, guardamuebles, mudanzas combinadas y logística integral.',
+    heading: 'Servicios de Mudanzas Miranda',
+    intro: 'Soluciones de mudanza y logística para hogares, oficinas, empresas y traslados en Mendoza.',
+    detail: 'Elegí el servicio que mejor responde a tu necesidad y consultá sus características antes de solicitar tu presupuesto.',
+    kind: 'services-index',
   },
   {
     file: 'nosotros.html',
@@ -143,6 +153,17 @@ function schemaFor(page: PageDefinition) {
       inLanguage: 'es-AR',
     },
   ];
+
+  if (page.kind === 'services-index') {
+    graph.push({
+      '@type': 'CollectionPage',
+      '@id': `${page.url}#collection`,
+      name: page.title,
+      description: page.description,
+      url: page.url,
+      isPartOf: { '@id': `${SITE_URL}/#website` },
+    });
+  }
 
   if (page.kind === 'service' && page.serviceName) {
     graph.push({
