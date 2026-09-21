@@ -189,72 +189,20 @@ export default function Header({
             className="hidden items-center gap-3 lg:flex"
             aria-label="Navegación principal"
           >
-            <div className="relative">
-              <button
-                type="button"
-                aria-haspopup="menu"
-                aria-expanded={openDesktopMenu === 'services'}
-                onClick={() =>
-                  setOpenDesktopMenu(
-                    openDesktopMenu === 'services'
-                      ? null
-                      : 'services',
-                  )
-                }
-                className={`flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${servicePages.some(
-                  (service) => service.slug === activePage,
-                )
+            <a
+              href="/servicios/"
+              onClick={(event) => {
+                event.preventDefault();
+                handleNavigation('servicios');
+              }}
+              className={`flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${
+                activePage === 'servicios' || servicePages.some((service) => service.slug === activePage)
                   ? 'text-amber-500'
                   : 'text-slate-300 hover:text-white'
-                  }`}
-              >
-                Servicios
-
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform ${openDesktopMenu === 'services'
-                    ? 'rotate-180'
-                    : ''
-                    }`}
-                />
-              </button>
-
-              {openDesktopMenu === 'services' && (
-                <div
-                  role="menu"
-                  className="absolute left-0 top-full mt-2 w-72 rounded-2xl border border-white/10 bg-[#0D0D0D] p-3 shadow-2xl"
-                >
-                  <div className="space-y-1">
-                    {servicePages.map((service) => (
-                      <a
-                        key={service.slug}
-                        role="menuitem"
-                        href={getUrlForSlug(service.slug)}
-                        onClick={(event) => {
-                          event.preventDefault();
-                          handleNavigation(service.slug);
-                        }}
-                        className={`block rounded-lg px-4 py-3 text-sm leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === service.slug
-                          ? 'font-semibold text-amber-500'
-                          : 'text-slate-400 hover:text-white'
-                          }`}
-                      >
-                        {service.heroHeadline.replace(' Premium', '')}
-                      </a>
-                    ))}
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      scrollHomeSection('servicios')
-                    }
-                    className="mt-2 w-full rounded-lg border-t border-white/10 px-4 pt-3 text-left text-sm font-semibold text-amber-500 transition-colors hover:text-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70"
-                  >
-                    Ver todos los servicios
-                  </button>
-                </div>
-              )}
-            </div>
+              }`}
+            >
+              Servicios
+            </a>
 
             <div className="relative">
               <button
@@ -432,63 +380,21 @@ export default function Header({
               </a>
 
               <div className="mt-2 border-t border-white/10 pt-2">
-                <button
-                  type="button"
-                  aria-expanded={openMobileMenu === 'services'}
-                  onClick={() =>
-                    setOpenMobileMenu(
-                      openMobileMenu === 'services'
-                        ? null
-                        : 'services',
-                    )
-                  }
-                  className="flex min-h-12 w-full items-center justify-between rounded-xl px-4 text-sm font-semibold text-slate-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70"
+                <a
+                  href="/servicios/"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    handleNavigation('servicios');
+                  }}
+                  className={`flex min-h-12 items-center gap-3 rounded-xl px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${
+                    activePage === 'servicios' || servicePages.some((service) => service.slug === activePage)
+                      ? 'bg-white/5 text-amber-500'
+                      : 'text-slate-300'
+                  }`}
                 >
-                  <span className="flex items-center gap-3">
-                    <Compass className="h-4 w-4" />
-                    Servicios
-                  </span>
-
-                  <ChevronDown
-                    className={`h-4 w-4 transition-transform ${openMobileMenu === 'services'
-                        ? 'rotate-180'
-                        : ''
-                      }`}
-                  />
-                </button>
-
-                {openMobileMenu === 'services' && (
-                  <div className="ml-4 space-y-1 border-l border-white/10 pl-2">
-                    {servicePages.map((service) => (
-                      <a
-                        key={service.slug}
-                        href={getUrlForSlug(service.slug)}
-                        onClick={(event) => {
-                          event.preventDefault();
-                          handleNavigation(service.slug);
-                        }}
-                        className={`flex min-h-11 items-center justify-between rounded-lg px-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === service.slug
-                            ? 'bg-white/5 font-semibold text-amber-500'
-                            : 'text-slate-400'
-                          }`}
-                      >
-                        {service.name}
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </a>
-                    ))}
-
-                    <a
-                      href="/servicios/"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        handleNavigation('servicios');
-                      }}
-                      className="flex min-h-11 w-full items-center rounded-lg px-3 text-left text-sm font-semibold text-amber-500 transition-colors hover:bg-amber-500/10 hover:text-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70"
-                    >
-                      Ver todos los servicios
-                    </a>
-                  </div>
-                )}
+                  <Compass className="h-4 w-4" />
+                  Servicios
+                </a>
               </div>
 
               <div className="border-t border-white/10 pt-2">
