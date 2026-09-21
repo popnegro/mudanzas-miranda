@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Menu, X, MessageSquare, Truck } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Destination } from '../types';
-import { servicePages } from '../data/seoPages';
 
 interface HeaderProps {
   destinations: Destination[];
