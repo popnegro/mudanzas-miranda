@@ -29,7 +29,7 @@ export default function DestinationPage({ currentDestination, activePage, handle
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2">
           <a href="/" onClick={(e) => { e.preventDefault(); handleNavigation(''); }} className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer font-semibold">Inicio</a>
           <span>/</span>
-          <span className="text-amber-500 font-semibold">Destinos</span>
+          <a href="/destinos/" onClick={(e) => { e.preventDefault(); handleNavigation('destinos'); }} className="font-semibold text-amber-500 hover:text-white transition-colors">Destinos</a>
           <span>/</span>
           <span className="text-white truncate font-medium">{currentDestination?.name}</span>
         </div>
