@@ -11,6 +11,7 @@ import AboutPage from './pages/AboutPage';
 import ServicePage from './pages/ServicePage';
 import ServicesPage from './pages/ServicesPage';
 import DestinationPage from './pages/DestinationPage';
+import DestinationsPage from './pages/DestinationsPage';
 
 export default function App() {
   const {
@@ -40,6 +41,8 @@ export default function App() {
           <AboutPage handleNavigation={handleNavigation} />
         ) : activePage === 'servicios' ? (
           <ServicesPage handleNavigation={handleNavigation} />
+        ) : activePage === 'destinos' ? (
+          <DestinationsPage destinations={destinations} handleNavigation={handleNavigation} />
         ) : currentService ? (
           <ServicePage currentService={currentService} activePage={activePage} handleNavigation={handleNavigation} />
         ) : currentDestination ? (
