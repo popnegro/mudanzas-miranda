@@ -1,7 +1,6 @@
 import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react';
 import { Destination } from '../types';
-import { servicePages } from '../data/seoPages';\nimport { themeConfig } from '../theme/theme.config';
-
+import { servicePages } from '../data/seoPages';\n
 interface FooterProps {
   destinations: Destination[];
   onNavigate: (slug: string) => void;
