@@ -2,13 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import {
   Menu,
   X,
-  ChevronDown,
   MessageSquare,
   Compass,
   Navigation,
   Home,
   Info,
-  ArrowRight,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Destination } from '../types';
@@ -37,49 +35,21 @@ export default function Header({
   onNavigate,
 }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDesktopMenu, setOpenDesktopMenu] = useState<
-    'services' | 'destinations' | null
-  >(null);
-  const [openMobileMenu, setOpenMobileMenu] = useState<
-    'services' | 'destinations' | null
-  >(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const headerRef = useRef<HTMLElement | null>(null);
   const mobilePanelRef = useRef<HTMLDivElement | null>(null);
 
-  const sitemapDestinations = SITEMAP_DESTINATION_SLUGS
-    .map((slug) =>
-      destinations.find((destination) => destination.slug === slug),
-    )
-    .filter(
-      (destination): destination is Destination => Boolean(destination),
-    );
-
   const getUrlForSlug = (slug: string) => {
-    if (!slug) return '/';
-
-    if (
-      destinations.some((destination) => destination.slug === slug)
-    ) {
-      return `/mudanzas-mendoza/${slug}.html`;
-    }
-
     if (slug === 'servicios') return '/servicios/';
-
-    if (servicePages.some((service) => service.slug === slug)) {
-      return `/servicios/${slug}.html`;
-    }
-
+    if (slug === 'destinos') return '/destinos/';
+    if (servicePages.some((service) => service.slug === slug)) return `/servicios/${slug}.html`;
     if (slug === 'nosotros') return '/nosotros.html';
-
     return '/';
   };
 
   const closeAllMenus = () => {
     setIsMobileMenuOpen(false);
-    setOpenDesktopMenu(null);
-    setOpenMobileMenu(null);
   };
 
   const handleNavigation = (slug: string) => {
@@ -204,75 +174,20 @@ export default function Header({
               Servicios
             </a>
 
-            <div className="relative">
-              <button
-                type="button"
-                aria-haspopup="menu"
-                aria-expanded={
-                  openDesktopMenu === 'destinations'
-                }
-                onClick={() =>
-                  setOpenDesktopMenu(
-                    openDesktopMenu === 'destinations'
-                      ? null
-                      : 'destinations',
-                  )
-                }
-                className={`flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${sitemapDestinations.some(
-                  (destination) =>
-                    destination.slug === activePage,
-                )
+            <a
+              href="/destinos/"
+              onClick={(event) => {
+                event.preventDefault();
+                handleNavigation('destinos');
+              }}
+              className={`flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${
+                activePage === 'destinos'
                   ? 'text-amber-500'
                   : 'text-slate-300 hover:text-white'
-                  }`}
-              >
-                Destinos
-
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform ${openDesktopMenu === 'destinations'
-                    ? 'rotate-180'
-                    : ''
-                    }`}
-                />
-              </button>
-
-              {openDesktopMenu === 'destinations' && (
-                <div
-                  role="menu"
-                  className="absolute left-1/2 top-full mt-2 grid w-[560px] -translate-x-1/2 grid-cols-2 gap-x-8 gap-y-3 rounded-2xl border border-white/10 bg-[#0D0D0D] p-6 shadow-2xl"
-                >
-                  <div className="col-span-2 mb-2">
-                    <p className="text-xs font-bold uppercase tracking-widest text-amber-500">
-                      Destinos en Mendoza
-                    </p>
-
-                    <p className="mt-1 text-xs text-slate-500">
-                      Zonas prioritarias de atención y contenido
-                      local.
-                    </p>
-                  </div>
-
-                  {sitemapDestinations.map((destination) => (
-                    <a
-                      key={destination.slug}
-                      role="menuitem"
-                      href={getUrlForSlug(destination.slug)}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        handleNavigation(destination.slug);
-                      }}
-                      className={`flex min-h-11 items-center gap-2 rounded-lg px-3 py-2 text-sm leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === destination.slug
-                        ? 'bg-white/5 font-semibold text-amber-500'
-                        : 'text-slate-400 hover:text-white'
-                        }`}
-                    >
-                      <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500/50" />
-                      {destination.name}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
+              }`}
+            >
+              Destinos
+            </a>
 
             <a
               href="/nosotros.html"
@@ -398,54 +313,21 @@ export default function Header({
               </div>
 
               <div className="border-t border-white/10 pt-2">
-                <button
-                  type="button"
-                  aria-expanded={openMobileMenu === 'destinations'}
-                  onClick={() =>
-                    setOpenMobileMenu(
-                      openMobileMenu === 'destinations'
-                        ? null
-                        : 'destinations',
-                    )
-                  }
-                  className="flex min-h-12 w-full items-center justify-between rounded-xl px-4 text-sm font-semibold text-slate-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70"
+                <a
+                  href="/destinos/"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    handleNavigation('destinos');
+                  }}
+                  className={`flex min-h-12 items-center gap-3 rounded-xl px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${
+                    activePage === 'destinos'
+                      ? 'bg-white/5 text-amber-500'
+                      : 'text-slate-300'
+                  }`}
                 >
-                  <span className="flex items-center gap-3">
-                    <Navigation className="h-4 w-4" />
-                    Destinos
-                  </span>
-
-                  <ChevronDown
-                    className={`h-4 w-4 transition-transform ${openMobileMenu === 'destinations'
-                        ? 'rotate-180'
-                        : ''
-                      }`}
-                  />
-                </button>
-
-                {openMobileMenu === 'destinations' && (
-                  <div className="ml-4 grid grid-cols-2 gap-x-2 gap-y-1.5 border-l border-white/10 pl-2">
-                    {sitemapDestinations.map((destination) => (
-                      <a
-                        key={destination.slug}
-                        href={getUrlForSlug(destination.slug)}
-                        onClick={(event) => {
-                          event.preventDefault();
-                          handleNavigation(destination.slug);
-                        }}
-                        className={`flex min-h-11 items-center rounded-lg px-3 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === destination.slug
-                            ? 'bg-white/5 font-semibold text-amber-500'
-                            : 'text-slate-400'
-                          }`}
-                      >
-                        {destination.name
-                          .replace('Mudanzas en ', '')
-                          .replace(' de Mendoza', '')
-                          .replace('Mendoza', '')}
-                      </a>
-                    ))}
-                  </div>
-                )}
+                  <Navigation className="h-4 w-4" />
+                  Destinos
+                </a>
               </div>
             </nav>
 
