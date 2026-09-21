@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { checkAvailability } from '../availability/client';
+import type { AvailabilityResult } from '../availability/types';
 import { ArrowRight, ArrowLeft, Navigation, CheckCircle2, Phone, User, Calendar, MapPin, Briefcase, ChevronDown } from 'lucide-react';
 
 interface QuoteFormProps {
@@ -37,6 +39,8 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [availability, setAvailability] = useState<AvailabilityResult | null>(null);
+  const [isCheckingAvailability, setIsCheckingAvailability] = useState(false);
 
   useEffect(() => {
     if (destinationName) setFormData((prev) => ({ ...prev, destination: destinationName }));
@@ -52,6 +56,29 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
       () => alert('No se pudo obtener la ubicación. Por favor, ingrésela manualmente.'),
     );
   };
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (!formData.date) {
+      setAvailability(null);
+      return;
+    }
+
+    setIsCheckingAvailability(true);
+
+    checkAvailability({ date: formData.date, service: formData.service })
+      .then((result) => {
+        if (!cancelled) setAvailability(result);
+      })
+      .finally(() => {
+        if (!cancelled) setIsCheckingAvailability(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [formData.date, formData.service]);
 
   const formatPhoneNumber = (value: string): string => {
     const digits = value.replace(/\D/g, '').slice(0, 10);
@@ -90,6 +117,7 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
     if (!formData.phone.trim()) newErrors.phone = 'El teléfono es obligatorio.';
     else if (!/^\d{7,15}$/.test(formData.phone.replace(/\s/g, ''))) newErrors.phone = 'Ingrese un número de teléfono válido.';
     if (!formData.date) newErrors.date = 'La fecha es obligatoria.';
+    else if (availability?.status === 'unavailable') newErrors.date = 'La fecha seleccionada no presenta disponibilidad en la agenda.';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -133,7 +161,7 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
   const fieldClass = (error?: string) => `w-full bg-[#0A0A0A] border ${error ? 'border-red-500' : 'border-white/10'} rounded-xl py-3 text-sm text-white focus:ring-1 focus:ring-amber-500 focus:outline-none`;
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-[#111111] border border-white/10 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6" noValidate aria-label="Solicitud de cotización de mudanza">
+    <form id="booking-form" onSubmit={handleSubmit} className="max-w-2xl mx-auto bg-[#111111] border border-white/10 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6" noValidate aria-label="Solicitud de cotización de mudanza">
       <div aria-label={`Paso ${step} de 2`} className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
         <span className={step === 1 ? 'text-amber-500' : 'text-slate-500'}>1. Ruta y servicio</span>
         <span aria-hidden="true">/</span>
