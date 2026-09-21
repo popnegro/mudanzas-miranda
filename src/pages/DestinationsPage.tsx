@@ -29,14 +29,13 @@ export default function DestinationsPage({ destinations, handleNavigation }: Des
         <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-500">Cobertura local</p>
           <h1 className="mt-4 text-3xl font-serif font-bold tracking-tight sm:text-5xl">Destinos de Mudanzas en Mendoza</h1>
-          <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg">Encontrá tu localidad y conocé la cobertura de Mudanzas Miranda. Cada destino conecta con su página específica y con los servicios disponibles.</p>
+          <p className="mx-auto mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg">Encontrá tu localidad y consultá la cobertura disponible para tu mudanza.</p>
         </div>
       </header>
       <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
         {regions.map(({ region, items }) => (
           <section key={region} className="mb-12 last:mb-0" aria-labelledby={region.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}>
             <div className="mb-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-orange-700">Cobertura</p>
               <h2 id={region.replace(/[^a-z0-9]+/gi, '-').toLowerCase()} className="mt-1 text-2xl font-bold tracking-tight text-slate-800 sm:text-3xl">{region}</h2>
             </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
