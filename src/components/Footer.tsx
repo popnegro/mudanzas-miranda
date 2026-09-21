@@ -1,6 +1,6 @@
 import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react';
 import { Destination } from '../types';
-import { servicePages } from '../data/seoPages';
+import { servicePages } from '../data/seoPages';\nimport { themeConfig } from '../theme/theme.config';
 
 interface FooterProps {
   destinations: Destination[];
