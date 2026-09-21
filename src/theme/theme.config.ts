@@ -3,7 +3,7 @@ export interface ThemeConfig {
   site: { role: 'informational' | 'planning' | 'provider'; domain: string; baseUrl: string; locale: string; city: string; province: string; country: string };
   shared: { primary: string; primaryDark: string; accent: string; surface: string; background: string; text: string; textSecondary: string; border: string };
   brandExpression: { primary: string; primaryDark: string; accent: string };
-  ecosystem: { informationalUrl?: string; planningUrl?: string; providerUrl?: string };
+  ecosystem: { informationalUrl?: string; planningUrl?: string; providerUrl?: string };\n  brandRelationship?: { type: 'project' | 'platform'; label: string; parentName: string; parentUrl: string; googleRating?: { value: number; label: string } };
 };
 
 /** theme-mudanzas adoption contract. Shared structure/tokens; provider brand expression remains local. */
