@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, Home, Building2, Package, Warehouse, Truck, Boxes } from 'lucide-react';
+import { ArrowRight, Home, Building2, Package, Warehouse, Truck, Boxes } from 'lucide-react';
 import { servicePages } from '../data/seoPages';
 
 const icons = [Home, Building2, Package, Warehouse, Boxes, Truck];
@@ -47,16 +47,7 @@ export default function ServicesPage({ handleNavigation }: ServicesPageProps) {
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Servicio</span>
                   </div>
                   <h3 className="mt-5 text-xl font-bold text-slate-800">{service.name}</h3>
-                  <p className="mt-2 text-sm font-medium leading-6 text-slate-600">{service.heroSubheadline}</p>
-                  <p className="mt-3 text-sm leading-6 text-slate-500">{service.leadText}</p>
-                  <div className="mt-5 space-y-2">
-                    {service.features.slice(0, 3).map((feature) => (
-                      <div key={feature} className="flex items-start gap-2 text-xs leading-5 text-slate-600">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-orange-600" aria-hidden="true" />
-                        <span>{feature}</span>
-                      </div>
-                    ))}
-                  </div>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{service.heroSubheadline}</p>
                   <a href={`/servicios/${service.slug}.html`} onClick={(e) => { e.preventDefault(); handleNavigation(service.slug); }} className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-orange-700 hover:text-orange-800">
                     Ver servicio <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </a>
