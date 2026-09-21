@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { MapPin, Phone, ArrowRight } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 import { services, faqs, testimonials } from '../data/staticData';
 import { servicePages } from '../data/seoPages';
 import { destinations } from '../data/destinations';
