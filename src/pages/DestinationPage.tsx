@@ -1,7 +1,6 @@
 import { motion } from 'motion/react';
 import { MapPin, ArrowRight } from 'lucide-react';
 import WhatsAppIcon from '../components/WhatsAppIcon';
-import '../styles/destination-page.css';
 import { servicePages } from '../data/seoPages';
 import { destinations } from '../data/destinations';
 import FormSection from '../components/FormSection';
