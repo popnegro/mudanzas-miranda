@@ -261,6 +261,7 @@ export default function Header({
                 className={`flex min-h-12 items-center rounded-xl px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/70 ${activePage === 'destinos' ? 'bg-white/5 text-amber-500' : 'text-slate-300'}`}>
                 Destinos
               </a>
+            </nav>
 
             <div className="mt-4 border-t border-white/10 pt-4">
               <a
