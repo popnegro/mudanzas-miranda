@@ -6,17 +6,17 @@ export const servicePages: ServicePage[] = [
     serviceId: 'residencial',
     name: 'Mudanzas Residenciales',
     title: 'Mudanzas Residenciales en Mendoza | Casas y Departamentos | Mudanzas Miranda',
-    description: 'Servicio premium de mudanzas residenciales en Mendoza. Mudamos casas, departamentos en altura y dúplex. Embalaje profesional, personal cuidadoso y seguro de carga.',
-    heroHeadline: 'Mudanzas Residenciales Premium',
-    heroSubheadline: 'Nos encargamos del traslado completo de tu hogar para que disfrutes de tu nuevo espacio sin estrés.',
-    leadText: 'En Mudanzas Miranda entendemos que una mudanza hogareña no es solo mover muebles, sino trasladar tu vida y tus recuerdos. Con más de 20 años de experiencia en Mendoza, diseñamos un servicio residencial a la medida de tus necesidades, garantizando puntualidad y máximo cuidado.',
-    detailText: 'Mudar un hogar requiere planificación. Nuestro equipo técnico se encarga del desarme de camas, placares y escritorios, etiquetado inteligente de bultos y una estiba optimizada dentro de camiones totalmente alfombrados y equipados con amarres de alta resistencia. Además, contamos con seguros de tránsito para resguardar el 100% de tu patrimonio.',
+    description: 'Servicio de mudanzas residenciales en Mendoza para casas, departamentos y dúplex. Traslado, protección de mobiliario y embalaje opcional.',
+    heroHeadline: 'Mudanzas Residenciales',
+    heroSubheadline: 'Trasladamos tu hogar con planificación, cuidado y protección en cada etapa.',
+    leadText: 'Coordinamos mudanzas de casas y departamentos en Mendoza, adaptando la carga, el transporte y la descarga a las características de cada hogar.',
+    detailText: 'El servicio puede incluir desarme y armado de mobiliario, protección de muebles, organización de bultos y embalaje de objetos delicados. La modalidad se define según el volumen y las necesidades del traslado.',
     features: [
-      'Personal de carga altamente capacitado y de absoluta confianza.',
-      'Flota de camiones propia equipada con mantas de lana pesada y film alveolar.',
-      'Desarme y armado profesional de mobiliario complejo.',
-      'Servicio opcional de embalaje de vajilla y cristalería delicada.',
-      'Seguro de carga incluido para máxima tranquilidad de tu familia.'
+      'Personal de carga capacitado.',
+      'Protección de mobiliario durante la carga y el traslado.',
+      'Desarme y armado de mobiliario según necesidad.',
+      'Embalaje opcional para vajilla y objetos delicados.',
+      'Coordinación de carga, transporte y descarga.'
     ]
   },
   {
@@ -24,35 +24,35 @@ export const servicePages: ServicePage[] = [
     serviceId: 'oficina',
     name: 'Mudanzas de Oficinas',
     title: 'Mudanzas de Oficinas y Empresas en Mendoza | Corporativas | Mudanzas Miranda',
-    description: 'Mudanzas corporativas y traslados de oficinas eficientes en Mendoza. Logística coordinada para minimizar la inactividad comercial. Equipamiento informático y archivos.',
+    description: 'Mudanzas de oficinas y empresas en Mendoza con planificación de carga, traslado de mobiliario, equipamiento y archivos.',
     heroHeadline: 'Mudanzas Corporativas y Comerciales',
-    heroSubheadline: 'Logística empresarial de precisión para reanudar tus operaciones comerciales en tiempo récord.',
-    leadText: 'Entendemos que en el mundo corporativo el tiempo es dinero. Por eso, planificamos cada mudanza de oficina de manera milimétrica, ofreciendo la opción de realizar traslados fuera del horario laboral o fines de semana para evitar interrupciones en tu operación.',
-    detailText: 'Nos especializamos en el transporte seguro de activos informáticos delicados (monitores, servidores, redes), mobiliario de oficina pesado (escritorios de directorio, cajas fuertes), y la organización estricta de archivos físicos etiquetados para su inmediata disposición en destino.',
+    heroSubheadline: 'Planificamos el traslado de tu empresa para reducir interrupciones y ordenar cada etapa.',
+    leadText: 'Coordinamos mudanzas de oficinas, comercios y espacios de trabajo, contemplando horarios, sectores, mobiliario y equipamiento para organizar el traslado.',
+    detailText: 'El servicio puede contemplar embalaje y rotulado de equipamiento, traslado de mobiliario y organización de archivos. También se pueden coordinar jornadas fuera del horario habitual cuando el proyecto lo requiere.',
     features: [
-      'Planificación logística previa con un coordinador asignado.',
-      'Embalaje especial antiestático para equipamiento de computación.',
-      'Mudanzas programadas nocturnas o de fin de semana.',
-      'Rotulado inteligente por sectores para una descarga ultra veloz.',
-      'Facturación corporativa y documentación en regla.'
+      'Planificación previa del traslado.',
+      'Organización y rotulado por sectores.',
+      'Protección de equipamiento y mobiliario.',
+      'Coordinación de horarios de carga y descarga.',
+      'Traslado de archivos y elementos de oficina.'
     ]
   },
   {
     slug: 'embalaje-profesional',
     serviceId: 'embalaje',
     name: 'Embalaje Profesional',
-    title: 'Servicio de Embalaje Profesional en Mendoza | Protección Premium | Mudanzas Miranda',
-    description: 'Protección máxima para tus bienes durante la mudanza. Embalaje con film alveolar, plástico burbuja, cajas reforzadas y canastos para vajilla en Mendoza.',
-    heroHeadline: 'Embalaje Profesional y Protección Activa',
-    heroSubheadline: 'Utilizamos materiales premium para resguardar cada pieza, desde vajilla frágil hasta obras de arte.',
-    leadText: 'Evitá rajaduras, rayones y roturas accidentales. Nuestro equipo utiliza técnicas profesionales de embalaje y los mejores insumos del mercado para asegurar que tus pertenencias viajen protegidas en todo momento.',
-    detailText: 'Disponemos de plástico de burbujas alveolar de alta densidad, film stretch industrial, cajas de cartón corrugado de doble capa, canastos acolchados especiales para copas y mantas protectoras gruesas. Embalamos cada objeto de forma individual y rotulamos detalladamente las cajas.',
+    title: 'Servicio de Embalaje Profesional en Mendoza | Protección | Mudanzas Miranda',
+    description: 'Servicio de embalaje para mudanzas en Mendoza. Protección de muebles, vajilla, cristalería y objetos delicados con materiales adecuados.',
+    heroHeadline: 'Embalaje Profesional',
+    heroSubheadline: 'Protegemos tus pertenencias antes del traslado para reducir golpes, rayones y roturas.',
+    leadText: 'El embalaje puede contratarse como servicio complementario de la mudanza o para proteger objetos específicos que requieren una preparación adicional.',
+    detailText: 'Seleccionamos el material según cada pieza: film stretch, material alveolar, cajas y protecciones para esquinas o superficies. Los bultos se identifican para facilitar la carga y la descarga.',
     features: [
-      'Envoltura individual de objetos delicados y piezas de cristalería.',
-      'Film stretch para proteger sillones y colchones del polvo y suciedad.',
-      'Canastos y cajas reforzadas diseñadas especialmente para mudanzas.',
-      'Protección de esquinas para muebles de madera delicada.',
-      'Kit de materiales de embalaje de primera calidad.'
+      'Protección individual de objetos delicados.',
+      'Film stretch para muebles y superficies.',
+      'Cajas y materiales de protección para mudanzas.',
+      'Protección de esquinas y superficies sensibles.',
+      'Rotulado de bultos para facilitar la organización.'
     ]
   },
   {
@@ -60,17 +60,17 @@ export const servicePages: ServicePage[] = [
     serviceId: 'guardamuebles',
     name: 'Servicio de Guardamuebles',
     title: 'Servicio de Guardamuebles en Mendoza | Depósito Seguro | Mudanzas Miranda',
-    description: 'Almacenamiento y guardamuebles temporales en Mendoza. Depósitos secos, limpios y vigilados las 24 hs. Ideal para transiciones de mudanza o refacciones.',
-    heroHeadline: 'Guardamuebles y Almacenamiento Seguro',
-    heroSubheadline: 'Un espacio seguro, limpio y seco para guardar tus pertenencias el tiempo que lo necesites.',
-    leadText: '¿Se retrasó la entrega de tu nuevo hogar? ¿Estás haciendo refacciones o viajando al exterior? Te ofrecemos la solución ideal con nuestros módulos de guardamuebles individuales en Mendoza, diseñados para albergar tu mobiliario de forma segura.',
-    detailText: 'Nuestros depósitos están acondicionados contra la humedad, cuentan con control de plagas periódico y están monitoreados por cámaras de seguridad de alta definición y personal de vigilancia presencial las 24 horas del día. Podés contratar por semanas o meses sin contratos de permanencia abusivos.',
+    description: 'Servicio de guardamuebles y almacenamiento temporal en Mendoza para transiciones de mudanza, refacciones y necesidades de espacio.',
+    heroHeadline: 'Guardamuebles y Almacenamiento',
+    heroSubheadline: 'Guardá tus pertenencias durante el tiempo que necesites mientras resolvés tu próxima etapa.',
+    leadText: 'El guardamuebles funciona como una solución de transición cuando la fecha de ingreso a un nuevo espacio no coincide con la mudanza o necesitás liberar temporalmente tu vivienda o comercio.',
+    detailText: 'La contratación se coordina según el volumen de pertenencias y el período de almacenamiento. El ingreso y retiro de los bienes se organiza previamente para mantener el control del depósito.',
     features: [
-      'Unidades individuales, limpias y libres de humedad.',
-      'Monitoreo con cámaras de seguridad y alarmas perimetrales las 24 horas.',
-      'Contratación flexible por plazos cortos, medianos o largos.',
-      'Inventariado exhaustivo al ingresar tus bienes para control absoluto.',
-      'Acceso coordinado para retirar o añadir elementos con facilidad.'
+      'Almacenamiento temporal de mobiliario y pertenencias.',
+      'Espacios destinados a guardar bienes de una mudanza.',
+      'Contratación según el período necesario.',
+      'Registro de los bienes ingresados.',
+      'Acceso coordinado para retiro o incorporación de elementos.'
     ]
   },
   {
@@ -78,17 +78,17 @@ export const servicePages: ServicePage[] = [
     serviceId: 'combinada',
     name: 'Mudanzas Combinadas',
     title: 'Mudanzas Combinadas y Compartidas desde Mendoza | Larga Distancia | Mudanzas Miranda',
-    description: 'Ahorrá en tu mudanza nacional compartiendo camión con envíos grupales coordinados. Salidas frecuentes desde Mendoza a Buenos Aires, Córdoba y el país.',
+    description: 'Mudanzas combinadas y compartidas desde Mendoza para cargas que pueden viajar en una misma ruta nacional.',
     heroHeadline: 'Mudanzas Combinadas e Interprovinciales',
-    heroSubheadline: 'Optimizá tus costos de traslado compartiendo espacio con cargas en la misma ruta nacional.',
-    leadText: 'Si necesitás mudar pocos muebles o el presupuesto para un camión exclusivo supera tus posibilidades de larga distancia, el traslado combinado o grupal es la respuesta ideal. Dividí costos de transporte compartiendo la capacidad del camión con total seguridad.',
-    detailText: 'Garantizamos que tus pertenencias estén perfectamente separadas por tabiques divisorios internos, embaladas individualmente y rotuladas de manera rigurosa para evitar cualquier confusión. Nos encargamos de coordinar las entregas puerta a puerta en cada localidad de destino.',
+    heroSubheadline: 'Compartí espacio de transporte cuando tu carga no requiere un camión exclusivo.',
+    leadText: 'La modalidad combinada permite coordinar cargas de distintos clientes que comparten una ruta compatible. Es una alternativa para traslados de menor volumen o cuando se busca optimizar el costo logístico.',
+    detailText: 'Cada carga se identifica y organiza para mantenerla separada durante el traslado. La fecha y modalidad de entrega se coordinan según la ruta y la disponibilidad del servicio.',
     features: [
-      'Ahorro de hasta un 50% en comparación con un servicio exclusivo.',
-      'Rotulado estricto y separación física interna de cada lote.',
-      'Salidas semanales y coordinadas en las rutas principales del país.',
-      'Entrega directa en puerta de destino final.',
-      'Seguro de carga completo para cada cliente participante.'
+      'Alternativa para cargas de menor volumen.',
+      'Coordinación de cargas con rutas compatibles.',
+      'Identificación y organización de cada lote.',
+      'Entrega coordinada en destino.',
+      'Planificación según disponibilidad y ruta.'
     ]
   },
   {
@@ -96,17 +96,17 @@ export const servicePages: ServicePage[] = [
     serviceId: 'logistica',
     name: 'Logística Integral',
     title: 'Logística y Distribución en Mendoza | Empresas y Pymes | Mudanzas Miranda',
-    description: 'Logística de distribución de mercaderías para pymes y comercios en Mendoza. Almacenamiento eficiente, entregas programadas y flota moderna habilitada.',
+    description: 'Logística y distribución para comercios y empresas en Mendoza. Recolección, almacenamiento temporal y entregas programadas.',
     heroHeadline: 'Logística de Distribución Comercial',
-    heroSubheadline: 'El socio logístico de confianza para que tu comercio opere sin demoras en toda la provincia.',
-    leadText: 'En Mudanzas Miranda expandimos nuestras soluciones al sector corporativo y pyme de Mendoza. Brindamos soporte logístico integral, abarcando desde la recolección, el almacenamiento temporal y la entrega capilar de productos en puntos de venta o clientes finales.',
-    detailText: 'Contamos con conductores habilitados con registros nacionales de carga, furgones modernos con habilitaciones provinciales, sistemas de comunicación permanentes para seguimiento y una excelente reputación en puntualidad para asegurar la cadena de suministro de tu empresa.',
+    heroSubheadline: 'Coordinamos movimientos de mercadería para que tu operación tenga una logística ordenada.',
+    leadText: 'Brindamos soluciones de logística para comercios y empresas que necesitan organizar recolecciones, almacenamiento temporal y entregas de mercadería.',
+    detailText: 'La operación se adapta al tipo de producto, frecuencia y destinos requeridos. Podemos coordinar recorridos y entregas programadas según las necesidades de cada cliente.',
     features: [
-      'Reparto capilar y entregas de última milla programadas.',
-      'Gestión de inventario y almacenamiento temporal de mercaderías.',
-      'Vehículos modernos con habilitación CNRT y municipal correspondiente.',
-      'Personal uniformado, con seguros de ART correspondientes.',
-      'Flexibilidad operativa adaptada a demandas de alta temporada.'
+      'Recolección y distribución de mercadería.',
+      'Entregas programadas.',
+      'Almacenamiento temporal según necesidad.',
+      'Coordinación de recorridos y destinos.',
+      'Flexibilidad para operaciones comerciales.'
     ]
   }
 ];

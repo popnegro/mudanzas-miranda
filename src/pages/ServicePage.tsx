@@ -1,11 +1,12 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Award, Truck, ShieldCheck, Star, ChevronDown, Phone, Mail, MapPin, Clock, ArrowRight, Home, Building, Users, Package, Warehouse, CheckCircle2, Calendar, ArrowLeft, ChevronLeft, ChevronRight, Navigation, History, Target, Heart, Search, X } from 'lucide-react';
+import { Award, Truck, ShieldCheck, Star, ChevronDown, Mail, MapPin, Clock, ArrowRight, Home, Building, Users, Package, Warehouse, CheckCircle2, Calendar, ArrowLeft, ChevronLeft, ChevronRight, Navigation, History, Target, Heart, Search, X } from 'lucide-react';
 import { services, faqs, testimonials } from '../data/staticData';
 import { servicePages } from '../data/seoPages';
 import { destinations } from '../data/destinations';
 import FormSection from '../components/FormSection';
 import FleetShowcase from '../components/FleetShowcase';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 
 const IconMap: Record<string, React.ComponentType<any>> = { Home, Building, Users, Package, Warehouse, Truck };
 const HERO_CAROUSEL_SLIDES = [
@@ -65,10 +66,10 @@ export default function ServicePage({ currentService, activePage, handleNavigati
                   </p>
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#form" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-lg shadow-amber-600/10 cursor-pointer">Reservar / Cotizar Online</a>
+                    <a href="#form" id="cta-reservar-mudanza" data-ga-event="reservar_mudanza" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-amber-600/10 hover:shadow-amber-600/20 active:scale-[0.99] transition-all cursor-pointer text-base">Reservar Mudanza <ArrowRight className="w-5 h-5" /></a>
                     <a href={`https://wa.me/5492615130910?text=Hola%20Mudanzas%20Miranda,%20quiero%20cotizar%20un%20servicio%20de%20${encodeURIComponent(currentService.name)}`} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-2xl cursor-pointer">
-                      <Phone className="w-5 h-5 text-amber-500" />
-                      Contactar por Whatsapp
+                      <WhatsAppIcon className="w-5 h-5 text-amber-500" />
+                      Consultar por Whatsapp
                     </a>
                   </div>
                 </div>
@@ -92,27 +93,20 @@ export default function ServicePage({ currentService, activePage, handleNavigati
                     </div>
                   </div>
 
-                  {/* Highlights section */}
-                  <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-white tracking-tight">Beneficios Exclusivos del Servicio</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="bg-[#111111] border border-white/5 p-6 rounded-2xl space-y-3">
-                        <div className="p-3 bg-amber-500/10 text-amber-500 rounded-xl w-fit"><ShieldCheck className="w-6 h-6" /></div>
-                        <h4 className="text-sm font-bold text-white uppercase tracking-wider">Seguridad Garantizada</h4>
-                        <p className="text-xs text-slate-400">Pertenencias protegidas por mantas de lana suave industriales y fajas elásticas.</p>
-                      </div>
-                      <div className="bg-[#111111] border border-white/5 p-6 rounded-2xl space-y-3">
-                        <div className="p-3 bg-amber-500/10 text-amber-500 rounded-xl w-fit"><Truck className="w-6 h-6" /></div>
-                        <h4 className="text-sm font-bold text-white uppercase tracking-wider">Flota Autorizada</h4>
-                        <p className="text-xs text-slate-400">Unidades habilitadas por la CNRT, con seguimiento satelital de seguridad en ruta.</p>
-                      </div>
-                      <div className="bg-[#111111] border border-white/5 p-6 rounded-2xl space-y-3">
-                        <div className="p-3 bg-amber-500/10 text-amber-500 rounded-xl w-fit"><Clock className="w-6 h-6" /></div>
-                        <h4 className="text-sm font-bold text-white uppercase tracking-wider">Puntualidad Absoluta</h4>
-                        <p className="text-xs text-slate-400">Llegamos puntualmente en la fecha coordinada para evitar demoras innecesarias.</p>
-                      </div>
+                  {/* Service-specific content */}
+                  <section aria-labelledby="service-scope-title" className="space-y-6">
+                    <h3 id="service-scope-title" className="text-xl font-bold text-white tracking-tight">
+                      Qué tenés que saber sobre {currentService.name}
+                    </h3>
+                    <div className="bg-[#111111] border border-white/10 rounded-2xl p-6">
+                      <p className="text-sm sm:text-base leading-7 text-slate-300">
+                        {currentService.leadText}
+                      </p>
+                      <p className="mt-5 text-sm sm:text-base leading-7 text-slate-400">
+                        {currentService.detailText}
+                      </p>
                     </div>
-                  </div>
+                  </section>
 
                   {/* Services internal cross-linking */}
                   <div className="border-t border-white/10 pt-8 space-y-3">

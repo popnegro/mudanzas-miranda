@@ -9,7 +9,9 @@ import FloatingWhatsApp from './components/FloatingWhatsApp';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ServicePage from './pages/ServicePage';
+import ServicesPage from './pages/ServicesPage';
 import DestinationPage from './pages/DestinationPage';
+import DestinationsPage from './pages/DestinationsPage';
 
 export default function App() {
   const {
@@ -37,6 +39,10 @@ export default function App() {
           <HomePage activeServiceTab={activeServiceTab} setActiveServiceTab={setActiveServiceTab} openFaq={openFaq} setOpenFaq={setOpenFaq} activeTestimonial={activeTestimonial} setActiveTestimonial={setActiveTestimonial} destSearch={destSearch} setDestSearch={setDestSearch} filteredDestinations={filteredDestinations} regions={regions} handleNavigation={handleNavigation} heroIndex={heroIndex} setHeroIndex={setHeroIndex} previousHero={previousHero} nextHero={nextHero} />
         ) : activePage === 'nosotros' ? (
           <AboutPage handleNavigation={handleNavigation} />
+        ) : activePage === 'servicios' ? (
+          <ServicesPage handleNavigation={handleNavigation} />
+        ) : activePage === 'destinos' ? (
+          <DestinationsPage destinations={destinations} handleNavigation={handleNavigation} />
         ) : currentService ? (
           <ServicePage currentService={currentService} activePage={activePage} handleNavigation={handleNavigation} />
         ) : currentDestination ? (
