@@ -47,7 +47,7 @@ export default function DestinationPage({ currentDestination, activePage, handle
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight tracking-tight">{currentDestination?.heroHeadline}</h1>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl mx-auto">{currentDestination?.heroSubheadline}</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#form" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-lg shadow-amber-600/10 cursor-pointer">Solicitar Presupuesto</a>
+            <a href="#form" id="cta-reservar-mudanza" data-ga-event="reservar_mudanza" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-amber-600/10 hover:shadow-amber-600/20 active:scale-[0.99] transition-all cursor-pointer text-base">Reservar Mudanza <ArrowRight className="w-5 h-5" /></a>
             <a href={`https://wa.me/5492615130910?text=Hola%20Mudanzas%20Miranda,%20quiero%20cotizar%20una%20mudanza%20para%20${encodeURIComponent(currentDestination?.name || '')}`} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/10 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-2xl cursor-pointer">
               <Phone className="w-5 h-5 text-amber-500" />
               Llamar Directo
