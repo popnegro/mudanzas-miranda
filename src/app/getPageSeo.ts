@@ -13,6 +13,14 @@ export function getPageSeo(
   currentDestination?: Destination,
   currentService?: ServicePage,
 ) {
+  if (activePage === 'destinos') {
+    return {
+      title: 'Destinos de Mudanzas en Mendoza | Mudanzas Miranda',
+      description: 'Conocé las localidades donde Mudanzas Miranda brinda servicios de mudanza y traslados en Mendoza.',
+      canonicalUrl: `${SITE_URL}/destinos/`,
+    };
+  }
+
   if (activePage === 'servicios') {
     return {
       title: 'Servicios de Mudanzas en Mendoza | Mudanzas Miranda',
