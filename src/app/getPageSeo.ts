@@ -21,6 +21,22 @@ export function getPageSeo(
     };
   }
 
+  if (activePage === 'destinos') {
+    return {
+      title: 'Zonas de Cobertura y Destinos | Mudanzas Miranda',
+      description: 'Cubrimos toda la provincia de Mendoza con servicios de mudanzas y traslados. Conocé nuestras zonas de cobertura en el Gran Mendoza, Valle de Uco, Zona Este y Sur.',
+      canonicalUrl: `${SITE_URL}/destinos.html`,
+    };
+  }
+
+  if (activePage === 'servicios') {
+    return {
+      title: 'Servicios de Mudanzas y Traslados en Mendoza | Mudanzas Miranda',
+      description: 'Mudanzas residenciales, traslados de oficinas, embalaje profesional, guardamuebles y logística integral en Mendoza. Conocé todas nuestras soluciones.',
+      canonicalUrl: `${SITE_URL}/servicios.html`,
+    };
+  }
+
   if (currentDestination) {
     return {
       title: currentDestination.title,
