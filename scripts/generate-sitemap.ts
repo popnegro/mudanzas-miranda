@@ -11,6 +11,8 @@ const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 const urls = [
   '/',
   '/nosotros.html',
+  '/destinos.html',
+  '/servicios.html',
   ...servicePages.map((service) => `/servicios/${service.slug}.html`),
   ...destinations.map((destination) => `/mudanzas-mendoza/${destination.slug}.html`),
 ];

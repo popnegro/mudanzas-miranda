@@ -18,9 +18,7 @@ export function useAppRouting() {
 
     if (destinations.some((item) => item.slug === slugCandidate)) return slugCandidate;
     if (servicePages.some((item) => item.slug === slugCandidate)) return slugCandidate;
-    if (slugCandidate === 'nosotros') return 'nosotros';
-    if (slugCandidate === 'servicios') return 'servicios';
-    if (slugCandidate === 'destinos') return 'destinos';
+    if (slugCandidate === 'nosotros' || slugCandidate === 'destinos' || slugCandidate === 'servicios') return slugCandidate;
     return '';
   }, []);
 
@@ -41,10 +39,10 @@ export function useAppRouting() {
         newPath = `/servicios/${slug}.html`;
       } else if (slug === 'nosotros') {
         newPath = '/nosotros.html';
-      } else if (slug === 'servicios') {
-        newPath = '/servicios/';
       } else if (slug === 'destinos') {
-        newPath = '/destinos/';
+        newPath = '/destinos.html';
+      } else if (slug === 'servicios') {
+        newPath = '/servicios.html';
       }
     }
     window.history.pushState({}, '', newPath);

@@ -13,27 +13,27 @@ export function getPageSeo(
   currentDestination?: Destination,
   currentService?: ServicePage,
 ) {
-  if (activePage === 'destinos') {
-    return {
-      title: 'Destinos de Mudanzas en Mendoza | Mudanzas Miranda',
-      description: 'Conocé las localidades donde Mudanzas Miranda brinda servicios de mudanza y traslados en Mendoza.',
-      canonicalUrl: `${SITE_URL}/destinos/`,
-    };
-  }
-
-  if (activePage === 'servicios') {
-    return {
-      title: 'Servicios de Mudanzas en Mendoza | Mudanzas Miranda',
-      description: 'Conocé los servicios de Mudanzas Miranda en Mendoza: mudanzas residenciales, oficinas, embalaje profesional, guardamuebles, mudanzas combinadas y logística integral.',
-      canonicalUrl: `${SITE_URL}/servicios/`,
-    };
-  }
-
   if (activePage === 'nosotros') {
     return {
       title: 'Sobre Nosotros - Historia, Misión y Valores | Mudanzas Miranda',
       description: 'Conocé la historia, misión y valores de Mudanzas Miranda. Más de 20 años de trayectoria brindando tranquilidad y confianza en mudanzas en Mendoza.',
       canonicalUrl: `${SITE_URL}/nosotros.html`,
+    };
+  }
+
+  if (activePage === 'destinos') {
+    return {
+      title: 'Zonas de Cobertura y Destinos | Mudanzas Miranda',
+      description: 'Cubrimos toda la provincia de Mendoza con servicios de mudanzas y traslados. Conocé nuestras zonas de cobertura en el Gran Mendoza, Valle de Uco, Zona Este y Sur.',
+      canonicalUrl: `${SITE_URL}/destinos.html`,
+    };
+  }
+
+  if (activePage === 'servicios') {
+    return {
+      title: 'Servicios de Mudanzas y Traslados en Mendoza | Mudanzas Miranda',
+      description: 'Mudanzas residenciales, traslados de oficinas, embalaje profesional, guardamuebles y logística integral en Mendoza. Conocé todas nuestras soluciones.',
+      canonicalUrl: `${SITE_URL}/servicios.html`,
     };
   }
 
