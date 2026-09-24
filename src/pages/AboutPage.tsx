@@ -15,20 +15,20 @@ interface InstitutionalCardProps {
 }
 
 const cardClassName =
-  'flex h-full flex-col gap-5 rounded-3xl border border-white/10 bg-[#111111] p-7 transition-all duration-300 hover:border-amber-500/30 sm:p-8';
+  'flex h-full flex-col gap-5 rounded-3xl border border-line bg-surface p-7 transition-all duration-300 hover:border-brand/30 hover:shadow-md hover:shadow-ink/5 sm:p-8';
 
 function InstitutionalCard({ eyebrow, title, icon: Icon, children }: InstitutionalCardProps) {
   return (
     <article className={cardClassName}>
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-amber-500/25 bg-amber-500/10 text-amber-500">
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-brand/25 bg-brand/10 text-brand">
         <Icon className="h-6 w-6" />
       </div>
 
       <div className="space-y-2">
-        <span className="text-[11px] font-bold uppercase tracking-widest text-amber-500/80">
+        <span className="text-[11px] font-bold uppercase tracking-widest text-brand/80">
           {eyebrow}
         </span>
-        <h2 className="text-xl font-serif font-bold leading-snug text-white">{title}</h2>
+        <h2 className="text-xl font-serif font-bold leading-snug text-ink">{title}</h2>
       </div>
 
       {children}
@@ -44,10 +44,10 @@ export default function AboutPage({ handleNavigation }: AboutPageProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-[#0A0A0A]"
+      className="bg-background"
     >
       {/* Breadcrumbs */}
-      <div className="bg-[#0D0D0D] border-b border-white/10 text-slate-400 py-3 text-xs sm:text-sm">
+      <div className="bg-background-soft border-b border-line text-ink-subtle py-3 text-xs sm:text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2">
           <a
             href="/"
@@ -55,42 +55,42 @@ export default function AboutPage({ handleNavigation }: AboutPageProps) {
               event.preventDefault();
               handleNavigation('');
             }}
-            className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer font-semibold"
+            className="hover:text-ink transition-colors flex items-center gap-1 cursor-pointer font-semibold"
           >
             Inicio
           </a>
           <span>/</span>
-          <span className="text-amber-500 font-medium font-semibold">Nosotros</span>
+          <span className="text-brand font-medium font-semibold">Nosotros</span>
         </div>
       </div>
 
       {/* Nosotros Hero Section */}
-      <section className="relative bg-[#0A0A0A] text-white overflow-hidden py-16 lg:py-20 border-b border-white/10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#151515_0%,#0A0A0A_100%)] z-0" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 blur-3xl rounded-full z-0 pointer-events-none" />
+      <section className="relative bg-surface text-ink overflow-hidden py-16 lg:py-20 border-b border-line">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#FFFFFF_0%,#F6F7F8_100%)] z-0" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-brand/5 blur-3xl rounded-full z-0 pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand/10 border border-brand/20 text-brand text-xs font-bold uppercase tracking-wider">
             <Users className="w-4 h-4" />
             Trayectoria y Compromiso Institucional
           </div>
 
-          <h1 className="mx-auto max-w-4xl text-center text-4xl font-serif font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mx-auto max-w-4xl text-center text-4xl font-serif font-bold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
             Nuestra Identidad y Compromiso con Mendoza
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl mx-auto">
-            Conocé la historia, la misión y los valores de <strong>Mudanzas Miranda</strong>. Más de 20 años de experiencia transformando los traslados en experiencias tranquilas, profesionales y seguras.
+          <p className="text-base sm:text-lg text-ink-secondary leading-relaxed max-w-3xl mx-auto">
+            Conocé la historia, la misión y los valores de <strong className="text-ink">Mudanzas Miranda</strong>. Más de 20 años de experiencia transformando los traslados en experiencias tranquilas, profesionales y seguras.
           </p>
         </div>
       </section>
 
       {/* Institutional Sections */}
-      <section className="py-20 bg-[#0D0D0D]">
+      <section className="py-20 bg-background-soft">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             <InstitutionalCard eyebrow="Trayectoria" title="Nuestra Historia" icon={History}>
-              <div className="space-y-4 text-sm leading-relaxed text-slate-300">
+              <div className="space-y-4 text-sm leading-relaxed text-ink-secondary">
                 <p>
                   Mudanzas Miranda nació hace más de dos décadas en la provincia de Mendoza como un emprendimiento familiar enfocado en brindar un servicio de transporte personalizado, cuidadoso y cercano.
                 </p>
@@ -101,7 +101,7 @@ export default function AboutPage({ handleNavigation }: AboutPageProps) {
             </InstitutionalCard>
 
             <InstitutionalCard eyebrow="Propósito" title="Nuestra Misión" icon={Target}>
-              <div className="space-y-4 text-sm leading-relaxed text-slate-300">
+              <div className="space-y-4 text-sm leading-relaxed text-ink-secondary">
                 <p>
                   Nuestra misión fundamental es redefinir la experiencia de mudarse, eliminando el estrés y la incertidumbre que comúnmente acompañan a los traslados y transportes residenciales o corporativos.
                 </p>
@@ -113,33 +113,33 @@ export default function AboutPage({ handleNavigation }: AboutPageProps) {
 
             <InstitutionalCard eyebrow="Principios" title="Nuestros Valores" icon={Heart}>
               <div className="space-y-2">
-                <p className="text-sm leading-relaxed text-slate-300">
+                <p className="text-sm leading-relaxed text-ink-secondary">
                   Los pilares éticos y operativos que guían cada uno de nuestros servicios diarios.
                 </p>
               </div>
 
-              <div className="flex flex-1 flex-col gap-3 border-t border-white/5 pt-4">
+              <div className="flex flex-1 flex-col gap-3 border-t border-line-soft pt-4">
                 <div className="space-y-1">
-                  <h4 className="text-sm font-bold text-amber-500">Confianza y Respeto</h4>
-                  <p className="text-xs leading-relaxed text-slate-400">
+                  <h4 className="text-sm font-bold text-brand">Confianza y Respeto</h4>
+                  <p className="text-xs leading-relaxed text-ink-subtle">
                     Tratamos tu hogar y tus pertenencias con la máxima delicadeza, reconociendo el valor sentimental de cada pieza.
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <h4 className="text-sm font-bold text-amber-500">Seguridad Total</h4>
-                  <p className="text-xs leading-relaxed text-slate-400">
+                  <h4 className="text-sm font-bold text-brand">Seguridad Total</h4>
+                  <p className="text-xs leading-relaxed text-ink-subtle">
                     Implementamos protocolos rigurosos de embalaje y transporte junto con coberturas viales completas de tránsito.
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <h4 className="text-sm font-bold text-amber-500">Puntualidad Absoluta</h4>
-                  <p className="text-xs leading-relaxed text-slate-400">
+                  <h4 className="text-sm font-bold text-brand">Puntualidad Absoluta</h4>
+                  <p className="text-xs leading-relaxed text-ink-subtle">
                     Planificamos detalladamente los horarios de carga y descarga para cumplir estrictamente con los tiempos pactados.
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <h4 className="text-sm font-bold text-amber-500">Transparencia</h4>
-                  <p className="text-xs leading-relaxed text-slate-400">
+                  <h4 className="text-sm font-bold text-brand">Transparencia</h4>
+                  <p className="text-xs leading-relaxed text-ink-subtle">
                     Ofrecemos presupuestos cerrados, honestos y claros desde el primer momento, sin sorpresas ni cargos ocultos.
                   </p>
                 </div>

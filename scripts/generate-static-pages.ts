@@ -9,6 +9,8 @@ const ROOT = path.resolve(__dirname, '..');
 const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 const SITE_NAME = 'Mudanzas Miranda';
 const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-1200.jpg`;
+const RATING_VALUE = '4.9';
+const REVIEW_COUNT = '597';
 
 interface PageDefinition {
   file: string;
@@ -18,7 +20,7 @@ interface PageDefinition {
   heading: string;
   intro: string;
   detail?: string;
-  kind: 'home' | 'about' | 'service' | 'local' | 'services-index';
+  kind: 'home' | 'about' | 'service' | 'local';
   serviceName?: string;
   destinationName?: string;
 }
@@ -40,16 +42,6 @@ const pages: PageDefinition[] = [
     kind: 'home',
   },
   {
-    file: 'servicios/index.html',
-    url: canonical('servicios/'),
-    title: 'Servicios de Mudanzas en Mendoza | Mudanzas Miranda',
-    description: 'Conocé los servicios de Mudanzas Miranda en Mendoza: mudanzas residenciales, oficinas, embalaje profesional, guardamuebles, mudanzas combinadas y logística integral.',
-    heading: 'Servicios de Mudanzas Miranda',
-    intro: 'Soluciones de mudanza y logística para hogares, oficinas, empresas y traslados en Mendoza.',
-    detail: 'Elegí el servicio que mejor responde a tu necesidad y consultá sus características antes de solicitar tu presupuesto.',
-    kind: 'services-index',
-  },
-  {
     file: 'nosotros.html',
     url: canonical('nosotros.html'),
     title: 'Sobre Nosotros - Historia, Misión y Valores | Mudanzas Miranda',
@@ -57,6 +49,24 @@ const pages: PageDefinition[] = [
     heading: 'Sobre Mudanzas Miranda',
     intro: 'Mudanzas Miranda brinda servicios profesionales de mudanzas y traslados en Mendoza, con foco en el cuidado de las pertenencias, la coordinación y la atención personalizada.',
     detail: 'La empresa atiende mudanzas residenciales, oficinas y soluciones logísticas para clientes de Mendoza.',
+    kind: 'about',
+  },
+  {
+    file: 'destinos.html',
+    url: canonical('destinos.html'),
+    title: 'Zonas de Cobertura y Destinos | Mudanzas Miranda',
+    description: 'Cubrimos toda la provincia de Mendoza con servicios de mudanzas y traslados. Conocé nuestras zonas de cobertura en el Gran Mendoza, Valle de Uco, Zona Este y Sur.',
+    heading: 'Zonas de Cobertura y Destinos',
+    intro: 'Llegamos a cada rincón de la provincia de Mendoza y conectamos la región con traslados interprovinciales a todo el país.',
+    kind: 'about',
+  },
+  {
+    file: 'servicios.html',
+    url: canonical('servicios.html'),
+    title: 'Servicios de Mudanzas y Traslados en Mendoza | Mudanzas Miranda',
+    description: 'Mudanzas residenciales, traslados de oficinas, embalaje profesional, guardamuebles y logística integral en Mendoza. Conocé todas nuestras soluciones.',
+    heading: 'Servicios de Mudanzas y Traslados en Mendoza',
+    intro: 'Diseñamos cada servicio a la medida de tu necesidad. Desde mudanzas residenciales hasta logística corporativa, con más de 20 años de experiencia respaldando cada traslado.',
     kind: 'about',
   },
 ];
@@ -123,6 +133,13 @@ function schemaFor(page: PageDefinition) {
         },
       ],
       sameAs: ['https://www.instagram.com/mudanzasmiranda/', 'https://www.facebook.com/mudanzasmiranda4'],
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: RATING_VALUE,
+        reviewCount: REVIEW_COUNT,
+        bestRating: '5',
+        worstRating: '1',
+      },
       areaServed: { '@type': 'AdministrativeArea', name: 'Mendoza, Argentina' },
     },
     {
@@ -144,17 +161,6 @@ function schemaFor(page: PageDefinition) {
       inLanguage: 'es-AR',
     },
   ];
-
-  if (page.kind === 'services-index') {
-    graph.push({
-      '@type': 'CollectionPage',
-      '@id': `${page.url}#collection`,
-      name: page.title,
-      description: page.description,
-      url: page.url,
-      isPartOf: { '@id': `${SITE_URL}/#website` },
-    });
-  }
 
   if (page.kind === 'service' && page.serviceName) {
     graph.push({
@@ -219,8 +225,8 @@ function renderPage(page: PageDefinition) {
   </head>
   <body>
     <div id="root">
-      <main id="seo-fallback">
-        <article>
+      <main>
+        <article style="display: none;">
           <header>
             <h1>${esc(page.heading)}</h1>
           </header>
@@ -239,6 +245,8 @@ function renderPage(page: PageDefinition) {
 }
 
 await rm(path.join(ROOT, 'nosotros.html'), { force: true });
+await rm(path.join(ROOT, 'destinos.html'), { force: true });
+await rm(path.join(ROOT, 'servicios.html'), { force: true });
 await rm(path.join(ROOT, 'servicios'), { recursive: true, force: true });
 await rm(path.join(ROOT, 'mudanzas-mendoza'), { recursive: true, force: true });
 

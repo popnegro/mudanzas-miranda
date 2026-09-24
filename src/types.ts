@@ -1,7 +1,7 @@
 export interface Destination {
   slug: string;
   name: string;
-  region: 'Gran Mendoza' | 'Zona Este' | 'Valle de Uco' | 'Zona Este y Valle de Uco' | 'Sur de Mendoza';
+  region: 'Gran Mendoza' | 'Zona Este y Valle de Uco' | 'Sur de Mendoza';
   title: string;
   description: string;
   heroHeadline: string;
