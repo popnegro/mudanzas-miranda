@@ -4,6 +4,20 @@ export interface ThemeConfig {
   shared: { primary: string; primaryDark: string; accent: string; surface: string; background: string; text: string; textSecondary: string; border: string };
   brandExpression: { primary: string; primaryDark: string; accent: string };
   ecosystem: { informationalUrl?: string; planningUrl?: string; providerUrl?: string };
+  brandRelationship?: { type: 'project' | 'platform'; label: string; parentName: string; parentUrl: string; googleRating?: { value: number; label: string } };
+  contact?: {
+    phone: string;
+    phoneHref: string;
+    whatsappUrl: string;
+    address: string;
+    postalCode: string;
+    latitude: number;
+    longitude: number;
+    openingHours: { days: string[]; opens: string; closes: string }[];
+    insurance: string;
+    certifications: string[];
+    socialProfiles: string[];
+  };
 };
 
 /** theme-mudanzas adoption contract. Shared structure/tokens; provider brand expression remains local. */
@@ -13,4 +27,23 @@ export const themeConfig: ThemeConfig = {
   shared: { primary: '#06434A', primaryDark: '#05373D', accent: '#07BE8A', surface: '#FFFFFF', background: '#FAF9F5', text: '#12383A', textSecondary: '#5F6B73', border: '#E2E8F0' },
   brandExpression: { primary: '#9A2D00', primaryDark: '#7B2400', accent: '#D98B00' },
   ecosystem: { informationalUrl: 'https://mudanzasmendoza.com.ar', planningUrl: 'https://mudanzapro.com.ar', providerUrl: 'https://mudanzasmiranda.com.ar' },
+  contact: {
+    phone: '+54 9 261 513-0910',
+    phoneHref: 'tel:+5492615130910',
+    whatsappUrl: 'https://wa.link/zn3zij',
+    address: 'Armada Argentina 584',
+    postalCode: '5500',
+    latitude: -32.890183,
+    longitude: -68.84405,
+    openingHours: [
+      { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:00', closes: '20:00' },
+      { days: ['Saturday'], opens: '09:00', closes: '14:00' },
+    ],
+    insurance: 'Seguro de carga integral',
+    certifications: ['Personal de altura certificado'],
+    socialProfiles: [
+      'https://www.facebook.com/mudanzasmiranda4',
+      'https://www.instagram.com/mudanzasmiranda/',
+    ],
+  },
 };

@@ -31,7 +31,7 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-white w-full overflow-x-hidden">
+    <div className="min-h-screen bg-background text-ink-secondary flex flex-col font-sans selection:bg-brand selection:text-white w-full overflow-x-hidden">
       <SEO title={pageTitle} description={pageDescription} canonicalUrl={pageCanonical} isLocalPage={!!currentDestination} destinationData={currentDestination} serviceData={currentService} />
       <Header destinations={destinations} activePage={activePage} onNavigate={handleNavigation} />
       <main className="flex-grow min-h-[60vh]">
