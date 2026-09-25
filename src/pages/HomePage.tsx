@@ -2,17 +2,13 @@ import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Award, Truck, Locate, Star, ChevronDown, Phone, Mail, MapPin, Clock, ArrowRight, Home, Building, Users, Package, Warehouse, CheckCircle2, Calendar, ArrowLeft, ChevronLeft, ChevronRight, Navigation, History, Target, Heart, Search, X } from 'lucide-react';
 import { services, faqs } from '../data/staticData';
+import { HERO_CAROUSEL_SLIDES } from '../config/site';
 import { servicePages } from '../data/seoPages';
 import { destinations } from '../data/destinations';
 import FormSection from '../components/FormSection';
 import FleetShowcase from '../components/FleetShowcase';
 
 const IconMap: Record<string, React.ComponentType<any>> = { Home, Building, Users, Package, Warehouse, Truck };
-const HERO_CAROUSEL_SLIDES = [
-  { id: 'flota', src: '/img/mudanzas-miranda-camiones.webp', alt: 'Camiones profesionales de Mudanzas Miranda estacionados listos para brindar servicio en Mendoza.' },
-  { id: 'residencial', src: '/img/mudanzas-miranda-embalaje.webp', alt: 'Operarios realizando embalaje cuidadoso de muebles para una mudanza en un departamento de Mendoza.' },
-  { id: 'equipo', src: '/img/mudanzas-miranda-residencial.webp', alt: 'Equipo de estibadores de Mudanzas Miranda sonrientes al realizar una mudanza profesional en Mendoza.' },
-];
 
 interface HomePageProps {
   activeServiceTab: string; setActiveServiceTab: React.Dispatch<React.SetStateAction<string>>;
