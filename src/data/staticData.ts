@@ -5,21 +5,21 @@ export const services: Service[] = [
     id: 'residencial',
     title: 'Mudanzas Residenciales',
     shortTitle: 'Residenciales',
-    description: 'Coordinamos el traslado completo de tu hogar, desde casas y dúplex hasta departamentos en altura. Podemos ocuparnos del embalaje de objetos frágiles y del traslado de muebles de gran porte, con un servicio cuidado, puntual y ordenado de puerta a puerta.',
+    description: 'Coordinamos el traslado completo de tu hogar, desde casas y dúplex hasta departamentos en altura. Podemos ocuparnos del embalaje de muebles, con un servicio cuidado, puntual y ordenado de puerta a puerta.',
     icon: 'Home',
     image: '/img/mudanzas-miranda-residencial.webp',
     alt: 'Living luminoso con cajas de mudanza y muebles embalados con film alveolar.',
-    ctaText: 'Cotizar Mudanza de Hogar'
+    ctaText: 'Cotizar'
   },
   {
     id: 'oficina',
     title: 'Mudanzas de Oficinas',
     shortTitle: 'Oficinas',
-    description: 'Planificamos mudanzas corporativas para reducir interrupciones y facilitar la puesta en marcha del nuevo espacio. Trasladamos mobiliario, puestos de trabajo, servidores, equipos informáticos, archivos y otros elementos de oficina con coordinación y cuidado.',
+    description: 'Planificamos mudanzas corporativas facilitando la puesta en marcha del nuevo espacio. Trasladamos mobiliario, puestos de trabajo y otros elementos de oficina con coordinación y cuidado.',
     icon: 'Building',
     image: '/img/mudanzas-miranda-corporativas.webp',
     alt: 'Mobiliario de oficina y cajas organizadas listas para el traslado corporativo.',
-    ctaText: 'Planificar Mudanza Comercial'
+    ctaText: 'Planificar'
   },
   {
     id: 'combinada',
@@ -29,7 +29,7 @@ export const services: Service[] = [
     icon: 'Users',
     image: '/img/mudanzas-miranda-combinadas.webp',
     alt: 'Camión de mudanzas circulando por rutas mendocinas para un traslado compartido.',
-    ctaText: 'Consultar Rutas Combinadas'
+    ctaText: 'Consultar'
   },
   {
     id: 'embalaje',
@@ -39,7 +39,7 @@ export const services: Service[] = [
     icon: 'Package',
     image: '/img/mudanzas-miranda-embalaje.webp',
     alt: 'Vajilla y copas embaladas individualmente en una caja rotulada.',
-    ctaText: 'Contratar Embalaje Profesional'
+    ctaText: 'Contratar'
   },
   {
     id: 'guardamuebles',
@@ -49,7 +49,7 @@ export const services: Service[] = [
     icon: 'Warehouse',
     image: '/img/mudanzas-miranda-guardamuebles.webp',
     alt: 'Depósito de guardamuebles limpio con unidades de almacenamiento seguras.',
-    ctaText: 'Consultar disponibilidad'
+    ctaText: 'Consultar'
   },
   {
     id: 'logistica',
@@ -59,7 +59,7 @@ export const services: Service[] = [
     icon: 'Truck',
     image: '/img/mudanzas-miranda-camiones.webp',
     alt: 'Operaciones de distribución y logística integral para empresas en Mendoza.',
-    ctaText: 'Consultar Solución Logística'
+    ctaText: 'Consultar'
   }
 ];
 
@@ -86,11 +86,6 @@ export const faqs: FAQItem[] = [
   },
   {
     id: 'faq-5',
-    question: '¿Realizan mudanzas interprovinciales o de larga distancia?',
-    answer: 'Sí. Realizamos mudanzas desde Mendoza hacia Buenos Aires, Córdoba, San Luis, San Juan, Neuquén, Bariloche y otros destinos del país. Según el trayecto y la disponibilidad, podemos ofrecer modalidad Exclusiva o Combinada.'
-  },
-  {
-    id: 'faq-6',
     question: '¿Ofrecen presupuestos cerrados o cobran por hora?',
     answer: 'Trabajamos con presupuestos de precio cerrado definidos a partir de la distancia, los accesos, el volumen y los servicios contratados. Así conocés el importe acordado antes de realizar la mudanza.'
   }

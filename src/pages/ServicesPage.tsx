@@ -73,7 +73,7 @@ export default function ServicesPage({ handleNavigation }: ServicesPageProps) {
                   </div>
 
                   {/* Content */}
-                  <div className="flex flex-col flex-1 gap-4 p-6 sm:p-8 pt-0 -mt-6 bg-surface relative z-10 rounded-t-3xl">
+                  <div className="flex flex-col flex-1 gap-4 p-6 sm:p-8 pt-6 -mt-6 bg-surface relative z-10 rounded-t-3xl">
                     <div className="flex items-center gap-3">
                       <div className="w-11 h-11 bg-brand/10 border border-brand/20 rounded-xl flex items-center justify-center text-brand flex-shrink-0">
                         <Icon className="w-5 h-5" />
@@ -123,7 +123,7 @@ export default function ServicesPage({ handleNavigation }: ServicesPageProps) {
 
       <FormSection
         title="Cotizá el servicio que necesitás"
-        subtitle="Completá el formulario inteligente para recibir tu presupuesto adaptado sin compromisos."
+        subtitle="Completá el formulario y recibí la cotización gratis por Whatsapp"
       />
     </motion.div>
   );
