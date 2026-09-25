@@ -17,7 +17,6 @@ export default function App() {
   const {
     activeServiceTab, setActiveServiceTab,
     openFaq, setOpenFaq,
-    activeTestimonial, setActiveTestimonial,
     destSearch, setDestSearch,
     filteredDestinations, regions,
   } = useHomePageState();
@@ -36,7 +35,7 @@ export default function App() {
       <Header activePage={activePage} onNavigate={handleNavigation} />
       <main className="flex-grow min-h-[60vh]">
         {!activePage ? (
-          <HomePage activeServiceTab={activeServiceTab} setActiveServiceTab={setActiveServiceTab} openFaq={openFaq} setOpenFaq={setOpenFaq} activeTestimonial={activeTestimonial} setActiveTestimonial={setActiveTestimonial} destSearch={destSearch} setDestSearch={setDestSearch} filteredDestinations={filteredDestinations} regions={regions} handleNavigation={handleNavigation} heroIndex={heroIndex} setHeroIndex={setHeroIndex} previousHero={previousHero} nextHero={nextHero} />
+          <HomePage activeServiceTab={activeServiceTab} setActiveServiceTab={setActiveServiceTab} openFaq={openFaq} setOpenFaq={setOpenFaq} destSearch={destSearch} setDestSearch={setDestSearch} filteredDestinations={filteredDestinations} regions={regions} handleNavigation={handleNavigation} heroIndex={heroIndex} setHeroIndex={setHeroIndex} previousHero={previousHero} nextHero={nextHero} />
         ) : activePage === 'nosotros' ? (
           <AboutPage handleNavigation={handleNavigation} />
         ) : activePage === 'destinos' ? (
