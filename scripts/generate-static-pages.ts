@@ -9,8 +9,6 @@ const ROOT = path.resolve(__dirname, '..');
 const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 const SITE_NAME = 'Mudanzas Miranda';
 const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-1200.jpg`;
-const RATING_VALUE = '4.9';
-const REVIEW_COUNT = '597';
 
 interface PageDefinition {
   file: string;
@@ -115,31 +113,25 @@ function schemaFor(page: PageDefinition) {
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'Armada Argentina 584',
-        addressLocality: 'Mendoza',
+        addressLocality: 'Godoy Cruz',
+        addressRegion: 'Mendoza',
+        postalCode: '5501',
         addressCountry: 'AR',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: -32.929482,
+        longitude: -68.837296,
       },
       openingHoursSpecification: [
         {
           '@type': 'OpeningHoursSpecification',
-          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-          opens: '08:00',
-          closes: '20:00',
-        },
-        {
-          '@type': 'OpeningHoursSpecification',
-          dayOfWeek: 'Saturday',
-          opens: '09:00',
-          closes: '14:00',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+          opens: '08:30',
+          closes: '21:00',
         },
       ],
       sameAs: ['https://www.instagram.com/mudanzasmiranda/', 'https://www.facebook.com/mudanzasmiranda4'],
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: RATING_VALUE,
-        reviewCount: REVIEW_COUNT,
-        bestRating: '5',
-        worstRating: '1',
-      },
       areaServed: { '@type': 'AdministrativeArea', name: 'Mendoza, Argentina' },
     },
     {
@@ -226,14 +218,14 @@ function renderPage(page: PageDefinition) {
   <body>
     <div id="root">
       <main>
-        <article style="display: none;">
+        <article>
           <header>
             <h1>${esc(page.heading)}</h1>
           </header>
           <p>${esc(page.intro)}</p>
           ${bodyDetail}
           <footer>
-            <p><strong>Mudanzas Miranda</strong> · Armada Argentina 584, Mendoza · +54 9 261 513-0910 · info@mudanzasmiranda.com.ar</p>
+            <p><strong>Mudanzas Miranda</strong> · Armada Argentina 584, Godoy Cruz, Mendoza · +54 9 261 513-0910 · info@mudanzasmiranda.com.ar</p>
           </footer>
         </article>
       </main>
