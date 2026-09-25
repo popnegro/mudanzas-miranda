@@ -23,9 +23,9 @@ export interface ThemeConfig {
 /** theme-mudanzas adoption contract. Shared structure/tokens; provider brand expression remains local. */
 export const themeConfig: ThemeConfig = {
   brand: { name: 'Mudanzas Miranda', tagline: 'Mudanzas profesionales en Mendoza' },
-  site: { role: 'provider', domain: 'mudanzasmiranda.com.ar', baseUrl: 'https://mudanzasmiranda.com.ar', locale: 'es-AR', city: 'Godoy Cruz', province: 'Mendoza', country: 'Argentina' },
+  site: { role: 'provider', domain: 'mudanzasmiranda.com.ar', baseUrl: 'https://www.mudanzasmiranda.com.ar', locale: 'es-AR', city: 'Godoy Cruz', province: 'Mendoza', country: 'Argentina' },
   shared: { primary: '#06434A', primaryDark: '#05373D', accent: '#07BE8A', surface: '#FFFFFF', background: '#FAF9F5', text: '#12383A', textSecondary: '#5F6B73', border: '#E2E8F0' },
   brandExpression: { primary: '#9A2D00', primaryDark: '#7B2400', accent: '#D98B00' },
   ecosystem: { informationalUrl: 'https://mudanzasmendoza.com.ar', planningUrl: 'https://mudanzapro.com.ar', providerUrl: 'https://mudanzasmiranda.com.ar' },
-  contact: { phone: '+54 9 261 513-0910', phoneHref: 'tel:+5492615130910', whatsappUrl: 'https://wa.link/zn3zij', address: 'Armada Argentina 584', postalCode: '5500', latitude: -32.929482, longitude: -68.837296, openingHours: [{ days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '08:30', closes: '21:00' }], insurance: 'Seguro de carga integral', certifications: ['Personal de altura certificado'], socialProfiles: ['https://www.facebook.com/mudanzasmiranda4', 'https://www.instagram.com/mudanzasmiranda/'] },
+  contact: { phone: '+54 9 261 513-0910', phoneHref: 'tel:+5492615130910', whatsappUrl: 'https://wa.me/542615130910', address: 'Armada Argentina 584', postalCode: '5501', latitude: -32.929482, longitude: -68.837296, openingHours: [{ days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '08:30', closes: '21:00' }], insurance: 'Seguro de carga integral', certifications: ['Personal de altura certificado'], socialProfiles: ['https://www.facebook.com/mudanzasmiranda4', 'https://www.instagram.com/mudanzasmiranda/'] },
 };
