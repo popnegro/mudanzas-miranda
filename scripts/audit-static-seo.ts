@@ -36,6 +36,8 @@ for (const page of pages) {
   const graph = schema['@graph'] ?? [];
   const localBusiness = graph.find((item) => Array.isArray(item['@type']) && item['@type'].includes('LocalBusiness'));
   if (!localBusiness) throw new Error(`${page}: LocalBusiness graph node missing`);
+  if (schemaMatch[1].includes('aggregateRating')) throw new Error(`${page}: self-controlled AggregateRating must not be emitted`);
+  if (html.includes('display: none')) throw new Error(`${page}: hidden SEO content detected`);
   if (!graph.some((item) => item['@type'] === 'WebPage')) throw new Error(`${page}: WebPage graph node missing`);
   if (page !== '/' && !graph.some((item) => item['@type'] === 'BreadcrumbList')) {
     throw new Error(`${page}: BreadcrumbList graph node missing`);
