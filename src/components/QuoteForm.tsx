@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { checkAvailability } from '../availability/client';
 import type { AvailabilityResult } from '../availability/types';
-import { ArrowRight, ArrowLeft, Navigation, CheckCircle2, Phone, User, Calendar, MapPin, Briefcase, ChevronDown, FileText } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Locate, CheckCircle2, Phone, User, Calendar, MapPin, Briefcase, ChevronDown, FileText } from 'lucide-react';
 
 interface QuoteFormProps {
   destinationName?: string;
@@ -153,16 +153,11 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
   return (
     <form id="booking-form" onSubmit={handleSubmit} className="max-w-3xl mx-auto bg-surface border border-line rounded-3xl p-6 sm:p-10 shadow-lg shadow-ink/10 space-y-6" noValidate aria-label="Solicitud de cotización de mudanza">
       {/* Progress indicator */}
-      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ink-subtle">
-        <span className={step === 1 ? 'text-brand' : 'text-ink-subtle'}>1. Ruta y servicio</span>
-        <span aria-hidden="true">/</span>
-        <span className={step === 2 ? 'text-brand' : 'text-ink-subtle'}>2. Contacto y fecha</span>
-      </div>
 
       <AnimatePresence mode="wait">
         {step === 1 && (
           <motion.fieldset key="step1" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }} className="space-y-6">
-            <legend className="text-xl font-bold text-ink mb-2">Paso 1: Ruta y Servicio</legend>
+            <legend className="text-xl font-bold text-ink mb-6">Paso 1: Ruta y Servicio</legend>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
@@ -171,7 +166,7 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-subtle pointer-events-none" aria-hidden="true" />
                   <input id="quote-origin" type="text" name="origin" autoComplete="street-address" placeholder="Ej: San Martín 123, Ciudad" value={formData.origin} onChange={handleChange} aria-invalid={Boolean(errors.origin)} aria-describedby={errors.origin ? 'quote-origin-error' : undefined} className={`${inputClass(errors.origin)} pl-10 pr-12`} />
                   <button type="button" onClick={handleGeolocate} aria-label="Usar mi ubicación actual como origen" className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-subtle hover:text-brand p-1 transition-colors">
-                    <Navigation className="w-5 h-5" aria-hidden="true" />
+                    <Locate className="w-5 h-5 text-red-500" aria-hidden="true" />
                   </button>
                 </div>
                 {errors.origin && <p id="quote-origin-error" role="alert" className="text-red-500 text-xs mt-1">{errors.origin}</p>}
@@ -221,7 +216,7 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
 
         {step === 2 && (
           <motion.fieldset key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="space-y-6">
-            <legend className="text-xl font-bold text-ink mb-2">Paso 2: Contacto y Fecha</legend>
+            <legend className="text-xl font-bold text-ink mb-6">Paso 2: Contacto y Fecha</legend>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>

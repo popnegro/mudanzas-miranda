@@ -95,7 +95,7 @@ export default function AboutPage({ handleNavigation }: AboutPageProps) {
                   Mudanzas Miranda nació hace más de dos décadas en la provincia de Mendoza como un emprendimiento familiar enfocado en brindar un servicio de transporte personalizado, cuidadoso y cercano.
                 </p>
                 <p>
-                  Con esfuerzo y constancia, incorporamos camiones modernos equipados con sistemas de fijación avanzados y capacitamos a un equipo técnico especializado en el embalaje de objetos de alto valor y montajes complejos. Hoy, nos enorgullece ser la empresa referente elegida por miles de familias y oficinas mendocinas.
+                  Con esfuerzo y constancia, incorporamos camiones modernos equipados con sistemas de fijación avanzados y capacitamos a un equipo técnico especializado en el embalaje de muebles. Hoy, nos enorgullece ser la empresa referente elegida por miles de familias y oficinas mendocinas.
                 </p>
               </div>
             </InstitutionalCard>
@@ -116,33 +116,6 @@ export default function AboutPage({ handleNavigation }: AboutPageProps) {
                 <p className="text-sm leading-relaxed text-ink-secondary">
                   Los pilares éticos y operativos que guían cada uno de nuestros servicios diarios.
                 </p>
-              </div>
-
-              <div className="flex flex-1 flex-col gap-3 border-t border-line-soft pt-4">
-                <div className="space-y-1">
-                  <h4 className="text-sm font-bold text-brand">Confianza y Respeto</h4>
-                  <p className="text-xs leading-relaxed text-ink-subtle">
-                    Tratamos tu hogar y tus pertenencias con la máxima delicadeza, reconociendo el valor sentimental de cada pieza.
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <h4 className="text-sm font-bold text-brand">Seguridad Total</h4>
-                  <p className="text-xs leading-relaxed text-ink-subtle">
-                    Implementamos protocolos rigurosos de embalaje y transporte junto con coberturas viales completas de tránsito.
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <h4 className="text-sm font-bold text-brand">Puntualidad Absoluta</h4>
-                  <p className="text-xs leading-relaxed text-ink-subtle">
-                    Planificamos detalladamente los horarios de carga y descarga para cumplir estrictamente con los tiempos pactados.
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <h4 className="text-sm font-bold text-brand">Transparencia</h4>
-                  <p className="text-xs leading-relaxed text-ink-subtle">
-                    Ofrecemos presupuestos cerrados, honestos y claros desde el primer momento, sin sorpresas ni cargos ocultos.
-                  </p>
-                </div>
               </div>
             </InstitutionalCard>
           </div>
