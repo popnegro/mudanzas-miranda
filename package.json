@@ -7,6 +7,7 @@
     "dev": "vite --port=3000 --host=0.0.0.0",
     "prebuild": "tsx scripts/generate-static-pages.ts && tsx scripts/generate-sitemap.ts",
     "build": "vite build",
+    "verify:production": "npm run typecheck && npm run build && npm run audit:static-seo && npm run validate:app-composition",
     "audit:static-seo": "tsx scripts/audit-static-seo.ts",
     "validate:app-composition": "tsx scripts/validate-app-composition.ts",
     "preview": "vite preview",
