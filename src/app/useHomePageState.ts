@@ -4,7 +4,6 @@ import { destinations } from '../data/destinations';
 export function useHomePageState() {
   const [activeServiceTab, setActiveServiceTab] = useState('residencial');
   const [openFaq, setOpenFaq] = useState<string | null>(null);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [destSearch, setDestSearch] = useState('');
 
   const filteredDestinations = useMemo(
@@ -30,8 +29,6 @@ export function useHomePageState() {
     setActiveServiceTab,
     openFaq,
     setOpenFaq,
-    activeTestimonial,
-    setActiveTestimonial,
     destSearch,
     setDestSearch,
     filteredDestinations,
