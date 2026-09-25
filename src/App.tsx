@@ -33,7 +33,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-background text-ink-secondary flex flex-col font-sans selection:bg-brand selection:text-white w-full overflow-x-hidden">
       <SEO title={pageTitle} description={pageDescription} canonicalUrl={pageCanonical} isLocalPage={!!currentDestination} destinationData={currentDestination} serviceData={currentService} />
-      <Header destinations={destinations} activePage={activePage} onNavigate={handleNavigation} />
+      <Header activePage={activePage} onNavigate={handleNavigation} />
       <main className="flex-grow min-h-[60vh]">
         {!activePage ? (
           <HomePage activeServiceTab={activeServiceTab} setActiveServiceTab={setActiveServiceTab} openFaq={openFaq} setOpenFaq={setOpenFaq} activeTestimonial={activeTestimonial} setActiveTestimonial={setActiveTestimonial} destSearch={destSearch} setDestSearch={setDestSearch} filteredDestinations={filteredDestinations} regions={regions} handleNavigation={handleNavigation} heroIndex={heroIndex} setHeroIndex={setHeroIndex} previousHero={previousHero} nextHero={nextHero} />

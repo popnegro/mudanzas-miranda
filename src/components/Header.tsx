@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Menu, X, MessageSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Destination } from '../types';
-
 interface HeaderProps {
-  destinations: Destination[];
   activePage: string;
   onNavigate: (slug: string) => void;
 }
