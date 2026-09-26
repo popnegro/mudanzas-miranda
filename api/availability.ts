@@ -12,7 +12,7 @@ function json(data: unknown, status = 200) {
 }
 
 function isValidDate(value: string): boolean {
-  return /^\\d{4}-\\d{2}-\\d{2}$/.test(value) && !Number.isNaN(Date.parse(`${value}T00:00:00-03:00`));
+  return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(`${value}T00:00:00-03:00`));
 }
 
 function getDayRange(date: string) {
