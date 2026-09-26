@@ -132,7 +132,12 @@ function schemaFor(page: PageDefinition) {
         },
       ],
       sameAs: ['https://www.instagram.com/mudanzasmiranda/', 'https://www.facebook.com/mudanzasmiranda4'],
-      areaServed: { '@type': 'AdministrativeArea', name: 'Mendoza, Argentina' },
+      hasMap: 'https://www.google.com/maps/search/?api=1&query=-32.929482,-68.837296',
+      contactPoint: [{ '@type': 'ContactPoint', telephone: '+5492615130910', contactType: 'customer service', areaServed: 'AR', availableLanguage: ['es-AR'] }],
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: 'Godoy Cruz, Mendoza, Argentina' },
+        { '@type': 'AdministrativeArea', name: 'Mendoza, Argentina' },
+      ],
     },
     {
       '@type': 'WebSite',
