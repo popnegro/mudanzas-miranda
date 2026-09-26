@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X, MessageSquare } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
 import { motion, AnimatePresence } from 'motion/react';
@@ -19,7 +19,6 @@ function isServiceDetailSlug(activePage: string): boolean {
 export default function Header({ activePage, onNavigate }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const headerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
@@ -68,7 +67,6 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
 
   return (
     <header
-      ref={headerRef}
       className={`fixed top-0 z-50 h-[70px] sm:h-[78px] w-full border-b border-line/80 bg-surface/95 backdrop-blur-md transition-all duration-300 ${
         isScrolled ? 'shadow-md shadow-ink/5' : ''
       }`}
@@ -123,15 +121,9 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                   event.preventDefault();
                   scrollHomeSection('form');
                 }
-              }}
-              className="header-cta-button"
-              onClick={(event) => {
-                if (activePage) {
-                  event.preventDefault();
-                  scrollHomeSection('form');
-                }
                 trackEvent('quote_start', { source: 'header_cta' });
               }}
+              className="header-cta-button"
             >
               <MessageSquare className="h-4 w-4" aria-hidden="true" />
               Cotizar mudanza
@@ -157,7 +149,7 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
-            className="absolute left-0 right-0 top-full z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-surface px-4 pb-6 pt-4 shadow-xl sm:px-6 lg:hidden"
+            className="absolute left-0 right-0 top-full z-40 max-h-[calc(100dvh-70px)] sm:max-h-[calc(100dvh-78px)] overflow-y-auto border-t border-line bg-surface px-4 pb-6 pt-4 shadow-xl sm:px-6 lg:hidden"
           >
             <nav className="flex flex-col gap-1" aria-label="Navegación móvil">
               <button type="button" onClick={() => navigateTo('')} className="nav-link-mobile text-left">
@@ -184,17 +176,9 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                   } else {
                     setIsMobileMenuOpen(false);
                   }
-                }}
-                className="header-cta-button flex w-full justify-center"
-                onClick={(event) => {
-                  if (activePage) {
-                    event.preventDefault();
-                    scrollHomeSection('form');
-                  } else {
-                    setIsMobileMenuOpen(false);
-                  }
                   trackEvent('quote_start', { source: 'mobile_header_cta' });
                 }}
+                className="header-cta-button flex w-full justify-center"
               >
                 <MessageSquare className="h-4 w-4" aria-hidden="true" />
                 Cotizar mudanza
