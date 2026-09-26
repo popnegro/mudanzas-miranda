@@ -45,7 +45,7 @@ export const services: Service[] = [
     id: 'guardamuebles',
     title: 'Servicio de Guardamuebles',
     shortTitle: 'Guardamuebles',
-    description: 'Ofrecemos almacenamiento temporal o de largo plazo para situaciones como contratos de alquiler, mudanzas demoradas o refacciones. Disponemos de depósitos secos, limpios e individuales con monitoreo, alarma y vigilancia presencial las 24 horas.',
+    description: 'Ofrecemos almacenamiento temporal o de largo plazo para situaciones como contratos de alquiler, mudanzas demoradas o refacciones. Disponemos de depósitos secos, limpios e individuales. Consultá las condiciones de almacenamiento y acceso según la modalidad contratada.',
     icon: 'Warehouse',
     image: '/img/mudanzas-miranda-guardamuebles.webp',
     alt: 'Depósito de guardamuebles limpio con unidades de almacenamiento seguras.',

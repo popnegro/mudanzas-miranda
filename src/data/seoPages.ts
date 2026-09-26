@@ -64,10 +64,10 @@ export const servicePages: ServicePage[] = [
     heroHeadline: 'Guardamuebles y Almacenamiento Seguro',
     heroSubheadline: 'Un espacio seguro, limpio y seco para guardar tus pertenencias el tiempo que lo necesites.',
     leadText: '¿Se retrasó la entrega de tu nuevo hogar? ¿Estás haciendo refacciones o viajando al exterior? Te ofrecemos la solución ideal con nuestros módulos de guardamuebles individuales en Mendoza, diseñados para albergar tu mobiliario de forma segura.',
-    detailText: 'Nuestros depósitos están acondicionados contra la humedad, cuentan con control de plagas periódico y están monitoreados por cámaras de seguridad de alta definición y personal de vigilancia presencial las 24 horas del día. Podés contratar por semanas o meses sin contratos de permanencia abusivos.',
+    detailText: 'Las condiciones de almacenamiento, acceso y contratación se coordinan según el espacio y el período requerido. Consultanos para conocer la modalidad disponible.',
     features: [
       'Unidades individuales, limpias y libres de humedad.',
-      'Monitoreo con cámaras de seguridad y alarmas perimetrales las 24 horas.',
+      'Condiciones de almacenamiento y acceso coordinadas según la modalidad contratada.',
       'Contratación flexible por plazos cortos, medianos o largos.',
       'Inventariado exhaustivo al ingresar tus bienes para control absoluto.',
       'Acceso coordinado para retirar o añadir elementos con facilidad.'

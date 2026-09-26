@@ -68,7 +68,7 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 w-full border-b border-line/80 bg-surface/95 backdrop-blur-md transition-all duration-300 ${
+      className={`fixed top-0 z-50 w-full border-b border-line/80 bg-surface/95 backdrop-blur-md transition-all duration-300 ${
         isScrolled ? 'py-3 shadow-md shadow-ink/5' : 'py-4'
       }`}
     >

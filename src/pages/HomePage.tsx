@@ -1,30 +1,25 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Award, Truck, Locate, Star, ChevronDown, Phone, Mail, MapPin, Clock, ArrowRight, Home, Building, Users, Package, Warehouse, CheckCircle2, Calendar, ArrowLeft, ChevronLeft, ChevronRight, Navigation, History, Target, Heart, Search, X } from 'lucide-react';
-import { services, faqs, testimonials } from '../data/staticData';
+import { services, faqs } from '../data/staticData';
+import { HERO_CAROUSEL_SLIDES } from '../config/site';
 import { servicePages } from '../data/seoPages';
 import { destinations } from '../data/destinations';
 import FormSection from '../components/FormSection';
 import FleetShowcase from '../components/FleetShowcase';
 
 const IconMap: Record<string, React.ComponentType<any>> = { Home, Building, Users, Package, Warehouse, Truck };
-const HERO_CAROUSEL_SLIDES = [
-  { id: 'flota', src: '/img/mudanzas-miranda-camiones.webp', alt: 'Camiones profesionales de Mudanzas Miranda estacionados listos para brindar servicio en Mendoza.' },
-  { id: 'residencial', src: '/img/mudanzas-miranda-embalaje.webp', alt: 'Operarios realizando embalaje cuidadoso de muebles para una mudanza en un departamento de Mendoza.' },
-  { id: 'equipo', src: '/img/mudanzas-miranda-residencial.webp', alt: 'Equipo de estibadores de Mudanzas Miranda sonrientes al realizar una mudanza profesional en Mendoza.' },
-];
 
 interface HomePageProps {
   activeServiceTab: string; setActiveServiceTab: React.Dispatch<React.SetStateAction<string>>;
   openFaq: string | null; setOpenFaq: React.Dispatch<React.SetStateAction<string | null>>;
-  activeTestimonial: number; setActiveTestimonial: React.Dispatch<React.SetStateAction<number>>;
   destSearch: string; setDestSearch: React.Dispatch<React.SetStateAction<string>>;
   filteredDestinations: typeof destinations; regions: Record<string, typeof destinations>;
   handleNavigation: (slug: string) => void; heroIndex: number;
   setHeroIndex: React.Dispatch<React.SetStateAction<number>>; previousHero: () => void; nextHero: () => void;
 }
 export default function HomePage(props: HomePageProps) {
-  const { activeServiceTab, setActiveServiceTab, openFaq, setOpenFaq, activeTestimonial, setActiveTestimonial, destSearch, setDestSearch, filteredDestinations, regions, handleNavigation, heroIndex, setHeroIndex, previousHero, nextHero } = props;
+  const { activeServiceTab, setActiveServiceTab, openFaq, setOpenFaq, destSearch, setDestSearch, filteredDestinations, regions, handleNavigation, heroIndex, setHeroIndex, previousHero, nextHero } = props;
   return (
     <motion.div
       key="homepage"
@@ -63,7 +58,7 @@ export default function HomePage(props: HomePageProps) {
                   <ArrowRight className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://wa.link/zn3zij"
+                  href="https://wa.me/542615130910"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto flex items-center justify-center gap-2 border border-line bg-surface hover:bg-background-soft text-ink font-semibold px-8 py-4 rounded-2xl transition-all cursor-pointer text-base"
@@ -97,7 +92,7 @@ export default function HomePage(props: HomePageProps) {
                           ))}
                         </div>
                       </div>
-                      <p className="text-[11px] text-ink-subtle font-medium">597 opiniones de clientes en Google</p>
+                      <p className="text-[11px] text-ink-subtle font-medium">603 reseñas en Google</p>
                     </div>
                   </motion.div>
                 </div>
@@ -177,7 +172,7 @@ export default function HomePage(props: HomePageProps) {
                 </div>
                 <h3 className="text-lg font-bold text-ink">Más de 20 Años de Trayectoria</h3>
                 <p className="text-sm text-ink-secondary leading-relaxed">
-                  Décadas de servicio ininterrumpido en Mendoza nos convierten en el referente indiscutido de traslados y mudanzas de máxima confianza y calidad.
+                  Décadas de servicio ininterrumpido en Mendoza nos convierten en el una trayectoria de más de 20 años dedicada a brindar servicios de mudanzas y traslados.
                 </p>
               </div>
               <button
@@ -405,77 +400,6 @@ export default function HomePage(props: HomePageProps) {
               })}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Testimonials Review Section */}
-      <section className="py-20 bg-surface">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
-            <h2 className="text-3xl font-serif font-bold text-ink tracking-tight">
-              Lo que dicen nuestros clientes
-            </h2>
-            <p className="text-ink-secondary text-sm">
-              La satisfacción de quienes ya confiaron en Mudanzas Miranda.
-            </p>
-          </div>
-
-          {/* Interactive Testimonial Slider */}
-          <div className="bg-surface border border-line rounded-3xl p-6 sm:p-10 shadow-sm shadow-ink/5 relative">
-            <div className="absolute top-6 right-8 text-brand/10 text-7xl font-serif select-none pointer-events-none">
-              “
-            </div>
-
-            <div className="min-h-[180px] relative overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTestimonial}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.25 }}
-                  className="flex flex-col justify-between min-h-[180px]"
-                >
-                  <div className="space-y-4">
-                    <div className="flex text-brand">
-                      {[...Array(testimonials[activeTestimonial].rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 fill-brand text-brand" />
-                      ))}
-                    </div>
-                    <p className="text-base sm:text-lg text-ink-tertiary italic leading-relaxed font-serif">
-                      "{testimonials[activeTestimonial].content}"
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between border-t border-line-soft pt-6 mt-6">
-                    <div>
-                      <p className="font-bold text-ink">{testimonials[activeTestimonial].author}</p>
-                      <p className="text-xs text-ink-subtle">{testimonials[activeTestimonial].role}</p>
-                    </div>
-                    <div className="text-xs text-ink-subtle">{testimonials[activeTestimonial].date}</div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Navigation buttons */}
-            <div className="flex justify-end gap-2 mt-4">
-              <button
-                onClick={() => setActiveTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
-                className="p-2 border border-line rounded-xl hover:bg-background-soft text-ink-secondary transition-colors cursor-pointer"
-                aria-label="Previous Testimonial"
-              >
-                <ArrowLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setActiveTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))}
-                className="p-2 border border-line rounded-xl hover:bg-background-soft text-ink-secondary transition-colors cursor-pointer"
-                aria-label="Next Testimonial"
-              >
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
         </div>
       </section>
 
