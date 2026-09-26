@@ -1,9 +1,11 @@
 import WhatsAppIcon from './WhatsAppIcon';
+import { trackEvent } from '../lib/analytics';
 
 export default function FloatingWhatsApp() {
   return (
     <a
       href="https://wa.me/5492615130910?text=Hola%20Mudanzas%20Miranda!%20Quisiera%20consultar%20por%20un%20servicio%20de%20mudanza%20para%20Mendoza."
+      onClick={() => trackEvent('whatsapp_click', { source: 'floating_button' })}
       target="_blank"
       rel="noopener noreferrer"
       className="group fixed bottom-4 right-4 z-50 flex items-center justify-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg shadow-green-600/30 ring-4 ring-green-500/10 transition-all hover:scale-110 hover:bg-[#20ba56] active:scale-95 sm:p-4"
