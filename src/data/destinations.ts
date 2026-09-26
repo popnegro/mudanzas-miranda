@@ -16,8 +16,8 @@ export const destinations: Destination[] = [
     slug: 'mudanzas-godoy-cruz',
     name: 'Godoy Cruz',
     region: 'Gran Mendoza',
-    title: 'Mudanzas en Godoy Cruz | Rápidas, Seguras y Económicas | Mudanzas Miranda',
-    description: '¿Te mudás en Godoy Cruz? En Mudanzas Miranda realizamos transportes y traslados residenciales y de oficinas con el mayor cuidado. ¡Cotizá online gratis en minutos!',
+    title: 'Mudanzas en Godoy Cruz | Profesionales y Seguras | Mudanzas Miranda',
+    description: '¿Te mudás en Godoy Cruz? En Mudanzas Miranda realizamos transportes y traslados residenciales y de oficinas con el mayor cuidado. ¡Solicitá tu cotización por WhatsApp.',
     heroHeadline: 'Mudanzas en Godoy Cruz',
     heroSubheadline: 'Traslados residenciales y comerciales eficientes en todas las zonas de Godoy Cruz.',
     leadText: 'Ofrecemos soluciones integrales de mudanzas en Godoy Cruz para familias y empresas que buscan un servicio sin estrés. Conocemos cada rincón del departamento, garantizando un servicio puntual y seguro.',
@@ -30,7 +30,7 @@ export const destinations: Destination[] = [
     title: 'Mudanzas en Guaymallén | Traslados y Transportes de Confianza | Mudanzas Miranda',
     description: 'Servicio experto de mudanzas en Guaymallén. Mudanzas de casas, departamentos y locales comerciales. Personal de confianza y flota moderna. ¡Cotizá ahora!',
     heroHeadline: 'Mudanzas en Guaymallén',
-    heroSubheadline: 'La empresa de mudanzas líder en Guaymallén para traslados particulares y comerciales.',
+    heroSubheadline: 'Servicio de mudanzas para traslados particulares y comerciales en Guaymallén.',
     leadText: 'Realizamos mudanzas profesionales en Guaymallén, el departamento más poblado del Gran Mendoza. Atendemos necesidades de traslados particulares, comerciales e industriales con la mayor rapidez.',
     detailText: 'Nuestra amplia experiencia nos permite coordinar mudanzas en Guaymallén de forma ágil y segura. Disponemos de camiones de diversas capacidades equipados con mantas protectoras, rampas y sogas de alta resistencia para asegurar tus pertenencias.'
   },
@@ -54,7 +54,7 @@ export const destinations: Destination[] = [
     heroHeadline: 'Mudanzas en Luján de Cuyo',
     heroSubheadline: 'Mudanzas premium en Luján de Cuyo, Chacras de Coria, Vistalba y distritos vitivinícolas.',
     leadText: 'Especialistas en mudanzas residenciales en Luján de Cuyo y zonas residenciales exclusivas como Chacras de Coria. Ofrecemos un servicio premium con atención al detalle.',
-    detailText: 'Sabemos que tus muebles son valiosos, por lo que aplicamos técnicas de embalaje avanzadas con cartón corrugado, film alveolar y mantas acolchadas. Mudate con la tranquilidad de contar con el mejor servicio de Luján de Cuyo.'
+    detailText: 'Sabemos que tus muebles son valiosos, por lo que aplicamos técnicas de embalaje avanzadas con cartón corrugado, film alveolar y mantas acolchadas. Mudate con la tranquilidad de contar con un servicio adaptado a las necesidades de cada mudanza.'
   },
   {
     slug: 'mudanzas-maipu',
@@ -85,7 +85,7 @@ export const destinations: Destination[] = [
     title: 'Mudanzas en Rivadavia Mendoza | Traslados de Confianza | Mudanzas Miranda',
     description: 'Mudanzas residenciales y comerciales seguras en Rivadavia, Mendoza. Camiones propios, traslados y seguro de carga completo. Solicita tu presupuesto gratis.',
     heroHeadline: 'Mudanzas en Rivadavia',
-    heroSubheadline: 'Tu mudanza en Rivadavia realizada por profesionales experimentados y de plena confianza.',
+    heroSubheadline: 'Tu mudanza en Rivadavia coordinada por un equipo con experiencia en traslados.',
     leadText: 'Ofrecemos soluciones eficientes en Rivadavia para que tu traslado sea ágil y exitoso. Nos destacamos por la puntualidad, cordialidad y el cuidado riguroso de cada bulto.',
     detailText: 'Ya sea que te mudes de casa, departamento o traslades un local comercial, nuestro equipo te acompañará en cada paso. Contamos con canastos, cajas y materiales de protección de primer nivel.'
   },
@@ -98,7 +98,7 @@ export const destinations: Destination[] = [
     heroHeadline: 'Mudanzas en Junín',
     heroSubheadline: 'Servicio personalizado de mudanzas en Junín con el máximo estándar de protección.',
     leadText: 'Brindamos servicios de mudanzas en Junín respaldados por más de dos décadas de trayectoria. Nos encargamos de que la transición a tu nuevo hogar sea placentera.',
-    detailText: 'Trabajamos con personal permanente y de confianza, garantizando discreción y honestidad en el manejo de tus bienes familiares. Ofrecemos tarifas competitivas y facilidades de pago.'
+    detailText: 'Trabajamos con personal permanente y de confianza, con foco en el cuidado y la correcta manipulación de tus pertenencias. Ofrecemos tarifas competitivas y facilidades de pago.'
   },
   {
     slug: 'mudanzas-tunuyan',
@@ -108,7 +108,7 @@ export const destinations: Destination[] = [
     description: 'Mudanzas residenciales, corporativas y traslados en Tunuyán, Mendoza. Personal capacitado y flota habilitada. Cobertura en todo el Valle de Uco. ¡Cotizá ya!',
     heroHeadline: 'Mudanzas en Tunuyán',
     heroSubheadline: 'Llegamos a Tunuyán y a todo el corazón del Valle de Uco con soluciones logísticas y mudanzas de nivel.',
-    leadText: 'Líderes en mudanzas en Tunuyán, combinamos logística de precisión con trato humano y cuidadoso para mudar hogares, cabañas y bodegas de la región.',
+    leadText: 'Realizamos mudanzas en Tunuyán, combinamos logística de precisión con trato humano y cuidadoso para mudar hogares, cabañas y bodegas de la región.',
     detailText: 'Nuestros vehículos se encuentran perfectamente adaptados para circular por rutas cordilleranas y caminos internos de fincas o bodegas. Ofrecemos embalaje reforzado para traslados prolongados.'
   },
   {
@@ -120,7 +120,7 @@ export const destinations: Destination[] = [
     heroHeadline: 'Mudanzas en Tupungato',
     heroSubheadline: 'Mudanzas seguras y protegidas en Tupungato, rodeados de paisajes y viñedos de altura.',
     leadText: 'Garantizamos un servicio puntual y seguro de mudanzas en Tupungato. Diseñamos planes a la medida de tu necesidad y presupuesto para traslados libres de estrés.',
-    detailText: 'Protegemos tus muebles con materiales aislantes de primera calidad para resguardarlos del polvo y vibraciones durante el traslado. Brindamos atención telefónica y por WhatsApp las 24 horas.'
+    detailText: 'Protegemos tus muebles con materiales aislantes de primera calidad para resguardarlos del polvo y vibraciones durante el traslado. Brindamos atención telefónica y por WhatsApp para coordinar consultas y presupuestos.'
   },
   {
     slug: 'mudanzas-san-carlos',
@@ -163,8 +163,8 @@ export const destinations: Destination[] = [
     description: 'Servicio de mudanzas y traslados en Malargüe. Camiones preparados para caminos difíciles y clima extremo. Seguro de carga y personal calificado. ¡Cotizá hoy!',
     heroHeadline: 'Mudanzas en Malargüe',
     heroSubheadline: 'Llegamos al extremo sur de la provincia con la máxima seguridad y robustez logística.',
-    leadText: 'Especialistas en mudanzas en Malargüe, superando desafíos climáticos y de relieve para garantizar que tus pertenencias lleguen perfectas y a tiempo.',
-    detailText: 'Nuestra flota cuenta con mantenimiento de primer nivel y neumáticos adecuados para condiciones invernales en el sur mendocino. Brindamos seguro de carga total y monitoreo de ruta continuo.'
+    leadText: 'Especialistas en mudanzas en Malargüe, coordinando el traslado según las características de la ruta y la fecha solicitada.',
+    detailText: 'Nuestra flota cuenta con mantenimiento de primer nivel y neumáticos adecuados para condiciones invernales en el sur mendocino. Contamos con seguro de carga incluido y coordinamos las condiciones del traslado según el servicio contratado.'
   },
   {
     slug: 'mudanzas-la-paz',
@@ -197,7 +197,7 @@ export const destinations: Destination[] = [
     heroHeadline: 'Mudanzas en el Valle de Uco',
     heroSubheadline: 'Conectando Tunuyán, Tupungato y San Carlos con la máxima seguridad y cuidado.',
     leadText: 'Ofrecemos un servicio integral de mudanzas y traslados logísticos en toda la región del Valle de Uco. Atendemos necesidades de bodegas, hoteles turísticos y familias de la zona.',
-    detailText: 'Conocemos a la perfección las rutas y accesos de montaña de la región, brindando un traslado suave y seguro para equipamientos delicados de enología, turismo o mobiliario de hogar.'
+    detailText: 'Coordinamos los traslados del Valle de Uco según la ruta, el tipo de carga y las condiciones del servicio contratado.'
   },
   {
     slug: 'mudanzas-zona-este',
