@@ -4,6 +4,7 @@ import { Award, Truck, Locate, Star, ChevronDown, Phone, Mail, MapPin, Clock, Ar
 import { services, faqs } from '../data/staticData';
 import { HERO_CAROUSEL_SLIDES } from '../config/site';
 import { servicePages } from '../data/seoPages';
+import { trackEvent } from '../lib/analytics';
 import { destinations } from '../data/destinations';
 import FormSection from '../components/FormSection';
 import FleetShowcase from '../components/FleetShowcase';
@@ -59,6 +60,7 @@ export default function HomePage(props: HomePageProps) {
                 </a>
                 <a
                   href="https://wa.me/542615130910"
+                  onClick={() => trackEvent('whatsapp_click', { source: 'hero_cta' })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto flex items-center justify-center gap-2 border border-line bg-surface hover:bg-background-soft text-ink font-semibold px-8 py-4 rounded-2xl transition-all cursor-pointer text-base"
@@ -172,7 +174,7 @@ export default function HomePage(props: HomePageProps) {
                 </div>
                 <h3 className="text-lg font-bold text-ink">Más de 20 Años de Trayectoria</h3>
                 <p className="text-sm text-ink-secondary leading-relaxed">
-                  Décadas de servicio ininterrumpido en Mendoza nos convierten en el una trayectoria de más de 20 años dedicada a brindar servicios de mudanzas y traslados.
+                  Contamos con más de 20 años de trayectoria dedicada a brindar servicios de mudanzas y traslados en Mendoza.
                 </p>
               </div>
               <button
