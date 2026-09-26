@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Menu, X, MessageSquare } from 'lucide-react';
+import { trackEvent } from '../lib/analytics';
 import { motion, AnimatePresence } from 'motion/react';
 interface HeaderProps {
   activePage: string;
@@ -124,6 +125,7 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                 }
               }}
               className="header-cta-button"
+              onClick={() => trackEvent('quote_start', { source: 'header_cta' })}
             >
               <MessageSquare className="h-4 w-4" aria-hidden="true" />
               Cotizar mudanza
@@ -178,6 +180,7 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                   }
                 }}
                 className="header-cta-button flex w-full justify-center"
+                onClick={() => trackEvent('quote_start', { source: 'mobile_header_cta' })}
               >
                 <MessageSquare className="h-4 w-4" aria-hidden="true" />
                 Cotizar mudanza
