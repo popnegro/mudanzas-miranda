@@ -89,7 +89,8 @@ export default async function handler(request: Request) {
     return json({ error: 'Method not allowed' }, 405);
   }
 
-  // Vercel may provide a relative request URL; only query parsing is needed here.\n  const date = new URL(request.url, 'https://invalid.local').searchParams.get('date') || '';
+  // Vercel may provide a relative request URL; only query parsing is needed here.
+  const date = new URL(request.url, 'https://invalid.local').searchParams.get('date') || '';
 
   if (!isValidDate(date)) {
     return json({ error: 'Invalid date. Expected YYYY-MM-DD.' }, 400);
