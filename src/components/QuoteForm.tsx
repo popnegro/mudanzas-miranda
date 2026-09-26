@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { checkAvailability } from '../availability/client';
 import type { AvailabilityResult } from '../availability/types';
 import { ArrowRight, ArrowLeft, Locate, CheckCircle2, Phone, User, Calendar, MapPin, Briefcase, ChevronDown, FileText } from 'lucide-react';
+import { trackEvent } from '../lib/analytics';
 
 interface QuoteFormProps {
   destinationName?: string;
@@ -63,6 +64,7 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
     let cancelled = false;
     if (!formData.date) { setAvailability(null); return; }
     setIsCheckingAvailability(true);
+    trackEvent('availability_check', { service: formData.service, date: formData.date });
     checkAvailability({ date: formData.date, service: formData.service })
       .then((result) => { if (!cancelled) setAvailability(result); })
       .finally(() => { if (!cancelled) setIsCheckingAvailability(false); });
@@ -120,6 +122,8 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
     };
     const inventoryText = formData.inventory.trim() ? `\n*Detalles:* ${formData.inventory.trim()}` : '';
     const message = `Hola! Quisiera cotizar una mudanza con los siguientes datos:\n*Origen:* ${formData.origin}\n*Destino:* ${formData.destination}\n*Servicio:* ${serviceMap[formData.service] || 'No especificado'}\n*Fecha:* ${new Date(formData.date.replace(/-/g, '/')).toLocaleDateString('es-AR')}\n*Nombre:* ${formData.name}\n*Teléfono:* ${formData.phone}${inventoryText}`;
+    trackEvent('quote_submit', { service: formData.service, destination: formData.destination, availability: availability?.status ?? 'unknown' });
+    trackEvent('whatsapp_click', { source: 'quote_form', service: formData.service });
     window.open(`https://wa.me/5492615130910?text=${encodeURIComponent(message)}`, '_blank');
     setIsSubmitted(true);
   };
@@ -209,7 +213,7 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
             </div>
 
             <div className="flex justify-end">
-              <button type="button" onClick={() => validateStep1() && setStep(2)} className="flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md shadow-brand/20 hover:shadow-brand/30 active:scale-[0.98]">Siguiente <ArrowRight className="w-5 h-5" aria-hidden="true" /></button>
+              <button type="button" onClick={() => { if (validateStep1()) { trackEvent('quote_start', { service: formData.service }); setStep(2); } }} className="flex items-center gap-2 bg-brand hover:bg-brand-dark text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md shadow-brand/20 hover:shadow-brand/30 active:scale-[0.98]">Siguiente <ArrowRight className="w-5 h-5" aria-hidden="true" /></button>
             </div>
           </motion.fieldset>
         )}
