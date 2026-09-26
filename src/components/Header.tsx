@@ -69,8 +69,8 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
   return (
     <header
       ref={headerRef}
-      className={`fixed top-0 z-50 w-full border-b border-line/80 bg-surface/95 backdrop-blur-md transition-all duration-300 ${
-        isScrolled ? 'py-3 shadow-md shadow-ink/5' : 'py-4'
+      className={`fixed top-0 z-50 h-[70px] sm:h-[78px] w-full border-b border-line/80 bg-surface/95 backdrop-blur-md transition-all duration-300 ${
+        isScrolled ? 'shadow-md shadow-ink/5' : ''
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -125,7 +125,13 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                 }
               }}
               className="header-cta-button"
-              onClick={() => trackEvent('quote_start', { source: 'header_cta' })}
+              onClick={(event) => {
+                if (activePage) {
+                  event.preventDefault();
+                  scrollHomeSection('form');
+                }
+                trackEvent('quote_start', { source: 'header_cta' });
+              }}
             >
               <MessageSquare className="h-4 w-4" aria-hidden="true" />
               Cotizar mudanza
@@ -180,7 +186,15 @@ export default function Header({ activePage, onNavigate }: HeaderProps) {
                   }
                 }}
                 className="header-cta-button flex w-full justify-center"
-                onClick={() => trackEvent('quote_start', { source: 'mobile_header_cta' })}
+                onClick={(event) => {
+                  if (activePage) {
+                    event.preventDefault();
+                    scrollHomeSection('form');
+                  } else {
+                    setIsMobileMenuOpen(false);
+                  }
+                  trackEvent('quote_start', { source: 'mobile_header_cta' });
+                }}
               >
                 <MessageSquare className="h-4 w-4" aria-hidden="true" />
                 Cotizar mudanza
