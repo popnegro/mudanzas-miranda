@@ -35,9 +35,9 @@ jobs:
         run: |
           test -f public/sitemap.xml
           sitemap_urls="$(grep -c '<loc>' public/sitemap.xml)"
-          test "$sitemap_urls" -eq "27"
+          test "$sitemap_urls" -eq "29"
           ! grep -q '/test.html' public/sitemap.xml
           test -f dist/sitemap.xml
           dist_sitemap_urls="$(grep -c '<loc>' dist/sitemap.xml)"
-          test "$dist_sitemap_urls" -eq "27"
+          test "$dist_sitemap_urls" -eq "29"
           ! grep -q '/test.html' dist/sitemap.xml
