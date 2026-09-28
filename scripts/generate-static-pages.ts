@@ -34,7 +34,7 @@ const pages: PageDefinition[] = [
     url: SITE_URL,
     title: 'Mudanzas en Mendoza - Profesionales y Seguras | Mudanzas Miranda',
     description: 'Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas. Rápido, seguro y sin estrés. ¡Cotizá tu mudanza online en minutos!',
-    heading: 'Mudanzas en Mendoza',
+    heading: 'Mudanzas Miranda',
     intro: 'Mudanzas Miranda es una empresa de mudanzas y traslados en Mendoza. Realizamos mudanzas residenciales, de oficinas, embalaje profesional, guardamuebles, mudanzas combinadas y logística integral.',
     detail: 'Atendemos Mendoza y las principales zonas del Gran Mendoza con presupuesto personalizado, coordinación previa y contacto directo.',
     kind: 'home',
