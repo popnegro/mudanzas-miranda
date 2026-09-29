@@ -32,7 +32,7 @@ export function getPageSeo(
   if (activePage === 'servicios') {
     return {
       title: 'Servicios de Mudanzas y Traslados en Mendoza | Mudanzas Miranda',
-      description: 'Mudanzas residenciales, traslados de oficinas, embalaje profesional, guardamuebles y logística integral en Mendoza. Conocé todas nuestras soluciones.',
+      description: 'Mudanzas residenciales, traslados de oficinas, embalaje profesional, mudanzas combinadas y logística integral en Mendoza. Conocé todas nuestras soluciones.',
       canonicalUrl: `${SITE_URL}/servicios.html`,
     };
   }
