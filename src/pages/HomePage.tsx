@@ -7,6 +7,7 @@ import { servicePages } from '../data/seoPages';
 import { trackEvent } from '../lib/analytics';
 import { destinations } from '../data/destinations';
 import FormSection from '../theme/components/FormSection';
+import Hero from '../theme/components/Hero';
 import QuoteForm from '../components/QuoteForm';
 import FleetShowcase from '../components/FleetShowcase';
 
@@ -30,129 +31,85 @@ export default function HomePage(props: HomePageProps) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
-      {/* Hero Section */}
-      <section className="relative bg-surface text-ink overflow-hidden py-16 lg:py-24 border-b border-line">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#FFFFFF_0%,#F6F7F8_100%)] z-0" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-brand/5 blur-3xl rounded-full z-0 pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-12 items-center">
-            {/* Left Column */}
-            <div className="col-span-12 lg:col-span-6 space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand/10 border border-brand/20 text-brand text-xs font-bold uppercase tracking-wider">
-                <Truck className="w-4 h-4" />
-                Mudanzas en Mendoza
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-ink leading-tight tracking-tight">
-                Mudanzas Miranda
-              </h1>
-              <p className="text-base sm:text-lg text-ink-secondary leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Con <strong className="text-ink">Mudanzas Miranda</strong>, dejamos atrás el caos de las mudanzas.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <a
-                  href="#form"
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 bg-brand hover:bg-brand-dark text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-brand/20 hover:shadow-brand/30 active:scale-[0.99] transition-all cursor-pointer text-base"
-                >
-                  Cotizar mi Mudanza
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://wa.me/542615130910"
-                  onClick={() => trackEvent('whatsapp_click', { source: 'hero_cta' })}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 border border-line bg-surface hover:bg-background-soft text-ink font-semibold px-8 py-4 rounded-2xl transition-all cursor-pointer text-base"
-                >
-                  <Phone className="w-5 h-5 text-brand" />
-                  Consultar por WhatsApp
-                </a>
-              </div>
+      <Hero
+        eyebrow={<><Truck className="w-4 h-4" aria-hidden="true" />Mudanzas en Mendoza</>}
+        title="Mudanzas Miranda"
+        description={<>Con <strong className="text-ink">Mudanzas Miranda</strong>, dejamos atrás el caos de las mudanzas.</>}
+        primaryAction={
+          <a href="#form" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-brand hover:bg-brand-dark text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-brand/20 hover:shadow-brand/30 active:scale-[0.99] transition-all cursor-pointer text-base">
+            Cotizar mi Mudanza
+            <ArrowRight className="w-5 h-5" aria-hidden="true" />
+          </a>
+        }
+        secondaryAction={
+          <a
+            href="https://wa.me/542615130910"
+            onClick={() => trackEvent('whatsapp_click', { source: 'hero_cta' })}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 border border-line bg-surface hover:bg-background-soft text-ink font-semibold px-8 py-4 rounded-2xl transition-all cursor-pointer text-base"
+          >
+            <Phone className="w-5 h-5 text-brand" aria-hidden="true" />
+            Consultar por WhatsApp
+          </a>
+        }
+        media={
+          <div className="relative w-full max-w-lg">
+            <div className="absolute -top-6 left-4 sm:-left-6 z-20">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }}
+                whileHover={{ y: -3, scale: 1.02 }}
+                className="bg-surface/95 backdrop-blur-md border border-line rounded-2xl p-3 sm:p-3.5 shadow-lg shadow-ink/10 flex items-center gap-3"
+              >
+                <div className="bg-brand/10 p-2 rounded-xl border border-brand/20">
+                  <Star className="w-5 h-5 text-brand fill-brand" aria-hidden="true" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-sm font-bold text-ink">4.9 / 5.0</span>
+                    <div className="flex text-brand" aria-label="5 estrellas">
+                      {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-brand text-brand" aria-hidden="true" />)}
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-ink-subtle font-medium">603 reseñas en Google</p>
+                </div>
+              </motion.div>
             </div>
 
-            {/* Right Column: Hero carousel */}
-            <div className="col-span-12 lg:col-span-6 relative flex justify-center">
-              <div className="relative w-full max-w-lg">
-                {/* Floating Google Rating badge */}
-                <div className="absolute -top-6 left-4 sm:-left-6 z-20 group/rating">
-                  <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }}
-                    whileHover={{ y: -3, scale: 1.02 }}
-                    className="bg-surface/95 backdrop-blur-md border border-line rounded-2xl p-3 sm:p-3.5 shadow-lg shadow-ink/10 flex items-center gap-3 cursor-pointer"
-                  >
-                    <div className="bg-brand/10 p-2 rounded-xl border border-brand/20">
-                      <Star className="w-5 h-5 text-brand fill-brand" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-sm font-bold text-ink">4.9 / 5.0</span>
-                        <div className="flex text-brand">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-3.5 h-3.5 fill-brand text-brand" />
-                          ))}
-                        </div>
-                      </div>
-                      <p className="text-[11px] text-ink-subtle font-medium">603 reseñas en Google</p>
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Image carousel */}
-                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shadow-ink/10 border-4 border-line group">
-                  <AnimatePresence mode="wait">
-                    <motion.img
-                      key={heroIndex}
-                      src={HERO_CAROUSEL_SLIDES[heroIndex].src}
-                      alt={HERO_CAROUSEL_SLIDES[heroIndex].alt}
-                      className="absolute inset-0 w-full h-full object-cover"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.6, ease: "easeInOut" }}
-                      width="1200"
-                      height="900"
-                      fetchPriority={heroIndex === 0 ? "high" : "low"}
-                      loading={heroIndex === 0 ? "eager" : "lazy"}
-                    />
-                  </AnimatePresence>
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-
-                  <button
-                    onClick={(e) => { e.preventDefault(); previousHero(); }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 border border-white/10 text-white p-2.5 rounded-full backdrop-blur-sm opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus:opacity-100 transition-all duration-300 z-10 hover:scale-105"
-                    aria-label="Imagen anterior"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-
-                  <button
-                    onClick={(e) => { e.preventDefault(); nextHero(); }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 border border-white/10 text-white p-2.5 rounded-full backdrop-blur-sm opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus:opacity-100 transition-all duration-300 z-10 hover:scale-105"
-                    aria-label="Siguiente imagen"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10 bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
-                    {HERO_CAROUSEL_SLIDES.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={(e) => { e.preventDefault(); setHeroIndex(idx); }}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === heroIndex ? "bg-brand w-4" : "bg-white/50 hover:bg-white"}`}
-                        aria-label={`Ir a la imagen ${idx + 1}`}
-                      />
-                    ))}
-                  </div>
-                </div>
+            <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shadow-ink/10 border-4 border-line group">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={heroIndex}
+                  src={HERO_CAROUSEL_SLIDES[heroIndex].src}
+                  alt={HERO_CAROUSEL_SLIDES[heroIndex].alt}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  width="1200"
+                  height="900"
+                  fetchPriority={heroIndex === 0 ? "high" : "low"}
+                  loading={heroIndex === 0 ? "eager" : "lazy"}
+                />
+              </AnimatePresence>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" aria-hidden="true" />
+              <button onClick={(e) => { e.preventDefault(); previousHero(); }} className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 border border-white/10 text-white p-2.5 rounded-full backdrop-blur-sm opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus:opacity-100 transition-all duration-300 z-10 hover:scale-105" aria-label="Imagen anterior">
+                <ChevronLeft className="w-5 h-5" aria-hidden="true" />
+              </button>
+              <button onClick={(e) => { e.preventDefault(); nextHero(); }} className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 border border-white/10 text-white p-2.5 rounded-full backdrop-blur-sm opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:focus:opacity-100 transition-all duration-300 z-10 hover:scale-105" aria-label="Siguiente imagen">
+                <ChevronRight className="w-5 h-5" aria-hidden="true" />
+              </button>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10 bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
+                {HERO_CAROUSEL_SLIDES.map((_, idx) => (
+                  <button key={idx} onClick={(e) => { e.preventDefault(); setHeroIndex(idx); }} className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === heroIndex ? "bg-brand w-4" : "bg-white/50 hover:bg-white"}`} aria-label={`Ir a la imagen ${idx + 1}`} />
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        }
+      />
 
       {/* Trust & Key Features Section */}
       <section id="nosotros" className="py-20 bg-background-soft border-b border-line">
