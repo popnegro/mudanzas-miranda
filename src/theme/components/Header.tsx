@@ -52,10 +52,13 @@ export default function Header({
 
   const close = () => setOpen(false);
   const handleNavigation = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!onNavigate) return;
+    if (!onNavigate || href.startsWith('#') || href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+      close();
+      return;
+    }
     event.preventDefault();
     close();
-    onNavigate(href);
+    onNavigate(href === '/' ? '' : href);
   };
 
   return (
