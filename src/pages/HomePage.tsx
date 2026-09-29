@@ -197,14 +197,35 @@ export default function HomePage(props: HomePageProps) {
           {/* Service Tabs */}
           <div className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8 items-start">
             {/* Tab Buttons List */}
-            <div className="col-span-12 lg:col-span-4 flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 lg:pb-0">
+            <div className="col-span-12 lg:col-span-4 flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 lg:pb-0 snap-x" role="tablist" aria-label="Servicios disponibles">
               {services.map((svc) => {
                 const IconComponent = IconMap[svc.icon] || Truck;
                 return (
                   <button
                     key={svc.id}
                     onClick={() => setActiveServiceTab(svc.id)}
-                    className={`flex items-center gap-3 px-5 py-4 rounded-xl text-left font-bold text-sm transition-all whitespace-nowrap lg:whitespace-normal cursor-pointer ${activeServiceTab === svc.id
+                    role="tab"
+                    aria-selected={activeServiceTab === svc.id}
+                    aria-controls={`service-panel-${svc.id}`}
+                    tabIndex={activeServiceTab === svc.id ? 0 : -1}
+                    onKeyDown={(e) => {
+                      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const current = services.findIndex((item) => item.id === svc.id);
+                        const next = services[(current + 1) % services.length];
+                        setActiveServiceTab(next.id);
+                        requestAnimationFrame(() => document.getElementById(`service-tab-${next.id}`)?.focus());
+                      }
+                      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const current = services.findIndex((item) => item.id === svc.id);
+                        const previous = services[(current - 1 + services.length) % services.length];
+                        setActiveServiceTab(previous.id);
+                        requestAnimationFrame(() => document.getElementById(`service-tab-${previous.id}`)?.focus());
+                      }
+                    }}
+                    id={`service-tab-${svc.id}`}
+                    className={`flex items-center gap-3 px-5 py-4 rounded-xl text-left font-bold text-sm transition-all whitespace-nowrap lg:whitespace-normal cursor-pointer snap-start ${activeServiceTab === svc.id
                       ? 'bg-brand text-white shadow-md shadow-brand/20'
                       : 'bg-surface hover:bg-background-soft text-ink-secondary hover:text-ink border border-line'
                       }`}
@@ -228,7 +249,11 @@ export default function HomePage(props: HomePageProps) {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
-                      className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8 items-center"
+                      id={`service-panel-${svc.id}`}
+                      role="tabpanel"
+                      aria-labelledby={`service-tab-${svc.id}`}
+                      tabIndex={0}
+                      className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8 items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 rounded-2xl"
                     >
                       <div className="col-span-12 md:col-span-6 space-y-4">
                         <h3 className="text-2xl font-serif font-bold text-ink leading-snug">
@@ -333,7 +358,7 @@ export default function HomePage(props: HomePageProps) {
                     <h3 className="text-lg font-bold text-brand uppercase tracking-wider border-b border-line-soft pb-3 mb-4">
                       {regionName} ({list.length})
                     </h3>
-                    <div className="flex flex-col gap-1.5 max-h-[300px] overflow-y-auto pr-2">
+                    <div className="flex flex-col gap-1.5 max-h-[300px] lg:max-h-none overflow-y-auto lg:overflow-visible pr-2 lg:pr-0">
                       {list.map((dest) => (
                         <a
                           key={dest.slug}
