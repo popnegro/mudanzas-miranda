@@ -42,16 +42,6 @@ export const services: Service[] = [
     ctaText: 'Contratar'
   },
   {
-    id: 'guardamuebles',
-    title: 'Servicio de Guardamuebles',
-    shortTitle: 'Guardamuebles',
-    description: 'Ofrecemos almacenamiento temporal o de largo plazo para situaciones como contratos de alquiler, mudanzas demoradas o refacciones. Disponemos de depósitos secos, limpios e individuales. Consultá las condiciones de almacenamiento y acceso según la modalidad contratada.',
-    icon: 'Warehouse',
-    image: '/img/mudanzas-miranda-guardamuebles.webp',
-    alt: 'Depósito de guardamuebles limpio con unidades de almacenamiento seguras.',
-    ctaText: 'Consultar'
-  },
-  {
     id: 'logistica',
     title: 'Logística Integral',
     shortTitle: 'Logística',
