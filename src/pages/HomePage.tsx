@@ -379,6 +379,7 @@ export default function HomePage(props: HomePageProps) {
             </div>
           )}
         </div>
+      </Section>
 
       {/* FAQs Section */}
       <Section id="faq" tone="soft" className="!border-b-0">
