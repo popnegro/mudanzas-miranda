@@ -84,6 +84,7 @@ export default function Header({
             <a
               key={item.href}
               href={item.href}
+              onClick={(event) => handleNavigation(event, item.href)}
               aria-current={item.active ? 'page' : undefined}
               className={['nav-link-desktop', item.active ? 'nav-link-desktop--active' : ''].join(' ')}
             >
