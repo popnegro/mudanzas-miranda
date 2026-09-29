@@ -30,7 +30,7 @@ export default function Footer({
   onNavigate,
 }: FooterProps) {
   const handleLink = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!onNavigate) return;
+    if (!onNavigate || href.startsWith('#') || href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
     event.preventDefault();
     onNavigate(href);
   };
