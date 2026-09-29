@@ -1,4 +1,5 @@
 import { Menu, X } from 'lucide-react';
+import type React from 'react';
 import { useEffect, useState } from 'react';
 
 export interface HeaderNavItem {
@@ -15,6 +16,7 @@ export interface HeaderProps {
   ctaLabel: string;
   ctaHref: string;
   mobileCtaLabel?: string;
+  onNavigate?: (href: string) => void;
 }
 
 export default function Header({
@@ -25,6 +27,7 @@ export default function Header({
   ctaLabel,
   ctaHref,
   mobileCtaLabel = ctaLabel,
+  onNavigate,
 }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -48,6 +51,12 @@ export default function Header({
   }, [open]);
 
   const close = () => setOpen(false);
+  const handleNavigation = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!onNavigate) return;
+    event.preventDefault();
+    close();
+    onNavigate(href);
+  };
 
   return (
     <header
@@ -60,7 +69,7 @@ export default function Header({
       <div className="mx-auto flex min-h-[70px] max-w-7xl items-center justify-between gap-4 px-4 sm:min-h-[78px] sm:px-6 lg:px-8">
         <a
           href={homeHref}
-          onClick={close}
+          onClick={(event) => handleNavigation(event, homeHref)}
           className="flex shrink-0 items-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60"
           aria-label={logoAlt}
         >
@@ -106,7 +115,7 @@ export default function Header({
               <a
                 key={item.href}
                 href={item.href}
-                onClick={close}
+                onClick={(event) => handleNavigation(event, item.href)}
                 aria-current={item.active ? 'page' : undefined}
                 className="nav-link-mobile"
               >
@@ -115,7 +124,7 @@ export default function Header({
             ))}
           </nav>
           <div className="mt-4 border-t border-line pt-4">
-            <a href={ctaHref} onClick={close} className="header-cta-button flex w-full justify-center">
+            <a href={ctaHref} onClick={(event) => handleNavigation(event, ctaHref)} className="header-cta-button flex w-full justify-center">
               {mobileCtaLabel}
             </a>
           </div>
