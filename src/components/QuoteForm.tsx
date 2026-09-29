@@ -137,7 +137,7 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
     if (!validateStep2()) return;
     const serviceMap: Record<string, string> = {
       residencial: 'Mudanza Residencial', oficina: 'Mudanza de Oficina', embalaje: 'Embalaje Profesional',
-      guardamuebles: 'Guardamuebles', logistica: 'Logística y Distribución', combinada: 'Mudanza Combinada', otro: 'Otro',
+logistica: 'Logística y Distribución', combinada: 'Mudanza Combinada', otro: 'Otro',
     };
     const inventoryText = formData.inventory.trim() ? `\n*Detalles:* ${formData.inventory.trim()}` : '';
     const message = `Hola! Quisiera cotizar una mudanza con los siguientes datos:\n*Origen:* ${formData.origin}\n*Destino:* ${formData.destination}\n*Servicio:* ${serviceMap[formData.service] || 'No especificado'}\n*Fecha:* ${new Date(formData.date.replace(/-/g, '/')).toLocaleDateString('es-AR')}\n*Nombre:* ${formData.name}\n*Teléfono:* ${formData.phone}${inventoryText}`;
