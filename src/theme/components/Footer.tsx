@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, MouseEvent } from 'react';
 
 export interface FooterLink {
   label: string;
@@ -17,6 +17,7 @@ export interface FooterProps {
   columns?: FooterColumn[];
   legal?: ReactNode;
   socialLinks?: FooterLink[];
+  onNavigate?: (href: string) => void;
 }
 
 export default function Footer({
@@ -26,7 +27,14 @@ export default function Footer({
   columns = [],
   legal,
   socialLinks = [],
+  onNavigate,
 }: FooterProps) {
+  const handleLink = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!onNavigate) return;
+    event.preventDefault();
+    onNavigate(href);
+  };
+
   return (
     <footer className="border-t border-line bg-surface text-ink-tertiary" aria-label={brandName}>
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
@@ -42,7 +50,7 @@ export default function Footer({
           </section>
         )}
 
-        {columns.slice(0, 2).map((column) => (
+        {columns.map((column) => (
           <nav key={column.title} aria-label={column.title} className="space-y-4">
             <h2 className="text-sm font-bold uppercase tracking-wider text-ink">{column.title}</h2>
             <ul className="space-y-3">
