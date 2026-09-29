@@ -378,7 +378,6 @@ export default function HomePage(props: HomePageProps) {
               })}
             </div>
           )}
-        </div>
       </Section>
 
       {/* FAQs Section */}
