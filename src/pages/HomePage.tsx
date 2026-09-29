@@ -6,7 +6,8 @@ import { HERO_CAROUSEL_SLIDES } from '../config/site';
 import { servicePages } from '../data/seoPages';
 import { trackEvent } from '../lib/analytics';
 import { destinations } from '../data/destinations';
-import FormSection from '../components/FormSection';
+import FormSection from '../theme/components/FormSection';
+import QuoteForm from '../components/QuoteForm';
 import FleetShowcase from '../components/FleetShowcase';
 
 const IconMap: Record<string, React.ComponentType<any>> = { Home, Building, Users, Package, Warehouse, Truck };
@@ -456,9 +457,12 @@ export default function HomePage(props: HomePageProps) {
       </section>
 
       <FormSection
+        id="form"
         title="Cotizá tu mudanza en 2 simples pasos"
-        subtitle="Completá el formulario y recibí la cotización gratis por Whatsapp"
-      />
+        description="Completá el formulario y recibí la cotización gratis por Whatsapp"
+      >
+        <QuoteForm />
+      </FormSection>
     </motion.div>
   );
 }
