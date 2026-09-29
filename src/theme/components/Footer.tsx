@@ -56,7 +56,7 @@ export default function Footer({
             <ul className="space-y-3">
               {column.links.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-sm font-medium text-ink-tertiary transition-colors hover:text-brand">
+                  <a href={link.href} onClick={(event) => handleLink(event, link.href)} className="text-sm font-medium text-ink-tertiary transition-colors hover:text-brand">
                     {link.label}
                   </a>
                 </li>
