@@ -76,8 +76,8 @@ export function useAddressAutocomplete({ value, onChange, onError }: AddressAuto
   }, [onChange, onError]);
 
   useEffect(() => {
-    let autocomplete: google.maps.places.Autocomplete | null = null;
-    let listener: google.maps.MapsEventListener | null = null;
+    let autocomplete: GoogleMapsAutocomplete | null = null;
+    let listener: { remove: () => void } | null = null;
     let cancelled = false;
 
     loadGoogleMaps()
