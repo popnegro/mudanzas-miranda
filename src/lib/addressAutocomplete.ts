@@ -1,8 +1,30 @@
 import { useEffect, useRef } from 'react';
 
+interface GoogleMapsAutocomplete {
+  addListener: (eventName: string, handler: () => void) => { remove: () => void };
+  getPlace: () => { formatted_address?: string };
+}
+
+interface GoogleMapsPlaces {
+  Autocomplete: new (
+    input: HTMLInputElement,
+    options: {
+      componentRestrictions: { country: string };
+      fields: string[];
+      types: string[];
+    },
+  ) => GoogleMapsAutocomplete;
+}
+
+interface GoogleMapsNamespace {
+  maps: {
+    places: GoogleMapsPlaces;
+  };
+}
+
 declare global {
   interface Window {
-    google?: typeof google;
+    google?: GoogleMapsNamespace;
   }
 }
 
