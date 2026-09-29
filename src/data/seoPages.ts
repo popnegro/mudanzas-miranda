@@ -56,24 +56,6 @@ export const servicePages: ServicePage[] = [
     ]
   },
   {
-    slug: 'guardamuebles',
-    serviceId: 'guardamuebles',
-    name: 'Servicio de Guardamuebles',
-    title: 'Servicio de Guardamuebles en Mendoza | Depósito Seguro | Mudanzas Miranda',
-    description: 'Almacenamiento y guardamuebles temporales en Mendoza. Disponemos de depósitos secos, limpios e individuales. Las condiciones de acceso se coordinan según la modalidad contratada.',
-    heroHeadline: 'Guardamuebles y Almacenamiento Seguro',
-    heroSubheadline: 'Un espacio seguro, limpio y seco para guardar tus pertenencias el tiempo que lo necesites.',
-    leadText: '¿Se retrasó la entrega de tu nuevo hogar? ¿Estás haciendo refacciones o viajando al exterior? Te ofrecemos la solución ideal con nuestros módulos de guardamuebles individuales en Mendoza, diseñados para albergar tu mobiliario de forma segura.',
-    detailText: 'Las condiciones de almacenamiento, acceso y contratación se coordinan según el espacio y el período requerido. Consultanos para conocer la modalidad disponible.',
-    features: [
-      'Unidades individuales, limpias y libres de humedad.',
-      'Condiciones de almacenamiento y acceso coordinadas según la modalidad contratada.',
-      'Contratación flexible por plazos cortos, medianos o largos.',
-      'Inventariado exhaustivo al ingresar tus bienes para control absoluto.',
-      'Acceso coordinado para retirar o añadir elementos con facilidad.'
-    ]
-  },
-  {
     slug: 'mudanzas-combinadas',
     serviceId: 'combinada',
     name: 'Mudanzas Combinadas',
