@@ -69,7 +69,7 @@ export default function HomePage(props: HomePageProps) {
                 <div>
                   <div className="flex items-center gap-1.5">
                     <span className="text-sm font-bold text-ink">4.9 / 5.0</span>
-                    <div className="flex text-brand" aria-label="5 estrellas">
+                    <div className="flex text-brand" aria-hidden="true">
                       {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-brand text-brand" aria-hidden="true" />)}
                     </div>
                   </div>
