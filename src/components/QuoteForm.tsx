@@ -4,6 +4,7 @@ import { checkAvailability } from '../availability/client';
 import type { AvailabilityResult } from '../availability/types';
 import { ArrowRight, ArrowLeft, Locate, CheckCircle2, Phone, User, Calendar, MapPin, Briefcase, ChevronDown, FileText } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
+import { useAddressAutocomplete } from '../lib/addressAutocomplete';
 
 interface QuoteFormProps {
   destinationName?: string;
@@ -44,6 +45,15 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [availability, setAvailability] = useState<AvailabilityResult | null>(null);
   const [isCheckingAvailability, setIsCheckingAvailability] = useState(false);
+  const [geolocationError, setGeolocationError] = useState<string | undefined>();
+  const destinationRef = useAddressAutocomplete({
+    value: formData.destination,
+    onChange: (value) => {
+      setFormData((prev) => ({ ...prev, destination: value }));
+      setErrors((prev) => ({ ...prev, destination: undefined }));
+    },
+    onError: () => undefined,
+  });
 
   useEffect(() => {
     if (destinationName) setFormData((prev) => ({ ...prev, destination: destinationName }));
@@ -51,14 +61,23 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
   }, [destinationName, initialService]);
 
   const handleGeolocate = () => {
+    setGeolocationError(undefined);
     navigator.geolocation.getCurrentPosition(
       () => {
         setFormData((prev) => ({ ...prev, origin: 'Mi ubicación actual' }));
         setErrors((prev) => ({ ...prev, origin: undefined }));
+        setGeolocationError(undefined);
       },
-      () => alert('No se pudo obtener la ubicación. Por favor, ingrésela manualmente.'),
+      () => setGeolocationError('No se pudo obtener la ubicación. Por favor, ingrésela manualmente.'),
     );
   };
+
+  useEffect(() => {
+    const activeLegend = document.getElementById(`quote-step-${step}`);
+    if (activeLegend instanceof HTMLElement) {
+      activeLegend.focus();
+    }
+  }, [step]);
 
   useEffect(() => {
     let cancelled = false;
@@ -156,12 +175,17 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
 
   return (
     <form id="booking-form" onSubmit={handleSubmit} className="max-w-3xl mx-auto bg-surface border border-line rounded-3xl p-6 sm:p-10 shadow-lg shadow-ink/10 space-y-6" noValidate aria-label="Solicitud de cotización de mudanza">
-      {/* Progress indicator */}
+      <nav aria-label="Progreso de la solicitud" className="flex items-center gap-3" aria-current={`step-${step}`}>
+        <div className={`h-2 flex-1 rounded-full ${step >= 1 ? 'bg-brand' : 'bg-line'}`} aria-hidden="true" />
+        <span className="sr-only">Paso 1: Ruta y Servicio</span>
+        <div className={`h-2 flex-1 rounded-full ${step >= 2 ? 'bg-brand' : 'bg-line'}`} aria-hidden="true" />
+        <span className="sr-only">Paso 2: Contacto y Fecha</span>
+      </nav>
 
       <AnimatePresence mode="wait">
         {step === 1 && (
           <motion.fieldset key="step1" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }} className="space-y-6">
-            <legend className="text-xl font-bold text-ink mb-6">Paso 1: Ruta y Servicio</legend>
+            <legend id="quote-step-1" tabIndex={-1} className="text-xl font-bold text-ink mb-6 outline-none">Paso 1: Ruta y Servicio</legend>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
@@ -174,13 +198,14 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
                   </button>
                 </div>
                 {errors.origin && <p id="quote-origin-error" role="alert" className="text-red-500 text-xs mt-1">{errors.origin}</p>}
+                {geolocationError && <p id="quote-geolocation-error" role="status" className="text-red-500 text-xs mt-1">{geolocationError}</p>}
               </div>
 
               <div>
                 <label htmlFor="quote-destination" className={labelClass}>Dirección de Destino</label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-subtle pointer-events-none" aria-hidden="true" />
-                  <input id="quote-destination" type="text" name="destination" autoComplete="street-address" placeholder="Ej: Godoy Cruz 456, Maipú" value={formData.destination} onChange={handleChange} aria-invalid={Boolean(errors.destination)} aria-describedby={errors.destination ? 'quote-destination-error' : undefined} className={`${inputClass(errors.destination)} pl-10`} />
+                  <input ref={destinationRef} id="quote-destination" type="text" name="destination" autoComplete="street-address" placeholder="Ej: Godoy Cruz 456, Maipú" value={formData.destination} onChange={handleChange} aria-invalid={Boolean(errors.destination)} aria-describedby={errors.destination ? 'quote-destination-error' : undefined} className={`${inputClass(errors.destination)} pl-10`} />
                 </div>
                 {errors.destination && <p id="quote-destination-error" role="alert" className="text-red-500 text-xs mt-1">{errors.destination}</p>}
               </div>
@@ -220,7 +245,7 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
 
         {step === 2 && (
           <motion.fieldset key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }} className="space-y-6">
-            <legend className="text-xl font-bold text-ink mb-6">Paso 2: Contacto y Fecha</legend>
+            <legend id="quote-step-2" tabIndex={-1} className="text-xl font-bold text-ink mb-6 outline-none">Paso 2: Contacto y Fecha</legend>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
