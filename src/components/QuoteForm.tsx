@@ -4,6 +4,7 @@ import { checkAvailability } from '../availability/client';
 import type { AvailabilityResult } from '../availability/types';
 import { ArrowRight, ArrowLeft, Locate, CheckCircle2, Phone, User, Calendar, MapPin, Briefcase, ChevronDown, FileText } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
+import { useAddressAutocomplete } from '../lib/addressAutocomplete';
 
 interface QuoteFormProps {
   destinationName?: string;
@@ -45,6 +46,14 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
   const [availability, setAvailability] = useState<AvailabilityResult | null>(null);
   const [isCheckingAvailability, setIsCheckingAvailability] = useState(false);
   const [geolocationError, setGeolocationError] = useState<string | undefined>();
+  const destinationRef = useAddressAutocomplete({
+    value: formData.destination,
+    onChange: (value) => {
+      setFormData((prev) => ({ ...prev, destination: value }));
+      setErrors((prev) => ({ ...prev, destination: undefined }));
+    },
+    onError: () => undefined,
+  });
 
   useEffect(() => {
     if (destinationName) setFormData((prev) => ({ ...prev, destination: destinationName }));
@@ -196,7 +205,7 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
                 <label htmlFor="quote-destination" className={labelClass}>Dirección de Destino</label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-subtle pointer-events-none" aria-hidden="true" />
-                  <input id="quote-destination" type="text" name="destination" autoComplete="street-address" placeholder="Ej: Godoy Cruz 456, Maipú" value={formData.destination} onChange={handleChange} aria-invalid={Boolean(errors.destination)} aria-describedby={errors.destination ? 'quote-destination-error' : undefined} className={`${inputClass(errors.destination)} pl-10`} />
+                  <input ref={destinationRef} id="quote-destination" type="text" name="destination" autoComplete="street-address" placeholder="Ej: Godoy Cruz 456, Maipú" value={formData.destination} onChange={handleChange} aria-invalid={Boolean(errors.destination)} aria-describedby={errors.destination ? 'quote-destination-error' : undefined} className={`${inputClass(errors.destination)} pl-10`} />
                 </div>
                 {errors.destination && <p id="quote-destination-error" role="alert" className="text-red-500 text-xs mt-1">{errors.destination}</p>}
               </div>
