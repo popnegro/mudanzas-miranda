@@ -1,5 +1,6 @@
 import React from 'react';
 import { destinations } from './data/destinations';
+import { servicePages } from './data/seoPages';
 import { getPageSeo, useAppRouting, useHeroCarousel, useHomePageState } from './app';
 import { HERO_CAROUSEL_SLIDES } from './config/site';
 import SEO from './components/SEO';
