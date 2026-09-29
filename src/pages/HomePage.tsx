@@ -405,7 +405,7 @@ export default function HomePage(props: HomePageProps) {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
       <FormSection
         id="form"
