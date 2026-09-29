@@ -38,7 +38,7 @@ export default function App() {
         homeHref="/"
         navItems={[
           { label: 'Servicios', href: 'servicios', active: activePage === 'servicios' || (!!activePage && !['nosotros', 'destinos'].includes(activePage) && !activePage.startsWith('mudanzas-')) },
-          { label: 'Destinos', href: 'destinos', active: activePage === 'destinos' || activePage.startsWith('mudanzas-') },
+          { label: 'Destinos', href: 'destinos', active: activePage === 'destinos' || activePage?.startsWith('mudanzas-') === true },
           { label: 'Nosotros', href: 'nosotros', active: activePage === 'nosotros' },
         ]}
         ctaLabel="Cotizar mudanza"
