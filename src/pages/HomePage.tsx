@@ -8,6 +8,7 @@ import { trackEvent } from '../lib/analytics';
 import { destinations } from '../data/destinations';
 import FormSection from '../theme/components/FormSection';
 import Hero from '../theme/components/Hero';
+import Section from '../theme/components/Section';
 import QuoteForm from '../components/QuoteForm';
 import FleetShowcase from '../components/FleetShowcase';
 
@@ -112,16 +113,12 @@ export default function HomePage(props: HomePageProps) {
       />
 
       {/* Trust & Key Features Section */}
-      <section id="nosotros" className="py-20 bg-background-soft border-b border-line">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-ink tracking-tight">
-              Tu empresa de mudanzas en Mendoza
-            </h2>
-            <p className="text-ink-secondary text-base leading-relaxed">
-              La tranquilidad de nuestros clientes es nuestra absoluta prioridad. Por eso, combinamos más de 20 años de experiencia, camiones equipados propios y un equipo profesional sumamente cuidadoso.
-            </p>
-          </div>
+      <Section
+        id="nosotros"
+        tone="soft"
+        title="Tu empresa de mudanzas en Mendoza"
+        description="La tranquilidad de nuestros clientes es nuestra absoluta prioridad. Por eso, combinamos más de 20 años de experiencia, camiones equipados propios y un equipo profesional sumamente cuidadoso."
+      >
 
           <div className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8">
             {/* Benefit 1 */}
@@ -184,8 +181,7 @@ export default function HomePage(props: HomePageProps) {
               </button>
             </div>
           </div>
-        </div>
-      </section>
+      </Section>
 
       {/* Interactive Services Section - Tabs */}
       <section id="servicios" className="py-20 bg-surface text-ink border-y border-line">
