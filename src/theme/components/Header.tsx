@@ -76,7 +76,7 @@ export default function Header({
           className="flex shrink-0 items-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60"
           aria-label={logoAlt}
         >
-          <img src={logoSrc} alt={logoAlt} className="block h-[53px] w-[350px] max-w-[55vw] object-contain object-left" />
+          <img src={logoSrc} alt={logoAlt} className="block h-10 w-auto max-w-[55vw] object-contain object-left sm:h-11" />
         </a>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
