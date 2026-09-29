@@ -184,16 +184,15 @@ export default function HomePage(props: HomePageProps) {
       </Section>
 
       {/* Interactive Services Section - Tabs */}
-      <section id="servicios" className="py-20 bg-surface text-ink border-y border-line">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-ink tracking-tight">
-              Soluciones a la medida de tu necesidad
-            </h2>
-            <p className="text-ink-secondary text-sm leading-relaxed">
-              Seleccioná uno de nuestros servicios especializados para conocer en detalle cómo trabajamos cada modalidad.
-            </p>
-          </div>
+      <Section id="servicios" tone="surface" align="center" className="text-ink">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-ink tracking-tight">
+            Soluciones a la medida de tu necesidad
+          </h2>
+          <p className="text-ink-secondary text-sm leading-relaxed">
+            Seleccioná uno de nuestros servicios especializados para conocer en detalle cómo trabajamos cada modalidad.
+          </p>
+        </div>
 
           {/* Service Tabs */}
           <div className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8 items-start">
@@ -265,19 +264,18 @@ export default function HomePage(props: HomePageProps) {
             </div>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Destinations Section */}
-      <section id="rutas" className="py-20 bg-background-soft border-b border-line">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-ink tracking-tight">
-              Cubrimos todo Mendoza con servicios locales
-            </h2>
-            <p className="text-ink-secondary text-base leading-relaxed">
-              Brindamos transportes y traslados puerta a puerta dentro de tu barrio, departamento o mudanzas nacionales de larga distancia.
-            </p>
-          </div>
+      <Section id="rutas" tone="soft">
+        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-ink tracking-tight">
+            Cubrimos todo Mendoza con servicios locales
+          </h2>
+          <p className="text-ink-secondary text-base leading-relaxed">
+            Brindamos transportes y traslados puerta a puerta dentro de tu barrio, departamento o mudanzas nacionales de larga distancia.
+          </p>
+        </div>
 
           {/* Destinations Search Bar */}
           <div className="max-w-md mx-auto mb-12 relative z-10">
@@ -357,11 +355,11 @@ export default function HomePage(props: HomePageProps) {
             </div>
           )}
         </div>
-      </section>
+      </Section>
 
       {/* FAQs Section */}
-      <section id="faq" className="py-20 bg-background-soft">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Section id="faq" tone="soft" className="!border-b-0">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
             <h2 className="text-3xl font-serif font-bold text-ink tracking-tight">
               Preguntas Frecuentes
