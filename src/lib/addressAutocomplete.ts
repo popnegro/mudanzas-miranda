@@ -1,24 +1,36 @@
 import { useEffect, useRef } from 'react';
 
-interface GoogleMapsAutocomplete {
-  addListener: (eventName: string, handler: () => void) => { remove: () => void };
-  getPlace: () => { formatted_address?: string };
+interface GoogleMapsPlacePrediction {
+  text: { toString: () => string };
+  toPlace: () => GoogleMapsPlace;
 }
 
-interface GoogleMapsPlaces {
-  Autocomplete: new (
-    input: HTMLInputElement,
-    options: {
-      componentRestrictions: { country: string };
-      fields: string[];
-      types: string[];
-    },
-  ) => GoogleMapsAutocomplete;
+interface GoogleMapsSuggestion {
+  placePrediction?: GoogleMapsPlacePrediction;
+}
+
+interface GoogleMapsPlace {
+  fetchFields: (options: { fields: string[] }) => Promise<void>;
+  formattedAddress?: string;
+}
+
+interface GoogleMapsPlacesLibrary {
+  AutocompleteSessionToken: new () => unknown;
+  AutocompleteSuggestion: {
+    fetchAutocompleteSuggestions: (request: {
+      input: string;
+      includedRegionCodes?: string[];
+      includedPrimaryTypes?: string[];
+      language?: string;
+      region?: string;
+      sessionToken?: unknown;
+    }) => Promise<{ suggestions: GoogleMapsSuggestion[] }>;
+  };
 }
 
 interface GoogleMapsNamespace {
   maps: {
-    places: GoogleMapsPlaces;
+    importLibrary: (library: string) => Promise<GoogleMapsPlacesLibrary>;
   };
 }
 
@@ -31,7 +43,7 @@ declare global {
 let googleMapsPromise: Promise<void> | null = null;
 
 function loadGoogleMaps(): Promise<void> {
-  if (window.google?.maps?.places) return Promise.resolve();
+  if (window.google?.maps?.importLibrary) return Promise.resolve();
 
   const key = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined;
   if (!key) return Promise.reject(new Error('Google Maps API key not configured.'));
@@ -40,6 +52,7 @@ function loadGoogleMaps(): Promise<void> {
 
   googleMapsPromise = new Promise((resolve, reject) => {
     const existing = document.querySelector<HTMLScriptElement>('script[data-google-maps="places"]');
+
     if (existing) {
       existing.addEventListener('load', () => resolve(), { once: true });
       existing.addEventListener('error', () => reject(new Error('Google Maps API could not be loaded.')), { once: true });
@@ -47,7 +60,7 @@ function loadGoogleMaps(): Promise<void> {
     }
 
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&libraries=places&v=weekly`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&v=weekly`;
     script.async = true;
     script.defer = true;
     script.dataset.googleMaps = 'places';
@@ -76,37 +89,130 @@ export function useAddressAutocomplete({ value, onChange, onError }: AddressAuto
   }, [onChange, onError]);
 
   useEffect(() => {
-    let autocomplete: GoogleMapsAutocomplete | null = null;
-    let listener: { remove: () => void } | null = null;
     let cancelled = false;
+    let places: GoogleMapsPlacesLibrary | null = null;
+    let sessionToken: unknown;
+    let requestId = 0;
 
-    loadGoogleMaps()
-      .then(() => {
-        if (cancelled || !inputRef.current || !window.google?.maps?.places) return;
+    const input = inputRef.current;
+    if (!input) return undefined;
 
-        autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
-          componentRestrictions: { country: 'ar' },
-          fields: ['formatted_address', 'geometry', 'name'],
-          types: ['address'],
-        });
+    const suggestionsContainer = document.createElement('div');
+    suggestionsContainer.setAttribute('role', 'listbox');
+    suggestionsContainer.className = 'absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl border border-line bg-surface shadow-lg';
+    suggestionsContainer.hidden = true;
 
-        listener = autocomplete.addListener('place_changed', () => {
-          const place = autocomplete?.getPlace();
-          const address = place?.formatted_address?.trim();
+    const wrapper = input.parentElement;
+    if (!wrapper) return undefined;
 
-          if (address) {
-            onChangeRef.current(address);
-            onErrorRef.current?.();
-          }
-        });
-      })
-      .catch(() => {
+    wrapper.appendChild(suggestionsContainer);
+
+    const clearSuggestions = () => {
+      suggestionsContainer.replaceChildren();
+      suggestionsContainer.hidden = true;
+    };
+
+    const selectSuggestion = async (prediction: GoogleMapsPlacePrediction) => {
+      clearSuggestions();
+
+      try {
+        const place = prediction.toPlace();
+        await place.fetchFields({ fields: ['formattedAddress'] });
+
+        if (cancelled) return;
+
+        const address = place.formattedAddress?.trim() || prediction.text.toString().trim();
+        if (!address) return;
+
+        input.value = address;
+        onChangeRef.current(address);
+        onErrorRef.current?.();
+
+        sessionToken = places ? new places.AutocompleteSessionToken() : undefined;
+      } catch {
         if (!cancelled) onErrorRef.current?.();
+      }
+    };
+
+    const renderSuggestions = (suggestions: GoogleMapsSuggestion[]) => {
+      suggestionsContainer.replaceChildren();
+
+      const predictions = suggestions
+        .map((suggestion) => suggestion.placePrediction)
+        .filter((prediction): prediction is GoogleMapsPlacePrediction => Boolean(prediction));
+
+      if (!predictions.length) {
+        suggestionsContainer.hidden = true;
+        return;
+      }
+
+      predictions.forEach((prediction, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.role = 'option';
+        button.tabIndex = -1;
+        button.id = `quote-destination-option-${index}`;
+        button.className = 'block w-full border-b border-line px-4 py-3 text-left text-sm text-ink last:border-b-0 hover:bg-background-soft focus:bg-background-soft focus:outline-none';
+        button.textContent = prediction.text.toString();
+        button.addEventListener('mousedown', (event) => event.preventDefault());
+        button.addEventListener('click', () => { void selectSuggestion(prediction); });
+        suggestionsContainer.appendChild(button);
       });
+
+      suggestionsContainer.hidden = false;
+    };
+
+    const handleInput = async () => {
+      const query = input.value.trim();
+      const currentRequestId = ++requestId;
+
+      if (query.length < 3 || !places) {
+        clearSuggestions();
+        return;
+      }
+
+      try {
+        const { suggestions } = await places.AutocompleteSuggestion.fetchAutocompleteSuggestions({
+          input: query,
+          includedRegionCodes: ['ar'],
+          language: 'es',
+          region: 'ar',
+          sessionToken,
+        });
+
+        if (!cancelled && currentRequestId === requestId) {
+          renderSuggestions(suggestions);
+        }
+      } catch {
+        if (!cancelled) clearSuggestions();
+      }
+    };
+
+    const handleBlur = () => {
+      window.setTimeout(clearSuggestions, 150);
+    };
+
+    const initialize = async () => {
+      try {
+        await loadGoogleMaps();
+        if (cancelled || !window.google?.maps?.importLibrary) return;
+
+        places = await window.google.maps.importLibrary('places');
+        sessionToken = new places.AutocompleteSessionToken();
+        input.addEventListener('input', handleInput);
+        input.addEventListener('blur', handleBlur);
+      } catch {
+        if (!cancelled) onErrorRef.current?.();
+      }
+    };
+
+    void initialize();
 
     return () => {
       cancelled = true;
-      listener?.remove();
+      input.removeEventListener('input', handleInput);
+      input.removeEventListener('blur', handleBlur);
+      suggestionsContainer.remove();
     };
   }, []);
 
