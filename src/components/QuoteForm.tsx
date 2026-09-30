@@ -219,7 +219,7 @@ logistica: 'Logística y Distribución', combinada: 'Mudanza Combinada', otro: '
                   <option value="residencial">Mudanza Residencial</option>
                   <option value="oficina">Mudanza de Oficina</option>
                   <option value="embalaje">Embalaje Profesional</option>
-                  <option value="guardamuebles">Guardamuebles</option>
+
                   <option value="combinada">Mudanza Combinada</option>
                   <option value="logistica">Logística y Distribución</option>
                   <option value="otro">Otro</option>
