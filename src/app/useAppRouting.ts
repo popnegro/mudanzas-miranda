@@ -23,7 +23,15 @@ export function useAppRouting() {
   }, []);
 
   useEffect(() => {
-    const handleUrlChange = () => setActivePage(resolvePath());
+    const handleUrlChange = () => {
+      setActivePage(resolvePath());
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    };
+
+    if (window.location.hash) {
+      window.history.replaceState({}, '', window.location.pathname + window.location.search);
+    }
+
     handleUrlChange();
     window.addEventListener('popstate', handleUrlChange);
     return () => window.removeEventListener('popstate', handleUrlChange);
