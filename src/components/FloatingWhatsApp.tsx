@@ -8,7 +8,7 @@ export default function FloatingWhatsApp() {
       onClick={() => trackEvent('whatsapp_click', { source: 'floating_button' })}
       target="_blank"
       rel="noopener noreferrer"
-      className="group fixed bottom-4 right-4 z-50 flex items-center justify-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg shadow-green-600/30 ring-4 ring-green-500/10 transition-all hover:scale-110 hover:bg-[#20ba56] active:scale-95 sm:p-4"
+      className="group fixed bottom-4 right-4 z-50 flex items-center justify-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg shadow-green-600/30 ring-4 ring-green-500/10 transition-all animate-pulse hover:scale-110 hover:bg-[#20ba56] active:scale-95 sm:p-4"
       style={{
         right: 'max(1rem, env(safe-area-inset-right))',
         bottom: 'max(1rem, env(safe-area-inset-bottom))',
