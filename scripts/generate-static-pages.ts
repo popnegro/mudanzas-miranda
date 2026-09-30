@@ -35,7 +35,7 @@ const pages: PageDefinition[] = [
     title: 'Mudanzas en Mendoza - Profesionales y Seguras | Mudanzas Miranda',
     description: 'Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas. Rápido, seguro y sin estrés. ¡Cotizá tu mudanza online en minutos!',
     heading: 'Mudanzas Miranda',
-    intro: 'Mudanzas Miranda es una empresa de mudanzas y traslados en Mendoza. Realizamos mudanzas residenciales, de oficinas, embalaje profesional, guardamuebles, mudanzas combinadas y logística integral.',
+    intro: 'Mudanzas Miranda es una empresa de mudanzas y traslados en Mendoza. Realizamos mudanzas residenciales, de oficinas, embalaje profesional, mudanzas combinadas y logística integral.',
     detail: 'Atendemos Mendoza y las principales zonas del Gran Mendoza con presupuesto personalizado, coordinación previa y contacto directo.',
     kind: 'home',
   },
@@ -62,7 +62,7 @@ const pages: PageDefinition[] = [
     file: 'servicios.html',
     url: canonical('servicios.html'),
     title: 'Servicios de Mudanzas y Traslados en Mendoza | Mudanzas Miranda',
-    description: 'Mudanzas residenciales, traslados de oficinas, embalaje profesional, guardamuebles y logística integral en Mendoza. Conocé todas nuestras soluciones.',
+    description: 'Mudanzas residenciales, traslados de oficinas, embalaje profesional, mudanzas combinadas y logística integral en Mendoza. Conocé todas nuestras soluciones.',
     heading: 'Servicios de Mudanzas y Traslados en Mendoza',
     intro: 'Diseñamos cada servicio a la medida de tu necesidad. Desde mudanzas residenciales hasta logística corporativa, con más de 20 años de experiencia respaldando cada traslado.',
     kind: 'about',
@@ -223,7 +223,7 @@ function renderPage(page: PageDefinition) {
   <body>
     <div id="root">
       <main>
-        <article>
+        <article style="display: none;">
           <header>
             <h1>${esc(page.heading)}</h1>
           </header>
