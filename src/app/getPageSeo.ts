@@ -4,7 +4,7 @@ import { servicePages } from '../data/seoPages';
 type Destination = (typeof destinations)[number];
 type ServicePage = (typeof servicePages)[number];
 
-const HOME_TITLE = 'Mudanzas en Mendoza - Profesionales y Seguras | Mudanzas Miranda';
+const HOME_TITLE = 'Mudanzas Miranda Mendoza - Mudanzas en Mendoza profesionales y seguras | 4.9 Google Review';
 const HOME_DESCRIPTION = 'Servicio profesional de mudanzas en Mendoza. Traslados residenciales y de oficinas. Rápido, seguro y sin estrés. ¡Cotizá tu mudanza online en minutos!';
 const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 
