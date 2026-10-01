@@ -42,7 +42,7 @@ export default function App() {
           { label: 'Destinos', href: 'destinos', active: activePage === 'destinos' || activePage?.startsWith('mudanzas-') === true },
           { label: 'Nosotros', href: 'nosotros', active: activePage === 'nosotros' },
         ]}
-        ctaLabel="Cotizar mudanza"
+        ctaLabel="Presupuesto Gratis"
         ctaHref="#form"
         onNavigate={handleNavigation}
       />
@@ -82,7 +82,7 @@ export default function App() {
           {
             title: 'Lugares principales',
             links: destinations
-              .filter((d) => ['mudanzas-ciudad-mendoza','mudanzas-godoy-cruz','mudanzas-guaymallen','mudanzas-las-heras','mudanzas-maipu','mudanzas-lujan-de-cuyo','mudanzas-valle-de-uco','mudanzas-zona-este'].includes(d.slug))
+              .filter((d) => ['mudanzas-ciudad-mendoza', 'mudanzas-godoy-cruz', 'mudanzas-guaymallen', 'mudanzas-las-heras', 'mudanzas-maipu', 'mudanzas-lujan-de-cuyo', 'mudanzas-valle-de-uco', 'mudanzas-zona-este'].includes(d.slug))
               .map((d) => ({ label: `Mudanzas ${d.name.replace(' de Mendoza', '').replace('Mendoza', '')}`, href: d.slug })),
           },
         ]}
