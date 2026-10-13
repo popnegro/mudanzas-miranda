@@ -24,7 +24,7 @@ interface PageDefinition {
 }
 
 const esc = (value: string) =>
-  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  value.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"');
 
 const canonical = (slug: string) => `${SITE_URL}${slug ? `/${slug}` : ''}`;
 
@@ -223,7 +223,7 @@ function renderPage(page: PageDefinition) {
   <body>
     <div id="root">
       <main>
-        <article style="display: none;">
+        <article>
           <header>
             <h1>${esc(page.heading)}</h1>
           </header>
