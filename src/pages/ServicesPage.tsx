@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowRight, CheckCircle2, Home, Building, Package, Warehouse, Truck, Users } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Home, Building, MapPin, Package, Warehouse, Truck, Users } from 'lucide-react';
 import { services } from '../data/staticData';
 import { servicePages } from '../data/seoPages';
 import FormSection from '../components/FormSection';
@@ -9,6 +9,7 @@ interface ServicesPageProps {
 }
 
 const IconMap: Record<string, typeof Home> = { Home: Home, Building: Building, Package: Package, Warehouse: Warehouse, Truck: Truck, Users: Users };
+const EXCLUDED_SERVICE_IDS = new Set(['combinada', 'logistica']);
 
 export default function ServicesPage({ handleNavigation }: ServicesPageProps) {
   return (
@@ -51,7 +52,7 @@ export default function ServicesPage({ handleNavigation }: ServicesPageProps) {
       <section className="py-20 bg-background-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {services.map((svc) => {
+            {services.filter((service) => !EXCLUDED_SERVICE_IDS.has(service.id)).map((svc) => {
               const Icon = IconMap[svc.icon] || Truck;
               const seoPage = servicePages.find((sp) => sp.serviceId === svc.id);
 
@@ -117,6 +118,36 @@ export default function ServicesPage({ handleNavigation }: ServicesPageProps) {
                 </div>
               );
             })}
+            <div className="group flex h-full flex-col gap-6 overflow-hidden rounded-3xl border border-brand/20 bg-brand text-white shadow-lg shadow-brand/15">
+              <div className="aspect-[16/9] overflow-hidden border-b border-white/15">
+                <img
+                  src="/img/mudanzas-miranda-camiones.webp"
+                  alt="Camión de Mudanzas Miranda preparado para realizar traslados en Mendoza."
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  loading="lazy"
+                  width="800"
+                  height="450"
+                />
+              </div>
+              <div className="flex flex-1 flex-col gap-4 rounded-t-3xl bg-brand p-6 pt-6 sm:p-8">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/20 bg-white/15 text-white">
+                  <MapPin className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div className="space-y-3">
+                  <p className="text-xs font-bold uppercase tracking-wider text-white/75">Cobertura en Mendoza</p>
+                  <h2 className="text-2xl font-serif font-bold leading-snug">¿A dónde necesitás mudarte?</h2>
+                  <p className="text-sm leading-relaxed text-white/85">Conocé las localidades que cubrimos y encontrá información específica para organizar tu traslado.</p>
+                </div>
+                <a
+                  href="/destinos.html"
+                  onClick={(e) => { e.preventDefault(); handleNavigation('destinos'); }}
+                  className="mt-auto inline-flex w-fit items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-brand transition-all hover:bg-background-soft active:scale-[0.98]"
+                >
+                  Ver destinos
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

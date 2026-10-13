@@ -25,7 +25,6 @@ export function useAppRouting() {
   useEffect(() => {
     const handleUrlChange = () => {
       setActivePage(resolvePath());
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     };
 
     if (window.location.hash) {
@@ -36,6 +35,20 @@ export function useAppRouting() {
     window.addEventListener('popstate', handleUrlChange);
     return () => window.removeEventListener('popstate', handleUrlChange);
   }, [resolvePath]);
+
+  useEffect(() => {
+    let settleFrame: number | undefined;
+    const frame = window.requestAnimationFrame(() => {
+      settleFrame = window.requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      if (settleFrame) window.cancelAnimationFrame(settleFrame);
+    };
+  }, [activePage]);
 
   const navigate = useCallback((slug: string) => {
     setActivePage(slug);
@@ -54,7 +67,6 @@ export function useAppRouting() {
       }
     }
     window.history.pushState({}, '', newPath);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   const currentDestination = useMemo<Destination | undefined>(

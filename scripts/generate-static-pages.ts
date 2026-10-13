@@ -223,7 +223,7 @@ function renderPage(page: PageDefinition) {
   <body>
     <div id="root">
       <main>
-        <article>
+        <article class="seo-fallback" hidden>
           <header>
             <h1>${esc(page.heading)}</h1>
           </header>

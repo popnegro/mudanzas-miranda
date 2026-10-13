@@ -35,7 +35,7 @@ export const services: Service[] = [
     id: 'embalaje',
     title: 'Embalaje Profesional',
     shortTitle: 'Embalaje',
-    description: 'Preparamos tus pertenencias para el traslado utilizando materiales adecuados según cada objeto: plástico de burbujas, cajas de cartón reforzadas, film stretch, mantas acolchadas y cintas de alta adherencia. El objetivo es reducir riesgos y facilitar una carga ordenada.',
+    description: 'Preparamos para el traslado utilizando materiales adecuados según cada objeto. El objetivo es reducir riesgos y facilitar una carga ordenada.',
     icon: 'Package',
     image: '/img/mudanzas-miranda-embalaje.webp',
     alt: 'Vajilla y copas embaladas individualmente en una caja rotulada.',
@@ -57,7 +57,7 @@ export const faqs: FAQItem[] = [
   {
     id: 'faq-1',
     question: '¿Con cuánta antelación debo reservar mi mudanza?',
-    answer: 'Recomendamos reservar con una o dos semanas de antelación para asegurar disponibilidad en el día y horario que necesitás. En temporada alta, especialmente entre diciembre y marzo, sugerimos hacerlo con unas tres semanas de anticipación.'
+    answer: 'Recomendamos reservar con antelación para asegurar disponibilidad en el día y horario que necesitás.'
   },
   {
     id: 'faq-2',
@@ -71,13 +71,8 @@ export const faqs: FAQItem[] = [
   },
   {
     id: 'faq-4',
-    question: '¿Las mudanzas cuentan con seguro de carga?',
-    answer: 'Sí. Las mudanzas cuentan con seguro de carga de tránsito para respaldar el traslado de tus bienes ante los imprevistos contemplados por la cobertura correspondiente.'
-  },
-  {
-    id: 'faq-5',
-    question: '¿Ofrecen presupuestos cerrados o cobran por hora?',
-    answer: 'Trabajamos con presupuestos de precio cerrado definidos a partir de la distancia, los accesos, el volumen y los servicios contratados. Así conocés el importe acordado antes de realizar la mudanza.'
+    question: '¿Ofrecen presupuestos por hora?',
+    answer: 'Trabajamos con presupuestos de precio por hora definidos a partir de la distancia, los accesos, el volumen y los servicios contratados. Así conocés el importe acordado antes de realizar la mudanza.'
   }
 ];
 

@@ -13,6 +13,8 @@ import QuoteForm from '../components/QuoteForm';
 import FleetShowcase from '../components/FleetShowcase';
 
 const IconMap: Record<string, React.ComponentType<any>> = { Home, Building, Users, Package, Truck };
+const HOME_SERVICE_EXCLUDED_IDS = new Set(['combinada', 'logistica']);
+const homeServices = services.filter((service) => !HOME_SERVICE_EXCLUDED_IDS.has(service.id));
 
 interface HomePageProps {
   activeServiceTab: string; setActiveServiceTab: React.Dispatch<React.SetStateAction<string>>;
@@ -198,7 +200,7 @@ export default function HomePage(props: HomePageProps) {
           <div className="grid grid-cols-12 gap-x-4 sm:gap-x-6 gap-y-8 items-start">
             {/* Tab Buttons List */}
             <div className="col-span-12 lg:col-span-4 flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 lg:pb-0 snap-x" role="tablist" aria-label="Servicios disponibles">
-              {services.map((svc) => {
+              {homeServices.map((svc) => {
                 const IconComponent = IconMap[svc.icon] || Truck;
                 return (
                   <button
@@ -211,15 +213,15 @@ export default function HomePage(props: HomePageProps) {
                     onKeyDown={(e) => {
                       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
                         e.preventDefault();
-                        const current = services.findIndex((item) => item.id === svc.id);
-                        const next = services[(current + 1) % services.length];
+                        const current = homeServices.findIndex((item) => item.id === svc.id);
+                        const next = homeServices[(current + 1) % homeServices.length];
                         setActiveServiceTab(next.id);
                         requestAnimationFrame(() => document.getElementById(`service-tab-${next.id}`)?.focus());
                       }
                       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
                         e.preventDefault();
-                        const current = services.findIndex((item) => item.id === svc.id);
-                        const previous = services[(current - 1 + services.length) % services.length];
+                        const current = homeServices.findIndex((item) => item.id === svc.id);
+                        const previous = homeServices[(current - 1 + homeServices.length) % homeServices.length];
                         setActiveServiceTab(previous.id);
                         requestAnimationFrame(() => document.getElementById(`service-tab-${previous.id}`)?.focus());
                       }
@@ -240,7 +242,7 @@ export default function HomePage(props: HomePageProps) {
             {/* Active Tab Panel Content */}
             <div className="col-span-12 lg:col-span-8 bg-surface border border-line rounded-3xl p-5 sm:p-8 shadow-sm shadow-ink/5">
               <AnimatePresence mode="wait">
-                {services
+                {homeServices
                   .filter((svc) => svc.id === activeServiceTab)
                   .map((svc) => (
                     <motion.div

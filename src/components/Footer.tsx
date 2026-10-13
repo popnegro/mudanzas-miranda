@@ -50,7 +50,7 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 items-start">
         <section aria-labelledby="footer-brand-title" className="space-y-6">
           <h2 id="footer-brand-title" className="text-sm font-bold text-ink uppercase tracking-wider">Mudanzas Miranda</h2>
-          <p className="text-sm text-ink-secondary leading-relaxed">Mudanzas Miranda es una empresa de mudanzas en Mendoza con más de 20 años de experiencia en mudanzas residenciales, comerciales y acarreos profesionales en Mendoza y el país.</p>
+          <p className="text-sm text-ink-secondary leading-relaxed">Mudanzas Miranda es una empresa de mudanzas en Mendoza con más de 20 años de experiencia en mudanzas residenciales, comerciales y acarreos profesionales en Mendoza.</p>
           <a href="/nosotros.html" onClick={(e) => { e.preventDefault(); handleLinkClick('nosotros'); }} className="text-brand hover:text-brand-dark text-sm font-semibold inline-flex items-center gap-1 cursor-pointer transition-colors pt-1">Conocé más sobre nosotros <span aria-hidden="true">→</span></a>
         </section>
 
@@ -58,11 +58,11 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
           <h2 id="footer-contact-title" className="text-sm font-bold text-ink uppercase tracking-wider">Contacto</h2>
           <address className="not-italic space-y-3 text-sm">
             <div className="flex items-start gap-2">
-              <MapPin className="w-4 h-4 text-brand flex-shrink-0 mt-1" aria-hidden="true" />
+              <MapPin className="w-4 h-4 text-brand shrink-0 mt-1" aria-hidden="true" />
               <a href="https://maps.google.com/?q=Armada+Argentina+584,+Mendoza,+Argentina" target="_blank" rel="noopener noreferrer" className="text-ink-tertiary hover:text-brand transition-colors leading-relaxed">Armada Argentina 584, Mendoza, Argentina</a>
             </div>
-            <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-brand flex-shrink-0" aria-hidden="true" /><a href="tel:+5492615130910" className="text-ink-tertiary hover:text-brand transition-colors font-medium">+54 9 261 513-0910</a></div>
-            <div className="flex items-center gap-2"><Mail className="w-4 h-4 text-brand flex-shrink-0" aria-hidden="true" /><a href="mailto:info@mudanzasmiranda.com.ar" className="text-ink-tertiary hover:text-brand transition-colors">info@mudanzasmiranda.com.ar</a></div>
+            <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-brand shrink-0" aria-hidden="true" /><a href="tel:+5492615130910" className="text-ink-tertiary hover:text-brand transition-colors font-medium">+54 9 261 513-0910</a></div>
+            <div className="flex items-center gap-2"><Mail className="w-4 h-4 text-brand shrink-0" aria-hidden="true" /><a href="mailto:info@mudanzasmiranda.com.ar" className="text-ink-tertiary hover:text-brand transition-colors">info@mudanzasmiranda.com.ar</a></div>
           </address>
         </section>
 
@@ -70,12 +70,12 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
           <h2 id="footer-services-title" className="text-sm font-bold text-ink uppercase tracking-wider">Nuestros Servicios</h2>
           <ul className="space-y-3">
             {servicePages.map((s) => (
-              <li key={s.slug}>
-                <a href={`/servicios/${s.slug}.html`} onClick={(e) => { e.preventDefault(); handleLinkClick(s.slug); }} className="group flex items-center gap-2 text-left text-ink-tertiary hover:text-brand transition-all duration-200 hover:translate-x-1 cursor-pointer text-sm font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
-                  {s.heroHeadline.replace(' Premium', '')}
-                </a>
-              </li>
+                <li key={s.slug}>
+                  <a href={`/servicios/${s.slug}.html`} onClick={(e) => { e.preventDefault(); handleLinkClick(s.slug); }} className="group flex items-center gap-2 text-left text-ink-tertiary hover:text-brand transition-all duration-200 hover:translate-x-1 cursor-pointer text-sm font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand group-hover:w-2.5 transition-all duration-200" aria-hidden="true" />
+                    {s.heroHeadline.replace(' Premium', '')}
+                  </a>
+                </li>
             ))}
           </ul>
         </nav>

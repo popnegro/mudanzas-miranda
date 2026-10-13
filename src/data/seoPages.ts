@@ -43,7 +43,7 @@ export const servicePages: ServicePage[] = [
     name: 'Embalaje Profesional',
     title: 'Servicio de Embalaje Profesional en Mendoza | Protección Premium | Mudanzas Miranda',
     description: 'Protección de tus bienes durante la mudanza. Embalaje con film alveolar, plástico burbuja, cajas reforzadas y canastos para vajilla en Mendoza.',
-    heroHeadline: 'Embalaje Profesional y Protección Activa',
+    heroHeadline: 'Embalaje Profesional',
     heroSubheadline: 'Utilizamos materiales adecuados para proteger tus pertenencias según el tipo de objeto.',
     leadText: 'Evitá rajaduras, rayones y roturas accidentales. Nuestro equipo utiliza técnicas profesionales de embalaje y los mejores insumos del mercado para asegurar que tus pertenencias viajen protegidas en todo momento.',
     detailText: 'Disponemos de plástico de burbujas alveolar de alta densidad, film stretch industrial, cajas de cartón corrugado de doble capa, canastos acolchados especiales para copas y mantas protectoras gruesas. Embalamos cada objeto de forma individual y rotulamos detalladamente las cajas.',

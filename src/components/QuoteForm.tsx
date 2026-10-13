@@ -175,7 +175,7 @@ logistica: 'Logística y Distribución', combinada: 'Mudanza Combinada', otro: '
 
   return (
     <form id="booking-form" onSubmit={handleSubmit} className="max-w-3xl mx-auto bg-surface border border-line rounded-3xl p-6 sm:p-10 shadow-lg shadow-ink/10 space-y-6" noValidate aria-label="Solicitud de cotización de mudanza">
-      <nav aria-label="Progreso de la solicitud" className="flex items-center gap-3" aria-current={`step-${step}`}>
+      <nav aria-label={`Progreso de la solicitud: paso ${step} de 2`} className="flex items-center gap-3">
         <div className={`h-2 flex-1 rounded-full ${step >= 1 ? 'bg-brand' : 'bg-line'}`} aria-hidden="true" />
         <span className="sr-only">Paso 1: Ruta y Servicio</span>
         <div className={`h-2 flex-1 rounded-full ${step >= 2 ? 'bg-brand' : 'bg-line'}`} aria-hidden="true" />

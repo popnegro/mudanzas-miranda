@@ -14,6 +14,11 @@ import DestinationPage from './pages/DestinationPage';
 import DestinationsPage from './pages/DestinationsPage';
 import ServicesPage from './pages/ServicesPage';
 
+const FOOTER_EXCLUDED_SERVICE_SLUGS = new Set([
+  'mudanzas-combinadas',
+  'logistica-integral',
+]);
+
 export default function App() {
   const {
     activeServiceTab, setActiveServiceTab,
@@ -46,7 +51,7 @@ export default function App() {
         ctaHref="#form"
         onNavigate={handleNavigation}
       />
-      <main className="flex-grow min-h-[60vh] pt-[70px] sm:pt-[78px]">
+      <main className="grow min-h-[60vh] pt-17.5 sm:pt-19.5">
         {!activePage ? (
           <HomePage activeServiceTab={activeServiceTab} setActiveServiceTab={setActiveServiceTab} openFaq={openFaq} setOpenFaq={setOpenFaq} destSearch={destSearch} setDestSearch={setDestSearch} filteredDestinations={filteredDestinations} regions={regions} handleNavigation={handleNavigation} heroIndex={heroIndex} setHeroIndex={setHeroIndex} previousHero={previousHero} nextHero={nextHero} />
         ) : activePage === 'nosotros' ? (
@@ -63,7 +68,7 @@ export default function App() {
       </main>
       <Footer
         brandName="Mudanzas Miranda"
-        description="Mudanzas Miranda es una empresa de mudanzas en Mendoza con más de 20 años de experiencia en mudanzas residenciales, comerciales y acarreos profesionales en Mendoza y el país."
+        description="Mudanzas Miranda es una empresa de mudanzas en Mendoza con más de 20 años de experiencia en mudanzas residenciales, comerciales y acarreos profesionales en Mendoza."
         contact={
           <address className="not-italic space-y-2 leading-relaxed">
             <a href="https://maps.google.com/?q=Armada+Argentina+584,+Mendoza,+Argentina" target="_blank" rel="noopener noreferrer" className="block hover:text-brand">Armada Argentina 584, Mendoza, Argentina</a>
@@ -74,10 +79,12 @@ export default function App() {
         columns={[
           {
             title: 'Nuestros Servicios',
-            links: servicePages.map((s) => ({
-              label: s.heroHeadline.replace(' Premium', ''),
-              href: s.slug,
-            })),
+            links: servicePages
+              .filter((service) => !FOOTER_EXCLUDED_SERVICE_SLUGS.has(service.slug))
+              .map((s) => ({
+                label: s.heroHeadline.replace(' Premium', ''),
+                href: s.slug,
+              })),
           },
           {
             title: 'Lugares principales',
