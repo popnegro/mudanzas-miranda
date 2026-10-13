@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
-import { destinations } from './src/data/destinations';
-import { servicePages } from './src/data/seoPages';
+import { destinations } from './src/data/destinations.ts';
+import { servicePages } from './src/data/seoPages.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -31,7 +31,8 @@ export default defineConfig(() => {
       },
     },
     build: {
-      rollupOptions: {
+      // Vite 8: prefer rolldownOptions (rollupOptions still accepted as alias).
+      rolldownOptions: {
         input: seoEntryPoints,
       },
     },
