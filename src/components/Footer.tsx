@@ -1,6 +1,23 @@
-import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react';
+import { MapPin, Phone, Mail } from 'lucide-react';
+import type { SVGProps } from 'react';
 import { Destination } from '../types';
 import { servicePages } from '../data/seoPages';
+
+function InstagramIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </svg>
+  );
+}
+
+function FacebookIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M13.5 22v-8h2.7l.4-3.1h-3.1V9.1c0-.9.3-1.5 1.6-1.5H16.8V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.5V14h2.6v8h3.4z" />
+    </svg>
+  );
+}
 
 interface FooterProps {
   destinations: Destination[];
@@ -82,8 +99,8 @@ export default function Footer({ destinations, onNavigate }: FooterProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-subtle">
           <p className="text-center sm:text-left">© 2026 Mudanzas Miranda · Powered by <a href="https://wa.me/5492616706710">SmartWeb</a></p>
           <nav aria-label="Redes sociales" className="flex items-center gap-4">
-            <a href="https://www.instagram.com/mudanzasmiranda/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-ink hover:bg-background transition-all" aria-label="Instagram de Mudanzas Miranda"><Instagram className="w-5 h-5 text-brand" aria-hidden="true" /></a>
-            <a href="https://www.facebook.com/mudanzasmiranda4" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-ink hover:bg-background transition-all" aria-label="Facebook de Mudanzas Miranda"><Facebook className="w-5 h-5 text-brand" aria-hidden="true" /></a>
+            <a href="https://www.instagram.com/mudanzasmiranda/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-ink hover:bg-background transition-all" aria-label="Instagram de Mudanzas Miranda"><InstagramIcon className="w-5 h-5 text-brand" /></a>
+            <a href="https://www.facebook.com/mudanzasmiranda4" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg hover:text-ink hover:bg-background transition-all" aria-label="Facebook de Mudanzas Miranda"><FacebookIcon className="w-5 h-5 text-brand" /></a>
           </nav>
         </div>
       </div>
