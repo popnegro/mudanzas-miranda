@@ -72,7 +72,7 @@ export const faqs: FAQItem[] = [
   {
     id: 'faq-4',
     question: '¿Ofrecen presupuestos por hora?',
-    answer: 'Trabajamos con presupuestos de precio por hora definidos a partir de la distancia, los accesos, el volumen y los servicios contratados. Así conocés el importe acordado antes de realizar la mudanza.'
+    answer: 'Trabajamos con presupuestos de precio por hora definidos a partir de la distancia, los accesos, el volumen y los servicios contratados.'
   }
 ];
 
