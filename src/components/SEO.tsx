@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { Destination, ServicePage } from '../types';
 import { faqs } from '../data/staticData';
+import { getLocalContent } from '../data/localContent';
+import { getServiceFaqs } from '../data/serviceFaqs';
 
 interface SEOProps {
   title: string;
@@ -101,6 +103,23 @@ export default function SEO({ title, description, canonicalUrl, isLocalPage = fa
         '@type': 'FAQPage',
         '@id': `${SITE_URL}#faq`,
         mainEntity: faqs.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      });
+    }
+
+    const pageFaqs = serviceData
+      ? getServiceFaqs(serviceData.slug)
+      : destinationData
+        ? getLocalContent(destinationData.slug, destinationData.name).faqs
+        : [];
+    if (pageFaqs.length > 0 && canonicalUrl !== SITE_URL) {
+      schemaData.push({
+        '@type': 'FAQPage',
+        '@id': `${canonicalUrl}#faq`,
+        mainEntity: pageFaqs.map((item) => ({
           '@type': 'Question',
           name: item.question,
           acceptedAnswer: { '@type': 'Answer', text: item.answer },
