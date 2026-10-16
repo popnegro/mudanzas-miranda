@@ -48,7 +48,7 @@ export function useAppRouting() {
       if (destinations.some((item) => item.slug === slug)) {
         newPath = `/mudanzas-mendoza/${slug}.html`;
       } else if (servicePages.some((item) => item.slug === slug)) {
-        newPath = `/servicios/${slug}.slug.html`;
+        newPath = `/servicios/${slug}.html`;
       } else if (slug === 'nosotros') {
         newPath = '/nosotros.html';
       } else if (slug === 'destinos') {
