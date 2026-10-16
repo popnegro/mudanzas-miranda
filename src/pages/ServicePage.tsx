@@ -20,27 +20,20 @@ export default function ServicePage({ currentService, activePage, handleNavigati
       transition={{ duration: 0.3 }}
       className="bg-background"
     >
-      {/* Breadcrumbs */}
-      <div className="bg-background-soft border-b border-line text-ink-subtle py-3 text-xs sm:text-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2">
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavigation('');
-            }}
-            className="hover:text-ink transition-colors flex items-center gap-1 cursor-pointer font-semibold"
-          >
-            Inicio
-          </a>
-          <span>/</span>
-          <span className="text-brand font-semibold">Servicios</span>
-          <span>/</span>
-          <span className="text-ink truncate font-medium">{currentService.name}</span>
-        </div>
-      </div>
+      <nav aria-label="Breadcrumb" className="bg-background-soft border-b border-line text-ink-subtle py-3 text-xs sm:text-sm">
+        <ol className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center gap-1.5 sm:gap-2">
+          <li>
+            <a href="/" onClick={(e) => { e.preventDefault(); handleNavigation(''); }} className="inline-flex items-center rounded-md px-1.5 py-0.5 font-semibold text-ink-secondary hover:text-brand hover:bg-brand/5 transition-colors">Inicio</a>
+          </li>
+          <li aria-hidden="true" className="text-ink-subtle/60">/</li>
+          <li>
+            <a href="/servicios.html" onClick={(e) => { e.preventDefault(); handleNavigation('servicios'); }} className="inline-flex items-center rounded-md px-1.5 py-0.5 font-semibold text-brand hover:bg-brand/5 transition-colors">Servicios</a>
+          </li>
+          <li aria-hidden="true" className="text-ink-subtle/60">/</li>
+          <li className="text-ink truncate font-medium" aria-current="page">{currentService.name}</li>
+        </ol>
+      </nav>
 
-      {/* Service Hero */}
       <section className="relative bg-surface text-ink overflow-hidden py-16 lg:py-20 border-b border-line">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#FFFFFF_0%,#F6F7F8_100%)] z-0" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand/5 blur-3xl rounded-full z-0 pointer-events-none" />
@@ -71,7 +64,6 @@ export default function ServicePage({ currentService, activePage, handleNavigati
 
       <FleetShowcase />
 
-      {/* Service Details */}
       <section className="py-16 bg-background-soft border-b border-line">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="bg-surface border border-line rounded-3xl p-5 sm:p-10 space-y-6 shadow-sm shadow-ink/5">
@@ -87,7 +79,6 @@ export default function ServicePage({ currentService, activePage, handleNavigati
             </div>
           </div>
 
-          {/* Highlights section */}
           <div className="space-y-6">
             <h3 className="text-xl font-bold text-ink tracking-tight">Beneficios Exclusivos del Servicio</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -109,7 +100,6 @@ export default function ServicePage({ currentService, activePage, handleNavigati
             </div>
           </div>
 
-          {/* Services internal cross-linking */}
           <div className="border-t border-line pt-8 space-y-3">
             <h4 className="text-xs font-bold text-brand uppercase tracking-wider">Nuestros otros servicios</h4>
             <div className="flex flex-wrap gap-2">

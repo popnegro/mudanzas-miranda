@@ -17,6 +17,8 @@ export interface HeaderProps {
   ctaHref: string;
   mobileCtaLabel?: string;
   onNavigate?: (href: string) => void;
+  /** Prefer over native #hash: home stays put + scroll form; internal pages go home then form */
+  onCtaClick?: () => void;
 }
 
 export default function Header({
@@ -28,6 +30,7 @@ export default function Header({
   ctaHref,
   mobileCtaLabel = ctaLabel,
   onNavigate,
+  onCtaClick,
 }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -51,6 +54,17 @@ export default function Header({
   }, [open]);
 
   const close = () => setOpen(false);
+
+  const toRouteSlug = (href: string) => {
+    if (!href || href === '/') return '';
+    const path = href.split('?')[0].split('#')[0];
+    const cleaned = path.replace(/^\//, '').replace(/\.html$/, '');
+    if (!cleaned) return '';
+    // /servicios.html → servicios; /mudanzas-mendoza/foo.html → foo
+    const parts = cleaned.split('/');
+    return parts[parts.length - 1] || '';
+  };
+
   const handleNavigation = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (!onNavigate || href.startsWith('#') || href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:')) {
       close();
@@ -58,7 +72,17 @@ export default function Header({
     }
     event.preventDefault();
     close();
-    onNavigate(href === '/' ? '' : href);
+    onNavigate(toRouteSlug(href));
+  };
+
+  const handleCta = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (onCtaClick) {
+      event.preventDefault();
+      close();
+      onCtaClick();
+      return;
+    }
+    handleNavigation(event, ctaHref);
   };
 
   return (
@@ -94,7 +118,7 @@ export default function Header({
         </nav>
 
         <div className="hidden items-center lg:flex">
-          <a href={ctaHref} className="header-cta-button">{ctaLabel}</a>
+          <a href={ctaHref} onClick={handleCta} className="header-cta-button">{ctaLabel}</a>
         </div>
 
         <button
@@ -128,7 +152,7 @@ export default function Header({
             ))}
           </nav>
           <div className="mt-4 border-t border-line pt-4">
-            <a href={ctaHref} onClick={(event) => handleNavigation(event, ctaHref)} className="header-cta-button flex w-full justify-center">
+            <a href={ctaHref} onClick={handleCta} className="header-cta-button flex w-full justify-center">
               {mobileCtaLabel}
             </a>
           </div>

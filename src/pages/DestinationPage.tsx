@@ -20,16 +20,19 @@ export default function DestinationPage({ currentDestination, activePage, handle
               transition={{ duration: 0.3 }}
               className="bg-background"
             >
-              {/* Breadcrumbs Navigation */}
-              <div className="bg-background-soft border-b border-line text-ink-subtle py-3 text-xs sm:text-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2">
-                  <a href="/" onClick={(e) => { e.preventDefault(); handleNavigation(''); }} className="hover:text-ink transition-colors flex items-center gap-1 cursor-pointer font-semibold">Inicio</a>
-                  <span>/</span>
-                  <span className="text-brand font-semibold">Destinos</span>
-                  <span>/</span>
-                  <span className="text-ink truncate font-medium">{currentDestination?.name}</span>
-                </div>
-              </div>
+              <nav aria-label="Breadcrumb" className="bg-background-soft border-b border-line text-ink-subtle py-3 text-xs sm:text-sm">
+                <ol className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center gap-1.5 sm:gap-2">
+                  <li>
+                    <a href="/" onClick={(e) => { e.preventDefault(); handleNavigation(''); }} className="inline-flex items-center rounded-md px-1.5 py-0.5 font-semibold text-ink-secondary hover:text-brand hover:bg-brand/5 transition-colors">Inicio</a>
+                  </li>
+                  <li aria-hidden="true" className="text-ink-subtle/60">/</li>
+                  <li>
+                    <a href="/destinos.html" onClick={(e) => { e.preventDefault(); handleNavigation('destinos'); }} className="inline-flex items-center rounded-md px-1.5 py-0.5 font-semibold text-brand hover:bg-brand/5 transition-colors">Destinos</a>
+                  </li>
+                  <li aria-hidden="true" className="text-ink-subtle/60">/</li>
+                  <li className="text-ink truncate font-medium" aria-current="page">{currentDestination?.name}</li>
+                </ol>
+              </nav>
               <section className="relative bg-surface text-ink overflow-hidden py-16 lg:py-20 border-b border-line">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,#FFFFFF_0%,#F6F7F8_100%)] z-0" />
                 <div className="absolute top-0 right-0 w-96 h-96 bg-brand/5 blur-3xl rounded-full z-0 pointer-events-none" />
