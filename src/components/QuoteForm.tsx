@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { checkAvailability } from '../availability/client';
 import type { AvailabilityResult } from '../availability/types';
@@ -43,6 +43,7 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const successRef = useRef<HTMLElement | null>(null);
   const [availability, setAvailability] = useState<AvailabilityResult | null>(null);
   const [isCheckingAvailability, setIsCheckingAvailability] = useState(false);
   const [geolocationError, setGeolocationError] = useState<string | undefined>();
@@ -59,6 +60,15 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
     if (destinationName) setFormData((prev) => ({ ...prev, destination: destinationName }));
     if (initialService) setFormData((prev) => ({ ...prev, service: initialService }));
   }, [destinationName, initialService]);
+
+  useEffect(() => {
+    if (!isSubmitted) return;
+    // Keep viewport on the success message (do not jump to page top)
+    const id = window.requestAnimationFrame(() => {
+      successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [isSubmitted]);
 
   const handleGeolocate = () => {
     setGeolocationError(undefined);
@@ -159,7 +169,7 @@ logistica: 'Logística y Distribución', combinada: 'Mudanza Combinada', otro: '
 
   if (isSubmitted) {
     return (
-      <section aria-live="polite" className="text-center bg-surface border border-line rounded-3xl p-12 max-w-2xl mx-auto shadow-lg shadow-ink/5">
+      <section ref={successRef} id="quote-success" aria-live="polite" className="text-center bg-surface border border-line rounded-3xl p-12 max-w-2xl mx-auto shadow-lg shadow-ink/5">
         <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" aria-hidden="true" />
         <h3 className="text-2xl font-bold text-ink mb-2">¡Solicitud en camino!</h3>
         <p className="text-ink-secondary mb-6">Tu mensaje se está abriendo en WhatsApp. En breve, un asesor se pondrá en contacto contigo.</p>
