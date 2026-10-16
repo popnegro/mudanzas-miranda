@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Award, Truck, ShieldCheck, Star, ChevronDown, Phone, Mail, MapPin, Clock, ArrowRight, Home, Building, Users, Package, Warehouse, CheckCircle2, Calendar, ArrowLeft, ChevronLeft, ChevronRight, Navigation, History, Target, Heart, Search, X } from 'lucide-react';
+import { Award, Truck, ShieldCheck, Phone, Clock, Home, Building, Users, Package, Warehouse, CheckCircle2 } from 'lucide-react';
 import { services, faqs, testimonials } from '../data/staticData';
 import { servicePages } from '../data/seoPages';
 import { destinations } from '../data/destinations';
