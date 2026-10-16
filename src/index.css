@@ -124,3 +124,9 @@ img { max-width: 100%; }
   outline: 2px solid color-mix(in srgb, var(--color-brand) 70%, transparent);
   outline-offset: 2px;
 }
+
+/* Defer paint for below-fold sections (CWV) */
+main section:not(:first-of-type) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
