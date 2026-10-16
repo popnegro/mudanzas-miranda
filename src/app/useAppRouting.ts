@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { destinations } from '../data/destinations';
 import { servicePages } from '../data/seoPages';
 
@@ -27,27 +27,18 @@ export function useAppRouting() {
       setActivePage(resolvePath());
     };
 
-    if (window.location.hash) {
-      window.history.replaceState({}, '', window.location.pathname + window.location.search);
-    }
-
     handleUrlChange();
     window.addEventListener('popstate', handleUrlChange);
     return () => window.removeEventListener('popstate', handleUrlChange);
   }, [resolvePath]);
 
-  useEffect(() => {
-    let settleFrame: number | undefined;
-    const frame = window.requestAnimationFrame(() => {
-      settleFrame = window.requestAnimationFrame(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-      });
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      if (settleFrame) window.cancelAnimationFrame(settleFrame);
-    };
+  // Page changes and initial load: always start at top.
+  // Do not land on #form (or any hash) when entering a route.
+  useLayoutEffect(() => {
+    if (window.location.hash) {
+      window.history.replaceState({}, '', window.location.pathname + window.location.search);
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [activePage]);
 
   const navigate = useCallback((slug: string) => {
