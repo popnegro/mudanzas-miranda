@@ -12,6 +12,9 @@ const EXCLUDED_SERVICE_SLUGS = new Set([
   'logistica-integral',
 ]);
 
+/** ISO date (YYYY-MM-DD) for sitemap lastmod — build day. */
+const LASTMOD = new Date().toISOString().slice(0, 10);
+
 const urls = [
   '/',
   '/nosotros.html',
@@ -24,11 +27,14 @@ const urls = [
 ];
 
 const body = urls
-  .map((url) => `  <url>\n    <loc>${SITE_URL}${url === '/' ? '' : url}</loc>\n  </url>`)
+  .map((url) => {
+    const loc = `${SITE_URL}${url === '/' ? '' : url}`;
+    return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${LASTMOD}</lastmod>\n  </url>`;
+  })
   .join('\n');
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
 
 await writeFile(path.join(ROOT, 'public', 'sitemap.xml'), xml, 'utf8');
 
-console.log(`Sitemap regenerado con ${urls.length} URLs.`);
+console.log(`Sitemap regenerado con ${urls.length} URLs (lastmod=${LASTMOD}).`);

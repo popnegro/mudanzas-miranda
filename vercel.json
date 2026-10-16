@@ -4,7 +4,12 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "mudanzasmiranda.com.ar" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "mudanzasmiranda.com.ar"
+        }
+      ],
       "destination": "https://www.mudanzasmiranda.com.ar/:path*",
       "permanent": true
     },
@@ -15,6 +20,26 @@
     },
     {
       "source": "/servicios/guardamuebles.html",
+      "destination": "/servicios.html",
+      "permanent": true
+    },
+    {
+      "source": "/servicios/mudanzas-combinadas.html",
+      "destination": "/servicios.html",
+      "permanent": true
+    },
+    {
+      "source": "/servicios/mudanzas-combinadas",
+      "destination": "/servicios.html",
+      "permanent": true
+    },
+    {
+      "source": "/servicios/logistica-integral.html",
+      "destination": "/servicios.html",
+      "permanent": true
+    },
+    {
+      "source": "/servicios/logistica-integral",
       "destination": "/servicios.html",
       "permanent": true
     }
