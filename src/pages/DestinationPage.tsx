@@ -6,11 +6,14 @@ import { servicePages } from '../data/seoPages';
 import { destinations } from '../data/destinations';
 import FormSection from '../components/FormSection';
 import FleetShowcase from '../components/FleetShowcase';
+import PageFaq from '../components/PageFaq';
+import { getLocalContent } from '../data/localContent';
 
 const IconMap: Record<string, React.ComponentType<any>> = { Home, Building, Users, Package, Warehouse, Truck };
 
 interface DestinationPageProps { currentDestination: (typeof destinations)[number]; activePage: string; handleNavigation: (slug: string) => void; }
 export default function DestinationPage({ currentDestination, activePage, handleNavigation }: DestinationPageProps) {
+  const local = getLocalContent(currentDestination.slug, currentDestination.name);
   return (
             <motion.div
               key="localseopage"
@@ -53,7 +56,18 @@ export default function DestinationPage({ currentDestination, activePage, handle
                     <h2 className="text-2xl font-serif font-bold text-ink leading-snug">Servicio de Mudanzas y Traslados de Confianza en {currentDestination?.name}</h2>
                     <p className="text-base text-ink-secondary leading-relaxed font-medium">{currentDestination?.leadText}</p>
                     <p className="text-sm sm:text-base text-ink-subtle leading-relaxed">{currentDestination?.detailText}</p>
+                    {local.tips.length > 0 && (
+                      <div className="pt-2 space-y-2">
+                        <h3 className="text-sm font-bold text-ink uppercase tracking-wider">Datos útiles para mudarte en {currentDestination?.name}</h3>
+                        <ul className="list-disc pl-5 space-y-1.5 text-sm text-ink-secondary">
+                          {local.tips.map((tip) => (
+                            <li key={tip}>{tip}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
+                  <PageFaq title={`Preguntas frecuentes sobre mudanzas en ${currentDestination.name}`} items={local.faqs} />
                   <div className="space-y-4">
                     <h3 className="text-xl font-bold text-ink tracking-tight">Por qué elegirnos para tu traslado en {currentDestination?.name}</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
