@@ -36,6 +36,19 @@ export default function App() {
     currentService,
   );
 
+  const handleHeaderCta = () => {
+    const scrollToForm = () => {
+      document.getElementById('form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    if (!activePage) {
+      scrollToForm();
+      return;
+    }
+    // Internal pages: go home first, then form (no #form on initial load)
+    handleNavigation('');
+    window.setTimeout(scrollToForm, 120);
+  };
+
   return (
     <div className="min-h-screen bg-background text-ink-secondary flex flex-col font-sans selection:bg-brand selection:text-white w-full overflow-x-hidden">
       <SEO title={pageTitle} description={pageDescription} canonicalUrl={pageCanonical} isLocalPage={!!currentDestination} destinationData={currentDestination} serviceData={currentService} />
@@ -44,13 +57,14 @@ export default function App() {
         logoAlt="Mudanzas Miranda"
         homeHref="/"
         navItems={[
-          { label: 'Servicios', href: 'servicios', active: activePage === 'servicios' || (!!activePage && !['nosotros', 'destinos'].includes(activePage) && !activePage.startsWith('mudanzas-')) },
-          { label: 'Destinos', href: 'destinos', active: activePage === 'destinos' || activePage?.startsWith('mudanzas-') === true },
-          { label: 'Nosotros', href: 'nosotros', active: activePage === 'nosotros' },
+          { label: 'Servicios', href: '/servicios.html', active: activePage === 'servicios' || (!!activePage && !['nosotros', 'destinos'].includes(activePage) && !activePage.startsWith('mudanzas-')) },
+          { label: 'Destinos', href: '/destinos.html', active: activePage === 'destinos' || activePage?.startsWith('mudanzas-') === true },
+          { label: 'Nosotros', href: '/nosotros.html', active: activePage === 'nosotros' },
         ]}
         ctaLabel="Cotizar mudanza"
-        ctaHref="#form"
+        ctaHref="/#form"
         onNavigate={handleNavigation}
+        onCtaClick={handleHeaderCta}
       />
       <main className="grow min-h-[60vh] pt-17.5 sm:pt-19.5">
         {!activePage ? (
@@ -105,7 +119,6 @@ export default function App() {
         ]}
         onNavigate={(href) => {
           handleNavigation(href);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       />
       <FloatingWhatsApp />
