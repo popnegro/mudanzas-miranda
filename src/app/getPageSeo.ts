@@ -18,6 +18,7 @@ export function getPageSeo(
       title: 'Sobre Nosotros - Historia, Misión y Valores | Mudanzas Miranda',
       description: 'Conocé la historia, misión y valores de Mudanzas Miranda. Más de 20 años de trayectoria brindando tranquilidad y confianza en mudanzas en Mendoza.',
       canonicalUrl: `${SITE_URL}/nosotros.html`,
+      indexable: true,
     };
   }
 
@@ -26,6 +27,7 @@ export function getPageSeo(
       title: 'Zonas de Cobertura y Destinos | Mudanzas Miranda',
       description: 'Cubrimos toda la provincia de Mendoza con servicios de mudanzas y traslados. Conocé nuestras zonas de cobertura en el Gran Mendoza, Valle de Uco, Zona Este y Sur.',
       canonicalUrl: `${SITE_URL}/destinos.html`,
+      indexable: true,
     };
   }
 
@@ -34,6 +36,7 @@ export function getPageSeo(
       title: 'Servicios de Mudanzas y Traslados en Mendoza | Mudanzas Miranda',
       description: 'Mudanzas residenciales, traslados de oficinas, embalaje profesional, mudanzas combinadas y logística integral en Mendoza. Conocé todas nuestras soluciones.',
       canonicalUrl: `${SITE_URL}/servicios.html`,
+      indexable: true,
     };
   }
 
@@ -42,14 +45,17 @@ export function getPageSeo(
       title: currentDestination.title,
       description: currentDestination.description,
       canonicalUrl: `${SITE_URL}/mudanzas-mendoza/${currentDestination.slug}.html`,
+      indexable: true,
     };
   }
 
   if (currentService) {
+    const noindex = currentService.slug === 'mudanzas-combinadas' || currentService.slug === 'logistica-integral';
     return {
       title: currentService.title,
       description: currentService.description,
       canonicalUrl: `${SITE_URL}/servicios/${currentService.slug}.html`,
+      indexable: !noindex,
     };
   }
 
@@ -57,5 +63,6 @@ export function getPageSeo(
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
     canonicalUrl: SITE_URL,
+    indexable: true,
   };
 }

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Destination, ServicePage } from '../types';
+import { faqs } from '../data/staticData';
 
 interface SEOProps {
   title: string;
@@ -95,12 +96,26 @@ export default function SEO({ title, description, canonicalUrl, isLocalPage = fa
       },
     ];
 
+    if (canonicalUrl === SITE_URL) {
+      schemaData.push({
+        '@type': 'FAQPage',
+        '@id': `${SITE_URL}#faq`,
+        mainEntity: faqs.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      });
+    }
+
     if (canonicalUrl !== SITE_URL && (isLocalPage || destinationData || serviceData)) {
       const breadcrumbItems: Record<string, unknown>[] = [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE_URL }];
       if (isLocalPage && destinationData) {
-        breadcrumbItems.push({ '@type': 'ListItem', position: 2, name: destinationData.name, item: canonicalUrl });
+        breadcrumbItems.push({ '@type': 'ListItem', position: 2, name: 'Destinos', item: `${SITE_URL}/destinos.html` });
+        breadcrumbItems.push({ '@type': 'ListItem', position: 3, name: destinationData.name, item: canonicalUrl });
       } else if (serviceData) {
-        breadcrumbItems.push({ '@type': 'ListItem', position: 2, name: serviceData.title, item: canonicalUrl });
+        breadcrumbItems.push({ '@type': 'ListItem', position: 2, name: 'Servicios', item: `${SITE_URL}/servicios.html` });
+        breadcrumbItems.push({ '@type': 'ListItem', position: 3, name: serviceData.name, item: canonicalUrl });
         schemaData.push({
           '@type': 'Service', '@id': `${canonicalUrl}#service`, name: serviceData.name,
           description: serviceData.description, url: canonicalUrl, provider: { '@id': organizationId },

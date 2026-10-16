@@ -30,7 +30,7 @@ export default function App() {
   const { heroIndex, setHeroIndex, previous: previousHero, next: nextHero } = useHeroCarousel(HERO_CAROUSEL_SLIDES.length);
   const { activePage, currentDestination, currentService, navigate: handleNavigation } = useAppRouting();
 
-  const { title: pageTitle, description: pageDescription, canonicalUrl: pageCanonical } = getPageSeo(
+  const { title: pageTitle, description: pageDescription, canonicalUrl: pageCanonical, indexable: pageIndexable = true } = getPageSeo(
     activePage,
     currentDestination,
     currentService,
@@ -51,7 +51,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background text-ink-secondary flex flex-col font-sans selection:bg-brand selection:text-white w-full overflow-x-hidden">
-      <SEO title={pageTitle} description={pageDescription} canonicalUrl={pageCanonical} isLocalPage={!!currentDestination} destinationData={currentDestination} serviceData={currentService} />
+      <SEO title={pageTitle} description={pageDescription} canonicalUrl={pageCanonical} indexable={pageIndexable} isLocalPage={!!currentDestination} destinationData={currentDestination} serviceData={currentService} />
       <Header
         logoSrc="/img/brand-dark.png"
         logoAlt="Mudanzas Miranda"
