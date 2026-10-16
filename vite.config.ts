@@ -34,6 +34,14 @@ export default defineConfig(() => {
       // Vite 8: prefer rolldownOptions (rollupOptions still accepted as alias).
       rolldownOptions: {
         input: seoEntryPoints,
+        output: {
+          manualChunks(id: string) {
+            if (!id.includes('node_modules')) return;
+            if (id.includes('motion')) return 'motion';
+            if (id.includes('lucide-react')) return 'lucide';
+            if (id.includes('react-dom') || id.includes('/react/') || id.includes('\\react\\')) return 'react-vendor';
+          },
+        },
       },
     },
     server: {

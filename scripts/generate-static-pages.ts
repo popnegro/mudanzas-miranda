@@ -8,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 const SITE_NAME = 'Mudanzas Miranda';
-const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-1200.jpg`;
+const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-camiones.webp`;
 
 interface PageDefinition {
   file: string;
@@ -218,6 +218,7 @@ function renderPage(page: PageDefinition) {
     <meta name="twitter:description" content="${esc(page.description)}" />
     <meta name="twitter:image" content="${DEFAULT_IMAGE}" />
     <link rel="icon" type="image/png" href="/img/favicon.png" />
+    ${page.kind === 'home' ? '<link rel="preload" as="image" href="/img/mudanzas-miranda-camiones.webp" fetchpriority="high" />' : ''}
     <script id="seo-structured-data" type="application/ld+json">${schema}</script>
   </head>
   <body>

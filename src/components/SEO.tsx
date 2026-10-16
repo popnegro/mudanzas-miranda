@@ -13,7 +13,7 @@ interface SEOProps {
 
 const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
 const SITE_NAME = 'Mudanzas Miranda';
-const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-1200.jpg`;
+const DEFAULT_IMAGE = `${SITE_URL}/img/mudanzas-miranda-camiones.webp`;
 
 export default function SEO({ title, description, canonicalUrl, isLocalPage = false, indexable = true, destinationData, serviceData }: SEOProps) {
   useEffect(() => {
