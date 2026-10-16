@@ -6,11 +6,14 @@ import { servicePages } from '../data/seoPages';
 import { destinations } from '../data/destinations';
 import FormSection from '../components/FormSection';
 import FleetShowcase from '../components/FleetShowcase';
+import PageFaq from '../components/PageFaq';
+import { getServiceFaqs } from '../data/serviceFaqs';
 
 const IconMap: Record<string, React.ComponentType<any>> = { Home, Building, Users, Package, Warehouse, Truck };
 
 interface ServicePageProps { currentService: (typeof servicePages)[number]; activePage: string; handleNavigation: (slug: string) => void; }
 export default function ServicePage({ currentService, activePage, handleNavigation }: ServicePageProps) {
+  const serviceFaqs = getServiceFaqs(currentService.slug);
   return (
     <motion.div
       key="servicepage"
@@ -110,6 +113,14 @@ export default function ServicePage({ currentService, activePage, handleNavigati
           </div>
         </div>
       </section>
+
+      {serviceFaqs.length > 0 && (
+        <section className="py-12 bg-background border-b border-line">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <PageFaq title={`Preguntas frecuentes: ${currentService.name}`} items={serviceFaqs} />
+          </div>
+        </section>
+      )}
 
       <FormSection title={`Cotizá tu servicio de ${currentService.name}`} initialService={currentService.slug} compact />
     </motion.div>
