@@ -7,19 +7,13 @@ import { servicePages } from '../src/data/seoPages';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
-const EXCLUDED_SERVICE_SLUGS = new Set([
-  'mudanzas-combinadas',
-  'logistica-integral',
-]);
 
 const urls = [
   '/',
   '/nosotros.html',
   '/destinos.html',
   '/servicios.html',
-  ...servicePages
-    .filter((service) => !EXCLUDED_SERVICE_SLUGS.has(service.slug))
-    .map((service) => `/servicios/${service.slug}.html`),
+  ...servicePages.map((service) => `/servicios/${service.slug}.html`),
   ...destinations.map((destination) => `/mudanzas-mendoza/${destination.slug}.html`),
 ];
 
