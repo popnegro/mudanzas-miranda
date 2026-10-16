@@ -67,6 +67,7 @@ export function useAppRouting() {
       }
     }
     window.history.pushState({}, '', newPath);
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
   const currentDestination = useMemo<Destination | undefined>(
