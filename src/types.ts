@@ -1,3 +1,9 @@
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+}
+
 export interface Destination {
   slug: string;
   name: string;
@@ -8,6 +14,9 @@ export interface Destination {
   heroSubheadline: string;
   leadText: string;
   detailText: string;
+  /** Optional SEO blocks — tips / FAQs per locality */
+  localTips?: string[];
+  faqs?: FAQItem[];
 }
 
 export interface Service {
@@ -32,9 +41,8 @@ export interface ServicePage {
   leadText: string;
   detailText: string;
   features: string[];
+  faqs?: FAQItem[];
 }
-
-
 
 export interface Testimonial {
   id: string;
@@ -56,10 +64,3 @@ export interface QuoteRequest {
   email: string;
   comments?: string;
 }
-
-export interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-}
-
