@@ -56,7 +56,7 @@ export default function App() {
         {!activePage ? (
           <HomePage activeServiceTab={activeServiceTab} setActiveServiceTab={setActiveServiceTab} openFaq={openFaq} setOpenFaq={setOpenFaq} destSearch={destSearch} setDestSearch={setDestSearch} filteredDestinations={filteredDestinations} regions={regions} handleNavigation={handleNavigation} heroIndex={heroIndex} setHeroIndex={setHeroIndex} previousHero={previousHero} nextHero={nextHero} />
         ) : (
-          <Suspense fallback={<div className="flex min-h-[40vh] items-center justify-center text-ink-subtle" role="status">Cargando…</div>}>
+          <Suspense fallback={<div className="flex min-h-[30vh] items-start justify-center pt-10 text-ink-subtle" role="status" aria-live="polite">Cargando…</div>}>
             {activePage === 'nosotros' ? (
               <AboutPage handleNavigation={handleNavigation} />
             ) : activePage === 'destinos' ? (
@@ -105,7 +105,6 @@ export default function App() {
         ]}
         onNavigate={(href) => {
           handleNavigation(href);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       />
       <FloatingWhatsApp />
