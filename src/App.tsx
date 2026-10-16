@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { destinations } from './data/destinations';
 import { servicePages } from './data/seoPages';
 import { getPageSeo, useAppRouting, useHeroCarousel, useHomePageState } from './app';
@@ -8,11 +8,12 @@ import Header from './theme/components/Header';
 import Footer from './theme/components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import ServicePage from './pages/ServicePage';
-import DestinationPage from './pages/DestinationPage';
-import DestinationsPage from './pages/DestinationsPage';
-import ServicesPage from './pages/ServicesPage';
+
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ServicePage = lazy(() => import('./pages/ServicePage'));
+const DestinationPage = lazy(() => import('./pages/DestinationPage'));
+const DestinationsPage = lazy(() => import('./pages/DestinationsPage'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 
 const FOOTER_EXCLUDED_SERVICE_SLUGS = new Set([
   'mudanzas-combinadas',
@@ -54,17 +55,21 @@ export default function App() {
       <main className="grow min-h-[60vh] pt-17.5 sm:pt-19.5">
         {!activePage ? (
           <HomePage activeServiceTab={activeServiceTab} setActiveServiceTab={setActiveServiceTab} openFaq={openFaq} setOpenFaq={setOpenFaq} destSearch={destSearch} setDestSearch={setDestSearch} filteredDestinations={filteredDestinations} regions={regions} handleNavigation={handleNavigation} heroIndex={heroIndex} setHeroIndex={setHeroIndex} previousHero={previousHero} nextHero={nextHero} />
-        ) : activePage === 'nosotros' ? (
-          <AboutPage handleNavigation={handleNavigation} />
-        ) : activePage === 'destinos' ? (
-          <DestinationsPage handleNavigation={handleNavigation} />
-        ) : activePage === 'servicios' ? (
-          <ServicesPage handleNavigation={handleNavigation} />
-        ) : currentService ? (
-          <ServicePage currentService={currentService} activePage={activePage} handleNavigation={handleNavigation} />
-        ) : currentDestination ? (
-          <DestinationPage currentDestination={currentDestination} activePage={activePage} handleNavigation={handleNavigation} />
-        ) : null}
+        ) : (
+          <Suspense fallback={<div className="flex min-h-[40vh] items-center justify-center text-ink-subtle" role="status">Cargando…</div>}>
+            {activePage === 'nosotros' ? (
+              <AboutPage handleNavigation={handleNavigation} />
+            ) : activePage === 'destinos' ? (
+              <DestinationsPage handleNavigation={handleNavigation} />
+            ) : activePage === 'servicios' ? (
+              <ServicesPage handleNavigation={handleNavigation} />
+            ) : currentService ? (
+              <ServicePage currentService={currentService} activePage={activePage} handleNavigation={handleNavigation} />
+            ) : currentDestination ? (
+              <DestinationPage currentDestination={currentDestination} activePage={activePage} handleNavigation={handleNavigation} />
+            ) : null}
+          </Suspense>
+        )}
       </main>
       <Footer
         brandName="Mudanzas Miranda"
