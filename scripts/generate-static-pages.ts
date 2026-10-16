@@ -228,6 +228,7 @@ function renderPage(page: PageDefinition) {
           <header>
             <h1>${esc(page.heading)}</h1>
           </header>
+          ${page.kind === 'home' ? '<div class="hero-lcp-slot" style="width:100%;max-width:32rem;aspect-ratio:4/3;margin:1rem auto;background:#f1f3f5;border-radius:1rem;" aria-hidden="true"></div>' : ''}
           <p>${esc(page.intro)}</p>
           ${bodyDetail}
           <footer>
