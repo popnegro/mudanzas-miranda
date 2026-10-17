@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: lighthouse-\${{ github.workflow }}-\${{ github.ref }}
+  group: lighthouse-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -57,7 +57,7 @@ jobs:
       - name: Lighthouse mobile audit
         run: >-
           npx --yes lighthouse@12.8.2 http://127.0.0.1:4173/
-          --chrome-path="\${{ steps.chrome.outputs.chrome-path }}"
+          --chrome-path="${{ steps.chrome.outputs.chrome-path }}"
           --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage"
           --output=json
           --output-path=/tmp/lighthouse-mobile.json
@@ -67,7 +67,7 @@ jobs:
         run: >-
           npx --yes lighthouse@12.8.2 http://127.0.0.1:4173/
           --preset=desktop
-          --chrome-path="\${{ steps.chrome.outputs.chrome-path }}"
+          --chrome-path="${{ steps.chrome.outputs.chrome-path }}"
           --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage"
           --output=json
           --output-path=/tmp/lighthouse-desktop.json
