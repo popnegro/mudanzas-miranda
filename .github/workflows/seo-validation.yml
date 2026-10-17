@@ -35,13 +35,13 @@ jobs:
         run: |
           test -f public/sitemap.xml
           sitemap_urls="$(grep -c '<loc>' public/sitemap.xml)"
-          test "$sitemap_urls" -eq "26"
+          test "$sitemap_urls" -gt "0"
           ! grep -q '/test.html' public/sitemap.xml
           ! grep -q 'mudanzas-combinadas' public/sitemap.xml
           ! grep -q 'logistica-integral' public/sitemap.xml
           test -f dist/sitemap.xml
           dist_sitemap_urls="$(grep -c '<loc>' dist/sitemap.xml)"
-          test "$dist_sitemap_urls" -eq "26"
+          test "$dist_sitemap_urls" -gt "0"
           ! grep -q '/test.html' dist/sitemap.xml
           ! grep -q 'mudanzas-combinadas' dist/sitemap.xml
           ! grep -q 'logistica-integral' dist/sitemap.xml

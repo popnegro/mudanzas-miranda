@@ -24,7 +24,12 @@ interface PageDefinition {
 }
 
 const esc = (value: string) =>
-  value.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"');
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 
 const canonical = (slug: string) => `${SITE_URL}${slug ? `/${slug}` : ''}`;
 
@@ -195,7 +200,8 @@ function schemaFor(page: PageDefinition) {
 }
 
 function renderPage(page: PageDefinition) {
-  const schema = JSON.stringify(schemaFor(page));
+  // Prevent data containing </script> from terminating the JSON-LD element.
+  const schema = JSON.stringify(schemaFor(page)).replace(/</g, '\\u003c');
   const bodyDetail = page.detail ? `<p>${esc(page.detail)}</p>` : '';
   return `<!doctype html>
 <html lang="es-AR">
@@ -204,7 +210,7 @@ function renderPage(page: PageDefinition) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${esc(page.title)}</title>
     <meta name="description" content="${esc(page.description)}" />
-    <link rel="canonical" href="${page.url}" />
+    <link rel="canonical" href="${esc(page.url)}" />
     <meta name="robots" content="index,follow" />
     <meta property="og:title" content="${esc(page.title)}" />
     <meta property="og:description" content="${esc(page.description)}" />
