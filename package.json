@@ -7,13 +7,14 @@
     "dev": "vite --port=3000 --host=0.0.0.0",
     "prebuild": "tsx scripts/generate-static-pages.ts && tsx scripts/generate-sitemap.ts",
     "build": "vite build",
-    "verify:production": "npm run typecheck && npm run build && npm run audit:static-seo && npm run validate:app-composition",
+    "verify:production": "npm run typecheck && npm run build && npm run audit:static-seo && npm run audit:geo-content && npm run validate:app-composition",
     "audit:static-seo": "tsx scripts/audit-static-seo.ts",
     "validate:app-composition": "tsx scripts/validate-app-composition.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "typecheck": "tsc --noEmit",
-    "lint": "npm run typecheck"
+    "lint": "npm run typecheck",
+    "audit:geo-content": "tsx scripts/audit-geo-content.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
