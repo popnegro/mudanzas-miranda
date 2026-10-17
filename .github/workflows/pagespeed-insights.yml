@@ -1,4 +1,4 @@
-name: PageSpeed Insights
+name: Lighthouse Performance
 
 on:
   pull_request:
@@ -12,34 +12,79 @@ on:
 permissions:
   contents: read
 
-env:
-  PAGESPEED_URL: "https://mudanzas-miranda.vercel.app/"
+concurrency:
+  group: lighthouse-\${{ github.workflow }}-\${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  pagespeed-mobile:
-    name: PageSpeed Insights · Mobile · Staging
+  lighthouse:
+    name: Lighthouse · Mobile and Desktop
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    continue-on-error: true
+    timeout-minutes: 20
     steps:
-      - name: Run PageSpeed Insights
-        uses: jakepartusch/psi-action@v1.3
-        with:
-          url: ${{ env.PAGESPEED_URL }}
-          strategy: mobile
-          threshold: 70
-          key: ${{ secrets.PSI_API_KEY }}
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  pagespeed-desktop:
-    name: PageSpeed Insights · Desktop · Staging
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    continue-on-error: true
-    steps:
-      - name: Run PageSpeed Insights
-        uses: jakepartusch/psi-action@v1.3
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          url: ${{ env.PAGESPEED_URL }}
-          strategy: desktop
-          threshold: 70
-          key: ${{ secrets.PSI_API_KEY }}
+          node-version: 22
+          cache: npm
+
+      - name: Setup Chrome
+        id: chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Start local preview
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/vite-preview.log 2>&1 &
+          echo $! > /tmp/vite-preview.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/vite-preview.log
+          exit 1
+
+      - name: Lighthouse mobile audit
+        run: >-
+          npx --yes lighthouse@12.8.2 http://127.0.0.1:4173/
+          --chrome-path="\${{ steps.chrome.outputs.chrome-path }}"
+          --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage"
+          --output=json
+          --output-path=/tmp/lighthouse-mobile.json
+          --quiet
+
+      - name: Lighthouse desktop audit
+        run: >-
+          npx --yes lighthouse@12.8.2 http://127.0.0.1:4173/
+          --preset=desktop
+          --chrome-path="\${{ steps.chrome.outputs.chrome-path }}"
+          --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage"
+          --output=json
+          --output-path=/tmp/lighthouse-desktop.json
+          --quiet
+
+      - name: Enforce performance threshold
+        run: |
+          node scripts/assert-lighthouse-score.mjs /tmp/lighthouse-mobile.json mobile 70
+          node scripts/assert-lighthouse-score.mjs /tmp/lighthouse-desktop.json desktop 70
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: |
+            /tmp/lighthouse-mobile.json
+            /tmp/lighthouse-desktop.json
+          if-no-files-found: ignore
+          retention-days: 14
