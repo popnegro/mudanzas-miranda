@@ -31,7 +31,7 @@ jobs:
       - name: Audit canonical SEO/GEO entry points
         run: npm run audit:static-seo
 
-      - name: Validate sitemap structure
+      - name: Audit GEO content uniqueness and claims\n        run: npm run audit:geo-content\n\n      - name: Validate sitemap structure
         run: |
           test -f public/sitemap.xml
           sitemap_urls="$(grep -c '<loc>' public/sitemap.xml)"
