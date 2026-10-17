@@ -12,9 +12,6 @@ const EXCLUDED_SERVICE_SLUGS = new Set([
   'logistica-integral',
 ]);
 
-/** ISO date (YYYY-MM-DD) for sitemap lastmod — build day. */
-const LASTMOD = new Date().toISOString().slice(0, 10);
-
 const urls = [
   '/',
   '/nosotros.html',
@@ -26,15 +23,16 @@ const urls = [
   ...destinations.map((destination) => `/mudanzas-mendoza/${destination.slug}.html`),
 ];
 
+const xmlEscape = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 const body = urls
   .map((url) => {
     const loc = `${SITE_URL}${url === '/' ? '' : url}`;
-    return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${LASTMOD}</lastmod>\n  </url>`;
+    return `  <url>\n    <loc>${xmlEscape(loc)}</loc>\n  </url>`;
   })
   .join('\n');
-
 const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
 
 await writeFile(path.join(ROOT, 'public', 'sitemap.xml'), xml, 'utf8');
 
-console.log(`Sitemap regenerado con ${urls.length} URLs (lastmod=${LASTMOD}).`);
+console.log(`Sitemap regenerado con ${urls.length} URLs; lastmod omitido para evitar fechas de build engañosas.`);
