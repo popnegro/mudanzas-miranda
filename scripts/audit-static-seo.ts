@@ -8,6 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 const SITE_URL = 'https://www.mudanzasmiranda.com.ar';
+const CANONICAL_ORIGIN = new URL(SITE_URL).origin;
 const EXCLUDED_SERVICE_SLUGS = new Set(['mudanzas-combinadas', 'logistica-integral']);
 
 const pages = [
@@ -45,8 +46,22 @@ const sitemapPaths = async (file: string) => {
   if (locs.length === 0) throw new Error(file + ': sitemap contains no <loc> entries');
 
   const paths = locs.map((loc) => {
-    if (!loc.startsWith(SITE_URL)) throw new Error(file + ': non-canonical sitemap URL: ' + loc);
-    return loc.slice(SITE_URL.length) || '/';
+    let parsed: URL;
+    try {
+      parsed = new URL(loc);
+    } catch {
+      throw new Error(file + ': invalid sitemap URL: ' + loc);
+    }
+    if (
+      parsed.origin !== CANONICAL_ORIGIN ||
+      parsed.username ||
+      parsed.password ||
+      parsed.search ||
+      parsed.hash
+    ) {
+      throw new Error(file + ': non-canonical sitemap URL: ' + loc);
+    }
+    return parsed.pathname || '/';
   });
 
   if (new Set(paths).size !== paths.length) throw new Error(file + ': duplicate sitemap URLs');
