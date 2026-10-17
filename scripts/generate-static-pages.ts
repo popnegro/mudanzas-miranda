@@ -202,6 +202,7 @@ function schemaFor(page: PageDefinition) {
 function renderPage(page: PageDefinition) {
   // Prevent data containing </script> from terminating the JSON-LD element.
   const schema = JSON.stringify(schemaFor(page)).replace(/</g, '\\u003c');
+  const bodyDetail = page.detail ? `<p>${esc(page.detail)}</p>` : '';
   return `<!doctype html>
 <html lang="es-AR">
   <head>
