@@ -12,7 +12,10 @@ function json(data: unknown, status = 200) {
 }
 
 function isValidDate(value: string): boolean {
-  return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(`${value}T00:00:00-03:00`));
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+
+  const parsed = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
 }
 
 function getDayRange(date: string) {
@@ -39,6 +42,7 @@ async function getGoogleAccessToken(): Promise<string> {
       refresh_token: refreshToken,
       grant_type: 'refresh_token',
     }),
+    signal: AbortSignal.timeout(8_000),
   });
 
   if (!response.ok) throw new Error('GOOGLE_CALENDAR_TOKEN_ERROR');
@@ -68,6 +72,7 @@ async function queryGoogleCalendar(date: string) {
       timeZone: process.env.GOOGLE_CALENDAR_TIMEZONE || 'America/Argentina/Mendoza',
       items: [{ id: calendarId }],
     }),
+    signal: AbortSignal.timeout(8_000),
   });
 
   if (!response.ok) throw new Error('GOOGLE_CALENDAR_FREEBUSY_ERROR');
