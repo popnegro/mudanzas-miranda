@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { checkAvailability } from '../availability/client';
 import type { AvailabilityResult } from '../availability/types';
-import { ArrowRight, ArrowLeft, Locate, CheckCircle2, Phone, User, Calendar, MapPin, Briefcase, ChevronDown, FileText } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Locate, CheckCircle2, Phone, User, Calendar, MapPin, Briefcase, ChevronDown, FileText, ExternalLink, Copy, Loader2 } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
-import { useAddressAutocomplete } from '../lib/addressAutocomplete';
+import { useAddressAutocomplete, reverseGeocode } from '../lib/addressAutocomplete';
 
 interface QuoteFormProps {
   destinationName?: string;
@@ -30,6 +30,17 @@ interface FormErrors {
   date?: string;
 }
 
+const FIELD_IDS: Record<keyof FormErrors, string> = {
+  origin: 'quote-origin',
+  destination: 'quote-destination',
+  service: 'quote-service',
+  name: 'quote-name',
+  phone: 'quote-phone',
+  date: 'quote-date',
+};
+
+const WHATSAPP_NUMBER = '5492615130910';
+
 export default function QuoteForm({ destinationName, initialService }: QuoteFormProps) {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
@@ -43,16 +54,37 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGeolocating, setIsGeolocating] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
+  const [whatsappOpened, setWhatsappOpened] = useState(false);
+  const [copyFeedback, setCopyFeedback] = useState<string | undefined>();
   const successRef = useRef<HTMLElement | null>(null);
   const [availability, setAvailability] = useState<AvailabilityResult | null>(null);
   const [isCheckingAvailability, setIsCheckingAvailability] = useState(false);
   const [geolocationError, setGeolocationError] = useState<string | undefined>();
+
+  const setOriginAddress = useCallback((value: string) => {
+    setFormData((prev) => ({ ...prev, origin: value }));
+    setErrors((prev) => ({ ...prev, origin: undefined }));
+  }, []);
+
+  const setDestinationAddress = useCallback((value: string) => {
+    setFormData((prev) => ({ ...prev, destination: value }));
+    setErrors((prev) => ({ ...prev, destination: undefined }));
+  }, []);
+
+  const originRef = useAddressAutocomplete({
+    value: formData.origin,
+    onChange: setOriginAddress,
+    idPrefix: 'quote-origin',
+    onError: () => undefined,
+  });
+
   const destinationRef = useAddressAutocomplete({
     value: formData.destination,
-    onChange: (value) => {
-      setFormData((prev) => ({ ...prev, destination: value }));
-      setErrors((prev) => ({ ...prev, destination: undefined }));
-    },
+    onChange: setDestinationAddress,
+    idPrefix: 'quote-destination',
     onError: () => undefined,
   });
 
@@ -63,7 +95,6 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
 
   useEffect(() => {
     if (!isSubmitted) return;
-    // Keep viewport on the success message (do not jump to page top)
     const id = window.requestAnimationFrame(() => {
       successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
@@ -72,13 +103,28 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
 
   const handleGeolocate = () => {
     setGeolocationError(undefined);
+    if (!navigator.geolocation) {
+      setGeolocationError('Tu navegador no soporta geolocalización. Ingresá la dirección manualmente.');
+      return;
+    }
+    setIsGeolocating(true);
     navigator.geolocation.getCurrentPosition(
-      () => {
-        setFormData((prev) => ({ ...prev, origin: 'Mi ubicación actual' }));
-        setErrors((prev) => ({ ...prev, origin: undefined }));
-        setGeolocationError(undefined);
+      async (position) => {
+        try {
+          const address = await reverseGeocode(position.coords.latitude, position.coords.longitude);
+          setOriginAddress(address);
+          setGeolocationError(undefined);
+        } catch {
+          setGeolocationError('No se pudo obtener la dirección. Por favor, ingresala manualmente.');
+        } finally {
+          setIsGeolocating(false);
+        }
       },
-      () => setGeolocationError('No se pudo obtener la ubicación. Por favor, ingrésela manualmente.'),
+      () => {
+        setIsGeolocating(false);
+        setGeolocationError('No se pudo obtener la ubicación. Por favor, ingresala manualmente.');
+      },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60_000 },
     );
   };
 
@@ -122,13 +168,28 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
     }
   };
 
+  const focusFirstError = (fieldErrors: FormErrors) => {
+    const order: (keyof FormErrors)[] = ['origin', 'destination', 'service', 'name', 'phone', 'date'];
+    const first = order.find((key) => fieldErrors[key]);
+    if (!first) return;
+    const el = document.getElementById(FIELD_IDS[first]);
+    if (el instanceof HTMLElement) {
+      el.focus();
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   const validateStep1 = (): boolean => {
     const newErrors: FormErrors = {};
     if (!formData.origin.trim()) newErrors.origin = 'El origen es obligatorio.';
     if (!formData.destination.trim()) newErrors.destination = 'El destino es obligatorio.';
     if (!formData.service) newErrors.service = 'Debe seleccionar un tipo de servicio.';
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    if (Object.keys(newErrors).length > 0) {
+      window.requestAnimationFrame(() => focusFirstError(newErrors));
+      return false;
+    }
+    return true;
   };
 
   const validateStep2 = (): boolean => {
@@ -139,22 +200,51 @@ export default function QuoteForm({ destinationName, initialService }: QuoteForm
     if (!formData.date) newErrors.date = 'La fecha es obligatoria.';
     else if (availability?.status === 'unavailable') newErrors.date = 'La fecha seleccionada no presenta disponibilidad en la agenda.';
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    if (Object.keys(newErrors).length > 0) {
+      window.requestAnimationFrame(() => focusFirstError(newErrors));
+      return false;
+    }
+    return true;
+  };
+
+  const buildWhatsappMessage = (): string => {
+    const serviceMap: Record<string, string> = {
+      residencial: 'Mudanza Residencial', oficina: 'Mudanza de Oficina', embalaje: 'Embalaje Profesional',
+      guardamuebles: 'Guardamuebles', logistica: 'Logística y Distribución', combinada: 'Mudanza Combinada', otro: 'Otro',
+    };
+    const inventoryText = formData.inventory.trim() ? `\n*Detalles:* ${formData.inventory.trim()}` : '';
+    return `Hola! Quisiera cotizar una mudanza con los siguientes datos:\n*Origen:* ${formData.origin}\n*Destino:* ${formData.destination}\n*Servicio:* ${serviceMap[formData.service] || 'No especificado'}\n*Fecha:* ${new Date(formData.date.replace(/-/g, '/')).toLocaleDateString('es-AR')}\n*Nombre:* ${formData.name}\n*Teléfono:* ${formData.phone}${inventoryText}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     if (!validateStep2()) return;
-    const serviceMap: Record<string, string> = {
-      residencial: 'Mudanza Residencial', oficina: 'Mudanza de Oficina', embalaje: 'Embalaje Profesional',
-logistica: 'Logística y Distribución', combinada: 'Mudanza Combinada', otro: 'Otro',
-    };
-    const inventoryText = formData.inventory.trim() ? `\n*Detalles:* ${formData.inventory.trim()}` : '';
-    const message = `Hola! Quisiera cotizar una mudanza con los siguientes datos:\n*Origen:* ${formData.origin}\n*Destino:* ${formData.destination}\n*Servicio:* ${serviceMap[formData.service] || 'No especificado'}\n*Fecha:* ${new Date(formData.date.replace(/-/g, '/')).toLocaleDateString('es-AR')}\n*Nombre:* ${formData.name}\n*Teléfono:* ${formData.phone}${inventoryText}`;
+    setIsSubmitting(true);
+    const message = buildWhatsappMessage();
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    setWhatsappUrl(url);
     trackEvent('quote_submit', { service: formData.service, destination: formData.destination, availability: availability?.status ?? 'unknown' });
     trackEvent('whatsapp_click', { source: 'quote_form', service: formData.service });
-    window.open(`https://wa.me/5492615130910?text=${encodeURIComponent(message)}`, '_blank');
+    let opened = false;
+    try {
+      const popup = window.open(url, '_blank', 'noopener,noreferrer');
+      opened = Boolean(popup && !popup.closed);
+    } catch {
+      opened = false;
+    }
+    setWhatsappOpened(opened);
     setIsSubmitted(true);
+    setIsSubmitting(false);
+  };
+
+  const handleCopyMessage = async () => {
+    try {
+      await navigator.clipboard.writeText(buildWhatsappMessage());
+      setCopyFeedback('Mensaje copiado. Pegalo en WhatsApp.');
+    } catch {
+      setCopyFeedback('No se pudo copiar. Usá el enlace de WhatsApp.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -172,8 +262,39 @@ logistica: 'Logística y Distribución', combinada: 'Mudanza Combinada', otro: '
       <section ref={successRef} id="quote-success" aria-live="polite" className="text-center bg-surface border border-line rounded-3xl p-12 max-w-2xl mx-auto shadow-lg shadow-ink/5">
         <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" aria-hidden="true" />
         <h3 className="text-2xl font-bold text-ink mb-2">¡Solicitud en camino!</h3>
-        <p className="text-ink-secondary mb-6">Tu mensaje se está abriendo en WhatsApp. En breve, un asesor se pondrá en contacto contigo.</p>
-        <button type="button" onClick={() => setIsSubmitted(false)} className="bg-brand hover:bg-brand-dark text-white font-bold py-2 px-5 rounded-lg transition-colors">
+        <p className="text-ink-secondary mb-6">
+          {whatsappOpened
+            ? 'Tu mensaje se está abriendo en WhatsApp. En breve, un asesor se pondrá en contacto contigo.'
+            : 'No pudimos abrir WhatsApp automáticamente. Usá el botón de abajo para continuar con tu solicitud.'}
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-4">
+          {whatsappUrl && (
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent('whatsapp_click', { source: 'quote_form_fallback', service: formData.service })}
+              className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl transition-colors"
+            >
+              Abrir WhatsApp <ExternalLink className="w-4 h-4" aria-hidden="true" />
+            </a>
+          )}
+          <button type="button" onClick={() => { void handleCopyMessage(); }} className="inline-flex items-center gap-2 bg-background-soft hover:bg-line text-ink font-bold py-3 px-6 rounded-xl transition-colors">
+            Copiar mensaje <Copy className="w-4 h-4" aria-hidden="true" />
+          </button>
+        </div>
+        {copyFeedback && <p role="status" className="text-sm text-ink-secondary mb-4">{copyFeedback}</p>}
+        <button
+          type="button"
+          onClick={() => {
+            setIsSubmitted(false);
+            setWhatsappUrl(null);
+            setWhatsappOpened(false);
+            setCopyFeedback(undefined);
+            setStep(1);
+          }}
+          className="bg-brand hover:bg-brand-dark text-white font-bold py-2 px-5 rounded-lg transition-colors"
+        >
           Crear una nueva cotización
         </button>
       </section>
@@ -202,9 +323,9 @@ logistica: 'Logística y Distribución', combinada: 'Mudanza Combinada', otro: '
                 <label htmlFor="quote-origin" className={labelClass}>Dirección de Origen</label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-subtle pointer-events-none" aria-hidden="true" />
-                  <input id="quote-origin" type="text" name="origin" autoComplete="street-address" placeholder="Ej: San Martín 123, Ciudad" value={formData.origin} onChange={handleChange} aria-invalid={Boolean(errors.origin)} aria-describedby={errors.origin ? 'quote-origin-error' : undefined} className={`${inputClass(errors.origin)} pl-10 pr-12`} />
-                  <button type="button" onClick={handleGeolocate} aria-label="Usar mi ubicación actual como origen" className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-subtle hover:text-brand p-1 transition-colors">
-                    <Locate className="w-5 h-5 text-red-500" aria-hidden="true" />
+                  <input ref={originRef} id="quote-origin" type="text" name="origin" autoComplete="street-address" placeholder="Ej: San Martín 123, Ciudad" value={formData.origin} onChange={handleChange} aria-invalid={Boolean(errors.origin)} aria-describedby={errors.origin ? 'quote-origin-error' : geolocationError ? 'quote-geolocation-error' : undefined} className={`${inputClass(errors.origin)} pl-10 pr-12`} />
+                  <button type="button" onClick={handleGeolocate} disabled={isGeolocating} aria-label="Usar mi ubicación actual como origen" className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-subtle hover:text-brand p-1 transition-colors disabled:opacity-50">
+                    {isGeolocating ? <Loader2 className="w-5 h-5 animate-spin text-brand" aria-hidden="true" /> : <Locate className="w-5 h-5 text-red-500" aria-hidden="true" />}
                   </button>
                 </div>
                 {errors.origin && <p id="quote-origin-error" role="alert" className="text-red-500 text-xs mt-1">{errors.origin}</p>}
@@ -288,7 +409,9 @@ logistica: 'Logística y Distribución', combinada: 'Mudanza Combinada', otro: '
 
             <div className="flex justify-between items-center">
               <button type="button" onClick={() => setStep(1)} className="flex items-center gap-2 bg-background-soft hover:bg-line text-ink font-bold px-6 py-3 rounded-xl transition-all active:scale-[0.98]"><ArrowLeft className="w-5 h-5" aria-hidden="true" /> Anterior</button>
-              <button type="submit" className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md shadow-green-600/20 hover:shadow-green-600/30 active:scale-[0.98]">Enviar Solicitud <CheckCircle2 className="w-5 h-5" aria-hidden="true" /></button>
+              <button type="submit" disabled={isSubmitting} className="flex items-center gap-2 bg-green-600 hover:bg-green-700 disabled:opacity-70 disabled:cursor-not-allowed text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md shadow-green-600/20 hover:shadow-green-600/30 active:scale-[0.98]">
+                {isSubmitting ? (<><Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" /> Abriendo WhatsApp…</>) : (<>Enviar Solicitud <CheckCircle2 className="w-5 h-5" aria-hidden="true" /></>)}
+              </button>
             </div>
           </motion.fieldset>
         )}
